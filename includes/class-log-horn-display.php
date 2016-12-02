@@ -53,7 +53,10 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			
 			self::$loghorn_settings = 
 			#explode (";" , get_option('loghorn_settings') ) 
-			explode (";" , "gnu_80x80.png;GNU_charmer_1820x980.png")	// Debug info
+			//explode (";" , "0;gnu_80x80.png;GNU_charmer_1820x980.png")	// Debug info
+			explode (";" , 
+					"0;Bull_GraphicMama_team_80x80.png;sunrise.jpg;320;8% 0 0;auto"
+					)	// Debug info
 			;
 		}
 		
@@ -80,19 +83,23 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		 */
 		function loghorn_login_scripts () 	{
 	
-			$loghorn_logo_file 	= $this->loghorn_get_login_logo (  ) ;	// name of the image file to be used as the logo.
-			$loghorn_bg_file 	= $this->loghorn_get_login_bg   (  ) ;	// name of the image file to be used as the background.
-			
-			$loghorn_css 		= $this->loghorn_get_css ( 'loghorn_enqueue_script - gnu' ) ;	// any additional stylesheets to manipulate the login logo  ( future use ) 
+			$loghorn_css 		= $this->loghorn_get_css ( ) ;	// any additional stylesheets to manipulate the login logo  ( future use ) 
 			?>
 			
 			<!-- Static CSS stylesheets: -->
-			<?php if (true) ?>
+			<?php if ($loghorn_css) ?>
 			<link rel='stylesheet' type='text/css' href=<?php echo "'$loghorn_css'"; ?> >
 			
-			<?php if (false) {	?>
-			<!-- Dyanamic CSS stylesheets: -->
-			<style type="text/css" >
+			<?php if (!$loghorn_css) {	
+			
+					$loghorn_logo_file 	= $this->loghorn_get_login_logo (  ) ;	// name of the image file to be used as the logo.
+					$loghorn_bg_file 	= $this->loghorn_get_login_bg   (  ) ;	// name of the image file to be used as the background.
+					$loghorn_form_wd 	= $this->loghorn_get_form_wd	(  ) ;	// form width in pixels
+					
+			
+			?>
+					<!-- Dyanamic CSS stylesheets: -->
+					<style type="text/css" >
 						/** 
 						 * user logo goes here:
 						 */
@@ -110,13 +117,46 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 							background-attachment: fixed;
 							background-position: center;
 						} 
+						/** 
+						 * login form goes here:
+						*/
+						#login {
+							width: <?php echo $loghorn_form_wd ; ?> !important;
+							padding: 8% 0 0;
+							margin: auto;
+						}
 						
-			</style>
+					</style>
 			
 			<?php 
 			}
 		}
 		
+		/**
+		 * Get the URL of the CSS library.
+		 */
+		function loghorn_get_css ( $loghorn_default_script = 'loghorn_enqueue_script - gnu' ) 	{
+			
+			$loghorn_current_script_number	=	self::$loghorn_settings [ LOGHORN_SETTINGS_CSS_THEME ] ;
+			
+			switch ( $loghorn_current_script_number )	{
+				
+				case '0':
+						$loghorn_current_script	=	NULL ;
+						return false ;
+				case '1':	
+						$loghorn_current_script	=	'loghorn_enqueue_script - gnu' ;
+						break;
+				case '2':	
+						$loghorn_current_script	=	'loghorn_enqueue_script - sunrise' ;
+						break;
+				default:	
+						$loghorn_current_script = 	$loghorn_default_script ;
+			}
+			
+			return LOGHORN_CSS_URL.$loghorn_current_script.'.css' ;	
+		}
+	
 		/**
 		 * Get the name of the image that would replace the WordPress Login logo. 
 		 * This should be present in the plugin's images directory.
@@ -142,7 +182,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		 * Get the name of the image that would be set as background during login. 
 		 * This should be present in the plugin's images directory.
 		 */
-		function loghorn_get_login_bg($loghorn_default_bg = LOGHORN_DEFAULT_BG_IMAGE ) 	{
+		function loghorn_get_login_bg ($loghorn_default_bg = LOGHORN_DEFAULT_BG_IMAGE ) 	{
 			
 			// Check if the options table returned a valid filename: 
 			if  ( isset  ( self::$loghorn_settings[LOGHORN_SETTINGS_BG] ) && self::$loghorn_settings[LOGHORN_SETTINGS_BG] )
@@ -158,13 +198,18 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			else 
 				return false ;	// Return the default image supplied by the plugin.
 		}
-		
-		
+
 		/**
-		 * Get the URL of the CSS library.
+		 * Get the width of the login form. 
 		 */
-		function loghorn_get_css ( $loghorn_current_script ) 	{
-			return LOGHORN_CSS_URL.$loghorn_current_script.'.css' ;	
+		function loghorn_get_form_wd ( $loghorn_default_form_width = '320px' )	{
+			$loghorn_form_width	=	self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_WIDTH ] ;
+			
+			if ( $loghorn_form_width < LOGHORN_MIN_FORM_WD)
+				// The form cannot be smaller than the Min. value set by this plugin.
+				return $loghorn_default_form_width;
+			else
+				return $loghorn_form_width.'px' ;
 		}
 		
 	} //class Log_Horn_Display ends here.
