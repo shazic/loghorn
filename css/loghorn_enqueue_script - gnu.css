@@ -1,0 +1,162 @@
+		body.login {
+			background-image: url('http://127.0.0.1/FWP/FirstWordPress/wp-content/plugins/loghorn/images/GNU_charmer_1820x980.png');
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: center;
+		}
+		
+		.login label {
+			/** Login form label goes here:*/	
+			font-size: 12px;
+			color: #555555;
+		}
+		
+		#login h1 a, 
+		.login h1 a{
+			/** User logo goes here:*/
+			background-image: url('http://127.0.0.1/FWP/FirstWordPress/wp-content/plugins/loghorn/images/gnu_80x80.png');
+			padding-bottom: 30px;
+		}
+
+		.login form	{
+			/** not used here */
+		}
+
+		#login {
+			width: 320px !important;
+			padding: 8% 0 0;
+			margin: auto;
+		}
+
+		#loginform { 
+			/** The main login form */
+			background-color: rgba( 0 , 0 , 0 , 0.0 ) ;
+			box-shadow: none;
+			}
+
+		#loginform label{ 
+			/** The login form label (username, password, and remember me labels) */
+			/*font-size: 16px ; */
+			}
+			
+		.login input[type="text"]{
+			/** Username text-box: */
+			-webkit-border-radius: 10px; 
+		}
+		
+		#user_login {
+			/** Login text-box: username */
+			/** These values will override the one above since it is more specific */
+			font-size: 24px;
+		}
+		
+		#user_login label{
+			/** Login text-box: username */
+			/** These values will override the one under '#loginform label' since it is more specific */
+			font-size: 42px;
+		}
+				
+		.login input[type="password"]{
+			/** Password text-box: */
+			border-color:#dba608;
+			-webkit-border-radius: 10px; 
+		}
+		
+		#user_pass {
+			/** Login text-box: password */
+			/** These values will override the one above sinc it is more specific */
+		}
+		
+		#rememberme {
+			/** Login check-box: Remember Me */
+			width: 12px;
+			height: 12px;
+			-webkit-border-radius: 2px;
+			border: 2px solid #0d9ed9;
+			opacity: 1.0 ;
+		}
+		
+		#user_login ,
+		#user_pass ,
+		#rememberme	{
+			/** Input fields */
+			color: #dba608 ;
+			background-color: #fcfa71 ;
+			border-color:#dba608 ;
+			opacity: 0.85 ;
+		}
+		
+		.login .button-primary {
+			/** Primary button: */
+			width: 130px;
+			float: right;
+			background-color:#17a8e3 !important;
+			background: -webkit-gradient(linear, left top, left bottom, from(#17a8e3), to(#17a8e3));
+			background: -webkit-linear-gradient(top, #17a8e3, #17a8e3);
+			background: -moz-linear-gradient(top, #17a8e3, #17a8e3);
+			background: -ms-linear-gradient(top, #17a8e3, #17a8e3);
+			background: -o-linear-gradient(top, #17a8e3, #17a8e3);
+			background-image: -ms-linear-gradient(top, #17a8e3 0%, #17a8e3 100%);
+			color: #ffffff;
+			-webkit-border-radius: 4px;
+			border: 1px solid #0d9ed9;
+			opacity: 1.0 ;
+		}
+
+		.login .button-primary:hover {
+			/** Primary button on-hover action: */
+			background-color:#1788e3 !important;
+			background: -webkit-gradient(linear, left top, left bottom, from(#17a8e3), to(#0d9ed9 ));
+			background: -webkit-linear-gradient(top, #17a8e3, #0d9ed9 );
+			background: -moz-linear-gradient(top, #17a8e3, #0d9ed9 );
+			background: -ms-linear-gradient(top, #17a8e3, #0d9ed9 );
+			background: -o-linear-gradient(top, #17a8e3, #0d9ed9 );
+			background-image: -ms-linear-gradient(top, #0b436e 0%, #0d9ed9 100%);
+			color: #fff;
+			-webkit-border-radius: 4px;
+			border: 1px solid #0d9ed9;
+		}
+
+		.login .button-primary:active {
+			/** Primary button on-active: */
+			background-color:#1798e3 !important;
+			background: -webkit-gradient(linear, left top, left bottom, from(#0d9ed9), to(#17a8e3));
+			background: -webkit-linear-gradient(top, #0d9ed9, #17a8e3);
+			background: -moz-linear-gradient(top, #0d9ed9, #17a8e3);
+			background: -ms-linear-gradient(top, #0d9ed9, #17a8e3);
+			background: -o-linear-gradient(top, #0d9ed9, #17a8e3);
+			background-image: -ms-linear-gradient(top, #0d9ed9 0%, #17a8e3 100%);
+			color: #fff;
+			-webkit-border-radius: 4px;
+			border: 1px solid #0d9ed9;
+		}
+				
+		#lostpasswordform	{ 
+			/** The forgot password form that asks for username*/
+			opacity: 0.85 ; 
+			background: #0a080f ;
+			border: 2px solid #0f9ed9;
+			border-color:#0000ff;
+			-webkit-border-radius: 15px;
+		}
+
+		.login .message,
+		.login #login_error	{
+			/** Errors and messages */
+			background-color: #0a080f !important;
+			color: #005555;
+			text-shadow: none;
+			border-left: 5px solid #00a0d2;
+			border-right: 5px solid #00a0d2;
+			-webkit-border-radius: 15px;
+			opacity: 0.85;
+        }
+		
+		.login #login_error {
+			/** Error message */
+		border-color: #dc3232 ;
+		}
+		/*****
+		#user_login	label	{
+			color: blue ;
+		}*/
