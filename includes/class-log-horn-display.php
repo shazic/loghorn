@@ -143,18 +143,18 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 				
 				case '0':
 						$loghorn_current_script	=	NULL ;
-						return false ;
+						break ;
 				case '1':	
-						$loghorn_current_script	=	'loghorn_enqueue_script - gnu' ;
+						$loghorn_current_script	=	LOGHORN_CSS_URL.'loghorn_enqueue_script - gnu'.'.css' ;
 						break;
 				case '2':	
-						$loghorn_current_script	=	'loghorn_enqueue_script - sunrise' ;
+						$loghorn_current_script	=	LOGHORN_CSS_URL.'loghorn_enqueue_script - sunrise'.'.css' ;
 						break;
 				default:	
 						$loghorn_current_script = 	$loghorn_default_script ;
 			}
 			
-			return LOGHORN_CSS_URL.$loghorn_current_script.'.css' ;	
+			return $loghorn_current_script ;	
 		}
 	
 		/**
@@ -176,7 +176,6 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			else 
 				return false ;	// Return false.
 		}
-		
 		
 		/**
 		 * Get the name of the image that would be set as background during login. 
@@ -202,11 +201,12 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		/**
 		 * Get the width of the login form. 
 		 */
-		function loghorn_get_form_wd ( $loghorn_default_form_width = '320px' )	{
-			$loghorn_form_width	=	self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_WIDTH ] ;
+		function loghorn_get_form_wd ( $loghorn_default_form_width = LOGHORN_DEFAULT_FORM_WD )	{
+			
+			$loghorn_form_width	=	self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_WIDTH ] ;	// Width setby the user
 			
 			if ( $loghorn_form_width < LOGHORN_MIN_FORM_WD)
-				// The form cannot be smaller than the Min. value set by this plugin.
+				// This is an extra check to ensure that the form cannot be smaller than the Min. value set by this plugin.
 				return $loghorn_default_form_width;
 			else
 				return $loghorn_form_width.'px' ;

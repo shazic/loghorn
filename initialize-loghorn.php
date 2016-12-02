@@ -76,10 +76,14 @@
     if  ( ! defined ( 'LOGHORN_DEFAULT_BG_IMAGE' )  )  {
         define ( 'LOGHORN_DEFAULT_BG_IMAGE' , 'sunrise.jpg' ) ;
 	}
+	// Set the default Form Width:
+    if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_WD' )  )  {
+        define ( 'LOGHORN_DEFAULT_FORM_WD' , '320px' ) ;
+	}
 	// Set the Minimum Allowable Form Width:
     if  ( ! defined ( 'LOGHORN_MIN_FORM_WD' )  )  {
         define ( 'LOGHORN_MIN_FORM_WD' , 220 ) ;
-	}	
+	}
 	/**********************************  SETTINGS DEFAULTS  *************************************/
 	// Set the CSS Theme:
     if  ( ! defined ( 'LOGHORN_SETTINGS_CSS_THEME' )  )  {
