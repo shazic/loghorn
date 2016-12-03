@@ -3,6 +3,7 @@
    Plugin Name: Log Horn
    Plugin URI: http://localhost
    Description: a plugin to customize the login experience in WordPress.
+   Version: 0.5.4
    Author: shazic
    Author URI: https://github.com/shazic
    License: GPLv3
