@@ -53,9 +53,10 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			
 			self::$loghorn_settings = 
 			#explode (";" , get_option('loghorn_settings') ) 
-			//explode (";" , "0;gnu_80x80.png;GNU_charmer_1820x980.png")	// Debug info
+			// Debug info
 			explode (";" , 
-					"0;Bull_GraphicMama_team_80x80.png;sunrise.jpg;320;8% 0 0;auto"
+					"0;Bull_GraphicMama_team_80x80.png;sunrise.jpg;320;80% 0 0;auto;55:255:255:0.5;0:0:10:2:lightblue;2:solid:15:158:217:1"
+					//;                               ;           ;   ;       ;    ;              ;                  ;                    ;
 					)	// Debug info
 			;
 		}
@@ -83,18 +84,25 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		 */
 		function loghorn_login_scripts () 	{
 	
-			$loghorn_css 		= $this->loghorn_get_css ( ) ;	// any additional stylesheets to manipulate the login logo  ( future use ) 
+			$loghorn_css 		= $this->loghorn_get_css ( ) ;	// static predefined CSS stylesheets. 
 			?>
 			
-			<!-- Static CSS stylesheets: -->
+			<!-- Check if user had opted for a Static CSS stylesheet: -->
 			<?php if ($loghorn_css) ?>
 			<link rel='stylesheet' type='text/css' href=<?php echo "'$loghorn_css'"; ?> >
 			
+			<!-- If there isn't any static CSS stylesheet selected, fetch and use the user defined values: -->
 			<?php if (!$loghorn_css) {	
 			
-					$loghorn_logo_file 	= $this->loghorn_get_login_logo (  ) ;	// name of the image file to be used as the logo.
-					$loghorn_bg_file 	= $this->loghorn_get_login_bg   (  ) ;	// name of the image file to be used as the background.
-					$loghorn_form_wd 	= $this->loghorn_get_form_wd	(  ) ;	// form width in pixels
+					$loghorn_logo_file 		= $this->loghorn_get_login_logo 	(  ) ;	// name of the image file to be used as the logo.
+					$loghorn_bg_file 		= $this->loghorn_get_login_bg   	(  ) ;	// name of the image file to be used as the background.
+					$loghorn_form_wd 		= $this->loghorn_get_form_wd		(  ) ;	// form width in pixels.
+					$loghorn_form_pad 		= $this->loghorn_get_form_padding	(  ) ;	// form padding.
+					$loghorn_form_mrgn 		= $this->loghorn_get_form_margin	(  ) ;	// form margin.
+					$loghorn_form_bg_colr 	= $this->loghorn_get_form_bg_colr	(  ) ;	// form background color.
+					$loghorn_form_shdw		= $this->loghorn_get_form_shadow	(  ) ;	// form box shadow.
+					$loghorn_form_bordr		= $this->loghorn_get_form_border	(  ) ;	// form border design.
+					echo $loghorn_form_bordr ; // Debug info
 					
 			
 			?>
@@ -121,11 +129,26 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 						 * login form goes here:
 						*/
 						#login {
-							width: <?php echo $loghorn_form_wd ; ?> !important;
-							padding: 8% 0 0;
-							margin: auto;
+							width: <?php echo $loghorn_form_wd ; ?> !important ;
+							padding: <?php echo $loghorn_form_pad ; ?> ;
+							margin: <?php echo $loghorn_form_mrgn ; ?>;
 						}
-						
+						/*
+						 * the main login form:
+						 */
+						#loginform { 
+							background-color: rgba( <?php echo $loghorn_form_bg_colr ; ?> ) ;
+							box-shadow: <?php echo $loghorn_form_shdw ; ?> ;
+							border: <?php echo $loghorn_form_bordr ; ?> ;
+							-webkit-border-radius: 15px;
+						}
+						/*
+						 * login form label (username, password, and remember me labels): 
+						 */
+						#loginform label{ 
+							font: 16px "showcard gothic"; 
+							color: blue;
+						}
 					</style>
 			
 			<?php 
@@ -203,7 +226,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		 */
 		function loghorn_get_form_wd ( $loghorn_default_form_width = LOGHORN_DEFAULT_FORM_WD )	{
 			
-			$loghorn_form_width	=	self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_WIDTH ] ;	// Width setby the user
+			$loghorn_form_width	=	self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_WIDTH ] ;	// Width set by the user
 			
 			if ( $loghorn_form_width < LOGHORN_MIN_FORM_WD)
 				// This is an extra check to ensure that the form cannot be smaller than the Min. value set by this plugin.
@@ -212,6 +235,108 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 				return $loghorn_form_width.'px' ;
 		}
 		
+		/**
+		 * Get the padding for the login form. 
+		 */
+		function loghorn_get_form_padding ( $loghorn_default_form_padding = LOGHORN_DEFAULT_PADDING )	{
+			
+			$loghorn_form_padding = self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_PAD ] ;	// Padding value set by the user
+			
+			if ( $loghorn_form_padding )
+				return $loghorn_form_padding ;
+			else
+				return $loghorn_default_form_padding ;
+		}
+		
+		/*
+		 * Get the margins for the login form. 
+		 */
+		function loghorn_get_form_margin ( $loghorn_default_form_mrgn = LOGHORN_DEFAULT_FORM_MRGN )	{
+			
+			return self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_MRGN ] ;	// Margin value set by the user
+		}
+		
+		/*
+		 * Get the rgba values for the login form background. 
+		 */
+		function loghorn_get_form_bg_colr ( $loghorn_default_form_colr = LOGHORN_DEFAULT_FORM_COLR )	{
+			
+			// The settings for form background is stored in 'red:green:blue:alpha' format. Let's explode it to get the values:
+			$loghorn_form_colr_rgb_settings	=	explode ( ":", self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_COLOR ] ) ;
+			
+			// Here is each element:
+			$loghorn_r_hue	=	( int ) $loghorn_form_colr_rgb_settings [ 0 ] ;
+			$loghorn_g_hue	=	( int ) $loghorn_form_colr_rgb_settings [ 1 ] ;
+			$loghorn_b_hue	=	( int ) $loghorn_form_colr_rgb_settings [ 2 ] ;
+			$loghorn_a_val	=	$loghorn_form_colr_rgb_settings [ 3 ] ;
+			
+			// Cross check to verify if each color element is a valid integer and alpha value is a numeric one:
+			if ( is_int ($loghorn_r_hue) && is_int ($loghorn_g_hue) && is_int ($loghorn_b_hue) && is_numeric ($loghorn_a_val) )
+				// Good! Now check if they are within valid range:
+				if ( $loghorn_r_hue > 255 || $loghorn_g_hue > 255 || $loghorn_b_hue > 255 || 
+					 $loghorn_r_hue < 0   || $loghorn_g_hue < 0   || $loghorn_b_hue < 0   || 
+					 $loghorn_a_val < 0.0 || $loghorn_a_val > 1.0 )
+					// Oops, not a valid value! Return the default rgba value as set by the function default parameter.
+					$loghorn_form_colr = $loghorn_default_form_colr ;
+				else
+					// OK! We have valid integers (r,g,b) and numeric alpha values that are within the permissible range.
+					// Let's now contrsuct the return value based on these:
+					$loghorn_form_colr = "$loghorn_r_hue , $loghorn_g_hue , $loghorn_b_hue , $loghorn_a_val" ;
+			else
+				// Not integer RGB or a numeric alpha value! Return the default rgba value.
+				$loghorn_form_colr = $loghorn_default_form_colr ;
+			
+			return $loghorn_form_colr ;
+		}
+		
+		/*
+		 * Get the box shadow parameter for the login form.
+		 */
+		function loghorn_get_form_shadow ( $loghorn_default_form_shadow = LOGHORN_DEFAULT_FORM_SHDW )	{
+			
+			// The settings for form shadow is stored in 'h-shadow:v-shadow:blur:spread:color' format. 
+			// An exception to above format is if 'none' is set. In this case, it is the only value present in the settings.
+			// Let's explode it to get the values:
+			$loghorn_form_shadow = explode (":" , self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_SHDW ] ) ;
+			
+			if ( "none" == $loghorn_form_shadow [ 0 ] )
+				// No shadows please!
+				return $loghorn_default_form_shadow ;
+			
+			// Let's get the values:
+			$loghorn_h_shadow	=	$loghorn_form_shadow [ 0 ]."px" ;
+			$loghorn_v_shadow	=	$loghorn_form_shadow [ 1 ]."px" ;
+			$loghorn_blur		=	$loghorn_form_shadow [ 2 ]."px" ;
+			$loghorn_spread		=	$loghorn_form_shadow [ 3 ]."px" ;
+			$loghorn_color		=	$loghorn_form_shadow [ 4 ] ;
+			
+			return "$loghorn_h_shadow $loghorn_v_shadow $loghorn_blur $loghorn_spread $loghorn_color" ;
+		}
+		
+		/*
+		 * Get the border settings for the login form.
+		 */
+		function loghorn_get_form_border ( $loghorn_default_form_border = LOGHORN_DEFAULT_FORM_BORDR )	{
+			
+			// The settings for form border is stored in the format 'WIDTH:BORDER-STYLE:Red:Green:Blue:Alpha'.
+			// An exception to above format is if 'none' is set. In this case, it is the only value present in the settings.
+			// Let's explode it to get the values:
+			$loghorn_form_border = explode (":" , self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_BORDR ] ) ;
+			
+			if ( "none" == $loghorn_form_border [ 0 ] )
+				// No borders here!
+				return $loghorn_default_form_border ;
+			
+			// Let's get the values:
+			$loghorn_border_width	=	$loghorn_form_border [ 0 ]."px" ;
+			$loghorn_border_style	=	$loghorn_form_border [ 1 ] ;
+			$loghorn_border_r_hue	=	$loghorn_form_border [ 2 ] ;
+			$loghorn_border_g_hue	=	$loghorn_form_border [ 3 ] ;
+			$loghorn_border_b_hue	=	$loghorn_form_border [ 4 ] ;
+			$loghorn_border_a_val	=	$loghorn_form_border [ 5 ] ;
+			
+			return "$loghorn_border_width $loghorn_border_style rgba( $loghorn_border_r_hue , $loghorn_border_g_hue , $loghorn_border_b_hue , $loghorn_border_a_val )";
+		}
 	} //class Log_Horn_Display ends here.
 	
 	
