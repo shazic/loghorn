@@ -104,6 +104,18 @@
     if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_BORDR' )  )  {
         define ( 'LOGHORN_DEFAULT_FORM_BORDR' , '2px solid rgba( 0 , 0 , 0 , 1)' ) ; // Read as WIDTH BORDER-STYLE  rgba( R , G , B , A )
 	}
+	// Set the default Form Border Radius:
+    if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_BORDR_RADIUS' )  )  {
+        define ( 'LOGHORN_DEFAULT_FORM_BORDR_RADIUS' , 0 ) ;
+	}
+	// Set the default Form Label Font:
+    if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_FONT' )  )  {
+        define ( 'LOGHORN_DEFAULT_FORM_FONT' , '16px sans-serif' ) ;
+	}
+	// Set the default Form Label Font color:
+    if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_FONT_COLR' )  )  {
+        define ( 'LOGHORN_DEFAULT_FORM_FONT_COLR' , '100 , 100 , 100 , 1' ) ;
+	}
 	/**********************************  SETTINGS OPTIONS   *************************************/
 	// Set the CSS Theme Option label:
     if  ( ! defined ( 'LOGHORN_SETTINGS_CSS_THEME' )  )  {
@@ -145,10 +157,15 @@
 	if  ( ! defined ( 'LOGHORN_SETTINGS_FORM_BORDR_RADIUS' )  )  {
 		define ( 'LOGHORN_SETTINGS_FORM_BORDR_RADIUS' , 9 ) ;
 	}
-	
-	
-define ( 'LOGHORN_SETTINGS_FORM_LBL' , 10 ) ;
-define ( 'LOGHORN_SETTINGS_FORM_LBL_COLR' , 11 ) ;
+	// Set the Form Font and Size Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_FORM_LBL' )  )  {
+		define ( 'LOGHORN_SETTINGS_FORM_LBL' , 10 ) ;
+	}
+	// Set the Form Font Color Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_FORM_LBL_COLR' )  )  {
+		define ( 'LOGHORN_SETTINGS_FORM_LBL_COLR' , 11 ) ;
+	}
+
 define ( 'LOGHORN_SETTINGS_INP_FONT' , 12 ) ;
 define ( 'LOGHORN_SETTINGS_INP_FONT_COLR' , 13 ) ;
 define ( 'LOGHORN_SETTINGS_INP_RADIUS' , 14 ) ;

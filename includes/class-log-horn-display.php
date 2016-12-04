@@ -55,12 +55,11 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			#explode (";" , get_option('loghorn_settings') ) 
 			// Debug info
 			explode (";" , 
-					"0;Bull_GraphicMama_team_80x80.png;sunrise.jpg;320;80% 0 0;auto;55:255:255:0.5;0:0:10:2:lightblue;2:solid:15:158:217:1"
-					//;                               ;           ;   ;       ;    ;              ;                  ;                    ;
+					"0;Bull_GraphicMama_team_80x80.png;sunrise.jpg;320;80% 0 0;auto;55:255:255:0.5;0:0:10:2:lightblue;2:solid:15:158:217:1;15;16:showcard gothic;0:0:200:1"
+					//;                               ;           ;   ;       ;    ;              ;                  ;                    ;  ;
 					)	// Debug info
 			;
 		}
-		
 		
 		/**
 		 * Detect if the OS is Windows based or Non-Windows based platform:
@@ -85,14 +84,15 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		function loghorn_login_scripts () 	{
 	
 			$loghorn_css 		= $this->loghorn_get_css ( ) ;	// static predefined CSS stylesheets. 
+			echo $loghorn_css ; // Debug info
 			?>
 			
 			<!-- Check if user had opted for a Static CSS stylesheet: -->
-			<?php if ($loghorn_css) ?>
+			<?php if ( $loghorn_css ) ?>
 			<link rel='stylesheet' type='text/css' href=<?php echo "'$loghorn_css'"; ?> >
 			
 			<!-- If there isn't any static CSS stylesheet selected, fetch and use the user defined values: -->
-			<?php if (!$loghorn_css) {	
+			<?php if ( ! $loghorn_css ) {	
 			
 					$loghorn_logo_file 		= $this->loghorn_get_login_logo 	(  ) ;	// name of the image file to be used as the logo.
 					$loghorn_bg_file 		= $this->loghorn_get_login_bg   	(  ) ;	// name of the image file to be used as the background.
@@ -102,7 +102,10 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 					$loghorn_form_bg_colr 	= $this->loghorn_get_form_bg_colr	(  ) ;	// form background color.
 					$loghorn_form_shdw		= $this->loghorn_get_form_shadow	(  ) ;	// form box shadow.
 					$loghorn_form_bordr		= $this->loghorn_get_form_border	(  ) ;	// form border design.
-					echo $loghorn_form_bordr ; // Debug info
+					$loghorn_form_bordr_rad	= $this->loghorn_get_form_radius	(  ) ;	// form border radius.
+					$loghorn_form_lbl_font	= $this->loghorn_get_form_label		(  ) ;	// form label - font and font size.
+					$loghorn_form_lbl_colr	= $this->loghorn_get_form_color		(  ) ;	// form label - color.
+					//echo $loghorn_form_lbl_font ; // Debug info
 					
 			
 			?>
@@ -113,20 +116,20 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 						 */
 						#login h1 a, 
 						.login h1 a{
-							background-image: url(<?php echo esc_url(LOGHORN_IMAGES_URL.$loghorn_logo_file) ; ?>);
+							background-image: url(<?php echo esc_url( $loghorn_logo_file ) ; ?>);
 							padding-bottom: 30px;
 						}
 						/** 
 						 * background image goes here:
 						*/ 
 						body.login {
-							background-image: url(<?php echo esc_url(LOGHORN_IMAGES_URL.$loghorn_bg_file) ; ?>) ;
+							background-image: url(<?php echo esc_url( $loghorn_bg_file ) ; ?>) ;
 							background-repeat: no-repeat;
 							background-attachment: fixed;
 							background-position: center;
 						} 
 						/** 
-						 * login form goes here:
+						 * login form dimensions go here:
 						*/
 						#login {
 							width: <?php echo $loghorn_form_wd ; ?> !important ;
@@ -134,21 +137,59 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 							margin: <?php echo $loghorn_form_mrgn ; ?>;
 						}
 						/*
-						 * the main login form:
+						 * the main login form design:
 						 */
 						#loginform { 
 							background-color: rgba( <?php echo $loghorn_form_bg_colr ; ?> ) ;
 							box-shadow: <?php echo $loghorn_form_shdw ; ?> ;
 							border: <?php echo $loghorn_form_bordr ; ?> ;
-							-webkit-border-radius: 15px;
+							-webkit-border-radius: <?php echo $loghorn_form_bordr_rad ; ?> ;
 						}
 						/*
 						 * login form label (username, password, and remember me labels): 
 						 */
 						#loginform label{ 
-							font: 16px "showcard gothic"; 
-							color: blue;
+							font: <?php echo $loghorn_form_lbl_font ; ?> ;
+							color: rgba( <?php echo $loghorn_form_lbl_colr ; ?> ) ;
 						}
+						/*
+						 * Input fields: common attributes 
+						 */
+						#user_login ,
+						#user_pass ,
+						#rememberme	{
+							color: #dba608 ;
+							background-color: #fcfa71 ;
+							border-color:#dba608 ;
+							opacity: 1.0 ;
+						}
+						/*
+						 * Username and Password text-box: 
+						 */			
+						.login input[type="text"] ,
+						.login input[type="password"]	{
+							-webkit-border-radius: 10px; 
+						}
+						/*
+						 * Login text-box: username and password
+						 */
+						#user_login ,
+						#user_pass	{
+						/** These values will override the one above since it is more specific */
+							font: 16px "showcard gothic";
+							color: rgba( 100,0,100,1 ) ;
+						}
+						/*
+						 * Login check-box: Remember Me 
+						 */
+						#rememberme {
+							width: 12px;
+							height: 12px;
+							-webkit-border-radius: 2px;
+							border: 2px solid #0d9ed9;
+						}
+						
+
 					</style>
 			
 			<?php 
@@ -165,16 +206,20 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			switch ( $loghorn_current_script_number )	{
 				
 				case '0':
-						$loghorn_current_script	=	NULL ;
+						// no login theme was selected.
+						$loghorn_current_script	=	NULL ;	
 						break ;
 				case '1':	
+						// Login Theme 1
 						$loghorn_current_script	=	LOGHORN_CSS_URL.'loghorn_enqueue_script - gnu'.'.css' ;
 						break;
 				case '2':	
+						// Login Theme 2
 						$loghorn_current_script	=	LOGHORN_CSS_URL.'loghorn_enqueue_script - sunrise'.'.css' ;
 						break;
 				default:	
-						$loghorn_current_script = 	$loghorn_default_script ;
+						// Either the values were not set, or invalid. Let's display our default theme!
+						$loghorn_current_script = 	LOGHORN_CSS_URL.$loghorn_default_script.'.css' ;	
 			}
 			
 			return $loghorn_current_script ;	
@@ -186,39 +231,16 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		 */
 		function loghorn_get_login_logo ( $loghorn_default_logo = LOGHORN_DEFAULT_LOGO_IMAGE ) 	{
 			
-			// Check if the options table returned a valid filename: 
-			if  ( isset  ( self::$loghorn_settings[LOGHORN_SETTINGS_LOGO] ) && self::$loghorn_settings[LOGHORN_SETTINGS_LOGO] )
-				// options table returned a valid name. Now, check if the file exists under the /images directory:
-				if  ( file_exists ( LOGHORN_IMAGES_DIRNAME.self::$loghorn_settings[LOGHORN_SETTINGS_LOGO] )  ) 
-					return self::$loghorn_settings[LOGHORN_SETTINGS_LOGO];
-			
-			// We didn't get a valid filename from the database. Either the user did not set it, or the file no longer exists.
-			// Let's check the default filenames.
-			if  ( file_exists ( LOGHORN_IMAGES_DIRNAME.$loghorn_default_logo )  ) 
-				return $loghorn_default_logo ;	// Return the default supplied by the user during function call.
-			else 
-				return false ;	// Return false.
+			return $this->loghorn_get_image ( LOGHORN_SETTINGS_LOGO , $loghorn_default_logo ) ;
 		}
 		
 		/**
 		 * Get the name of the image that would be set as background during login. 
 		 * This should be present in the plugin's images directory.
 		 */
-		function loghorn_get_login_bg ($loghorn_default_bg = LOGHORN_DEFAULT_BG_IMAGE ) 	{
+		function loghorn_get_login_bg ( $loghorn_default_bg = LOGHORN_DEFAULT_BG_IMAGE ) 	{
 			
-			// Check if the options table returned a valid filename: 
-			if  ( isset  ( self::$loghorn_settings[LOGHORN_SETTINGS_BG] ) && self::$loghorn_settings[LOGHORN_SETTINGS_BG] )
-				// options table returned a valid name. Now, check if the file exists under the /images directory:
-				if  ( file_exists ( LOGHORN_IMAGES_DIRNAME.self::$loghorn_settings[LOGHORN_SETTINGS_BG] )  ) 
-					return self::$loghorn_settings[LOGHORN_SETTINGS_BG] ;
-			
-			// We are here because we didn't get a valid filename from the database. 
-			// Either the user did not set it, or the file no longer exists.
-			// Let's check if the default filenames are present.
-			if  ( file_exists ( LOGHORN_IMAGES_DIRNAME.$loghorn_default_bg )  ) 
-				return $loghorn_default_bg ;	// Return the default supplied by the user during function call.
-			else 
-				return false ;	// Return the default image supplied by the plugin.
+			return $this->loghorn_get_image ( LOGHORN_SETTINGS_BG , $loghorn_default_bg ) ;
 		}
 
 		/**
@@ -226,9 +248,9 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		 */
 		function loghorn_get_form_wd ( $loghorn_default_form_width = LOGHORN_DEFAULT_FORM_WD )	{
 			
-			$loghorn_form_width	=	self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_WIDTH ] ;	// Width set by the user
+			$loghorn_form_width	= self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_WIDTH ] ;	// Width set by the user
 			
-			if ( $loghorn_form_width < LOGHORN_MIN_FORM_WD)
+			if ( $loghorn_form_width < LOGHORN_MIN_FORM_WD )
 				// This is an extra check to ensure that the form cannot be smaller than the Min. value set by this plugin.
 				return $loghorn_default_form_width;
 			else
@@ -261,32 +283,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		 */
 		function loghorn_get_form_bg_colr ( $loghorn_default_form_colr = LOGHORN_DEFAULT_FORM_COLR )	{
 			
-			// The settings for form background is stored in 'red:green:blue:alpha' format. Let's explode it to get the values:
-			$loghorn_form_colr_rgb_settings	=	explode ( ":", self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_COLOR ] ) ;
-			
-			// Here is each element:
-			$loghorn_r_hue	=	( int ) $loghorn_form_colr_rgb_settings [ 0 ] ;
-			$loghorn_g_hue	=	( int ) $loghorn_form_colr_rgb_settings [ 1 ] ;
-			$loghorn_b_hue	=	( int ) $loghorn_form_colr_rgb_settings [ 2 ] ;
-			$loghorn_a_val	=	$loghorn_form_colr_rgb_settings [ 3 ] ;
-			
-			// Cross check to verify if each color element is a valid integer and alpha value is a numeric one:
-			if ( is_int ($loghorn_r_hue) && is_int ($loghorn_g_hue) && is_int ($loghorn_b_hue) && is_numeric ($loghorn_a_val) )
-				// Good! Now check if they are within valid range:
-				if ( $loghorn_r_hue > 255 || $loghorn_g_hue > 255 || $loghorn_b_hue > 255 || 
-					 $loghorn_r_hue < 0   || $loghorn_g_hue < 0   || $loghorn_b_hue < 0   || 
-					 $loghorn_a_val < 0.0 || $loghorn_a_val > 1.0 )
-					// Oops, not a valid value! Return the default rgba value as set by the function default parameter.
-					$loghorn_form_colr = $loghorn_default_form_colr ;
-				else
-					// OK! We have valid integers (r,g,b) and numeric alpha values that are within the permissible range.
-					// Let's now contrsuct the return value based on these:
-					$loghorn_form_colr = "$loghorn_r_hue , $loghorn_g_hue , $loghorn_b_hue , $loghorn_a_val" ;
-			else
-				// Not integer RGB or a numeric alpha value! Return the default rgba value.
-				$loghorn_form_colr = $loghorn_default_form_colr ;
-			
-			return $loghorn_form_colr ;
+			return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_FORM_COLOR , $loghorn_default_form_colr ) ;
 		}
 		
 		/*
@@ -299,7 +296,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			// Let's explode it to get the values:
 			$loghorn_form_shadow = explode (":" , self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_SHDW ] ) ;
 			
-			if ( "none" == $loghorn_form_shadow [ 0 ] )
+			if ( "none" == $loghorn_form_shadow [ 0 ] )		// Yoda says: "If 'none', the value is!"
 				// No shadows please!
 				return $loghorn_default_form_shadow ;
 			
@@ -323,7 +320,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			// Let's explode it to get the values:
 			$loghorn_form_border = explode (":" , self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_BORDR ] ) ;
 			
-			if ( "none" == $loghorn_form_border [ 0 ] )
+			if ( "none" == $loghorn_form_border [ 0 ] )		// Yoda says: "If 'none', the value is!"
 				// No borders here!
 				return $loghorn_default_form_border ;
 			
@@ -336,6 +333,110 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			$loghorn_border_a_val	=	$loghorn_form_border [ 5 ] ;
 			
 			return "$loghorn_border_width $loghorn_border_style rgba( $loghorn_border_r_hue , $loghorn_border_g_hue , $loghorn_border_b_hue , $loghorn_border_a_val )";
+		}
+		
+		/*
+		 * Get the size of the form's edge radius.
+		 */
+		function loghorn_get_form_radius ( $loghorn_default_form_border_radius = LOGHORN_DEFAULT_FORM_BORDR_RADIUS )	{
+			
+			$loghorn_form_border_radius = self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_BORDR_RADIUS ]."px" ;
+			return $loghorn_form_border_radius ;
+		}
+		
+		/*
+		 * Get the Font and font-size of the labels on the login form.
+		 */
+		function loghorn_get_form_label ( $loghorn_default_form_lbl_font = LOGHORN_DEFAULT_FORM_FONT )	{
+			
+			return $this->loghorn_get_font_size_and_family ( LOGHORN_SETTINGS_FORM_LBL , $loghorn_default_form_lbl_font ) ;
+		}
+		
+		/*
+		 * Get the Font color for the labels on the login form.
+		 */
+		function loghorn_get_form_color ( $loghorn_default_form_label_colr = LOGHORN_DEFAULT_FORM_FONT_COLR ) {
+			
+			return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_FORM_LBL_COLR , $loghorn_default_form_label_colr ) ;
+		}
+		/*************************************************************************************************************************************/
+		/**********************                            GENERIC FUNCTIONS                                   *******************************/
+		/*************************************************************************************************************************************/
+		/*
+		 * Get an image URL.
+		 */
+		function loghorn_get_image ( $loghorn_settings_constant , $loghorn_default_img )	{
+			
+			// Check if the options table returned a valid filename: 
+			if  ( isset  ( self::$loghorn_settings [ $loghorn_settings_constant ] ) && self::$loghorn_settings [ $loghorn_settings_constant ] )
+				// options table returned a valid name. Now, check if the file exists under the /images directory:
+				if  ( file_exists ( LOGHORN_IMAGES_DIRNAME.self::$loghorn_settings [ $loghorn_settings_constant ] )  ) 
+					return LOGHORN_IMAGES_URL.self::$loghorn_settings [ $loghorn_settings_constant ] ;
+			
+			// We are here because we didn't get a valid filename from the database. 
+			// Either the user did not set it, or the file no longer exists.
+			// Let's check if the default filenames are present.
+			if  ( file_exists ( LOGHORN_IMAGES_DIRNAME.$loghorn_default_img )  ) 
+				return LOGHORN_IMAGES_URL.$loghorn_default_img ;	// Return the default supplied by the user during function call.
+			else 
+				return false ;	// Return 'false'.
+		}
+		
+		/*
+		 * Get the Font and font-size.
+		 */
+		function loghorn_get_font_size_and_family ( $loghorn_settings_constant , $loghorn_default_font )	{
+			
+			// The settings for font field is stored in 'font-size:font-family' format. 
+			// Font size is expressed as just an integer value ( e.g., 16 and not 16px)
+			// Font family does not have any quotation symbols, but are separated by a comma.
+			// Let's explode it to get the values:
+			$loghorn_font = explode ( ":" , self::$loghorn_settings [ $loghorn_settings_constant ] ) ;
+			
+			$loghorn_font_size		= ( int ) $loghorn_font [ 0 ] ;
+			$loghorn_font_family	= $loghorn_font [ 1 ] ;
+			
+			// Check if the font size is a numeric integer greater than zero:
+			if ( is_int ( $loghorn_font_size ) && 0 < $loghorn_font_size )	{
+				$loghorn_font_size = $loghorn_font_size."px" ;
+				return "$loghorn_font_size \"$loghorn_font_family\"" ;
+			}
+			
+			return $loghorn_default_font ;
+		}
+		
+		/*
+		 * Get the rgba settings from a 'r:g:b:a' format field.
+		 */
+		function loghorn_rgba_settings ( $loghorn_settings_constant , $loghorn_default_rgba_colr )	{
+			
+			// This function reads the settings in 'red:green:blue:alpha' format and returns in ( r , g , b , a) format.
+			// Let's explode the field to get the values:
+			$loghorn_rgb_settings	=	explode ( ":", self::$loghorn_settings [ $loghorn_settings_constant ] ) ;
+			
+			// Here is each element:
+			$loghorn_r_hue	=	( int ) $loghorn_rgb_settings [ 0 ] ;
+			$loghorn_g_hue	=	( int ) $loghorn_rgb_settings [ 1 ] ;
+			$loghorn_b_hue	=	( int ) $loghorn_rgb_settings [ 2 ] ;
+			$loghorn_a_val	=	$loghorn_rgb_settings [ 3 ] ;
+			
+			// Cross check to verify if each color element is a valid integer and alpha value is a numeric one:
+			if ( is_int ($loghorn_r_hue) && is_int ($loghorn_g_hue) && is_int ($loghorn_b_hue) && is_numeric ($loghorn_a_val) )
+				// Good! Now check if they are within valid range:
+				if ( $loghorn_r_hue > 255 || $loghorn_g_hue > 255 || $loghorn_b_hue > 255 || 
+					 $loghorn_r_hue < 0   || $loghorn_g_hue < 0   || $loghorn_b_hue < 0   || 
+					 $loghorn_a_val < 0.0 || $loghorn_a_val > 1.0 )
+					// Oops, not a valid value! Return the default rgba value as set by the function default parameter.
+					$loghorn_rgba_colr = $loghorn_default_rgba_colr ;
+				else
+					// OK! We have valid integers (r,g,b) and numeric alpha values that are within the permissible range.
+					// Let's now contrsuct the return value based on these:
+					$loghorn_rgba_colr = "$loghorn_r_hue , $loghorn_g_hue , $loghorn_b_hue , $loghorn_a_val" ;
+			else
+				// Not integer RGB or a numeric alpha value! Return the default rgba value.
+				$loghorn_rgba_colr = $loghorn_default_rgba_colr ;
+			
+			return $loghorn_rgba_colr ;
 		}
 	} //class Log_Horn_Display ends here.
 	
