@@ -102,7 +102,7 @@
 	}
 	// Set the default Form Border Style (Solid Black, 2 pixels wide):
     if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_BORDR' )  )  {
-        define ( 'LOGHORN_DEFAULT_FORM_BORDR' , '2px solid rgba( 0 , 0 , 0 , 1)' ) ; // Read as WIDTH BORDER-STYLE  rgba( R , G , B , A )
+        define ( 'LOGHORN_DEFAULT_FORM_BORDR' , 'none' ) ; // Read as WIDTH BORDER-STYLE  rgba( R , G , B , A )
 	}
 	// Set the default Form Border Radius:
     if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_BORDR_RADIUS' )  )  {
@@ -115,6 +115,14 @@
 	// Set the default Form Label Font color:
     if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_FONT_COLR' )  )  {
         define ( 'LOGHORN_DEFAULT_FORM_FONT_COLR' , '100 , 100 , 100 , 1' ) ;
+	}
+	// Set the default 'Remeber Me' Check-Box Width:
+    if  ( ! defined ( 'LOGHORN_DEFAULT_CB_WIDTH' )  )  {
+        define ( 'LOGHORN_DEFAULT_CB_WIDTH' , 12 ) ;
+	}
+	// Set the default 'Remeber Me' Check-Box Height:
+    if  ( ! defined ( 'LOGHORN_DEFAULT_CB_HEIGHT' )  )  {
+        define ( 'LOGHORN_DEFAULT_CB_HEIGHT' , 12 ) ;
 	}
 	/**********************************  SETTINGS OPTIONS   *************************************/
 	// Set the CSS Theme Option label:
@@ -165,15 +173,41 @@
 	if  ( ! defined ( 'LOGHORN_SETTINGS_FORM_LBL_COLR' )  )  {
 		define ( 'LOGHORN_SETTINGS_FORM_LBL_COLR' , 11 ) ;
 	}
+	// Set the Input Box Edge Radius size Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_INP_RADIUS' )  )	{
+		define ( 'LOGHORN_SETTINGS_INP_RADIUS' , 12 ) ;
+	}
+	// Set the Input text font Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_INP_FONT' )  )  {
+		define ( 'LOGHORN_SETTINGS_INP_FONT' , 13 ) ;
+	}
+	// Set Input Text Font Color Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_INP_FONT_COLR' )  )  {
+		define ( 'LOGHORN_SETTINGS_INP_FONT_COLR' , 14 ) ;
+	}
+	// Set Input Background Color Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_INP_BG' )  )  {
+		define ( 'LOGHORN_SETTINGS_INP_BG' , 15 ) ;
+	}
+	// Set Input Border Color Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_INP_BORDR' )  )  {
+		define ( 'LOGHORN_SETTINGS_INP_BORDR' , 16 ) ;
+	}
+	// Set 'Remember Me' Check-Box Width Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_CB_WIDTH' )  )  {
+		define ( 'LOGHORN_SETTINGS_CB_WIDTH' , 17 ) ;
+	}
+	// Set 'Remember Me' Check-Box Height Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_CB_HT' )  )  {
+		define ( 'LOGHORN_SETTINGS_CB_HT' , 18 ) ;
+	}
+	// Set 'Remember Me' Check-Box Height Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_CB_RADIUS' )  )  {
+		define ( 'LOGHORN_SETTINGS_CB_RADIUS' , 19 ) ;
+	}
+	
+	
 
-define ( 'LOGHORN_SETTINGS_INP_FONT' , 12 ) ;
-define ( 'LOGHORN_SETTINGS_INP_FONT_COLR' , 13 ) ;
-define ( 'LOGHORN_SETTINGS_INP_RADIUS' , 14 ) ;
-define ( 'LOGHORN_SETTINGS_INP_BG' , 15 ) ;
-define ( 'LOGHORN_SETTINGS_INP_BORDR_COLR' , 16 ) ;
-define ( 'LOGHORN_SETTINGS_INP_OPACITY' , 17 ) ;
-define ( 'LOGHORN_SETTINGS_CB_WIDTH' , 18 ) ;
-define ( 'LOGHORN_SETTINGS_CB_HT' , 19 ) ;
 define ( 'LOGHORN_SETTINGS_SUBMIT_WIDTH' , 20 ) ;
 define ( 'LOGHORN_SETTINGS_SUBMIT_COLR' , 21 ) ;
 define ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR' , 22 ) ;
@@ -203,8 +237,4 @@ define ( 'LOGHORN_SETTINGS_MSG_BG_COLR' , 45 ) ;
 define ( 'LOGHORN_SETTINGS_MSG_COLR' , 46 ) ;
 define ( 'LOGHORN_SETTINGS_MSG_TXT_SHDW' , 47 ) ;
 define ( 'LOGHORN_SETTINGS_MSG_OPACITY' , 48 ) ;
-define ( 'LOGHORN_SETTINGS_CSS_THEME' , 49 ) ;
-
-
-
 ?>

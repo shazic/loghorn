@@ -55,8 +55,8 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			#explode (";" , get_option('loghorn_settings') ) 
 			// Debug info
 			explode (";" , 
-					"0;Bull_GraphicMama_team_80x80.png;sunrise.jpg;320;80% 0 0;auto;55:255:255:0.5;0:0:10:2:lightblue;2:solid:15:158:217:1;15;16:showcard gothic;0:0:200:1"
-					//;                               ;           ;   ;       ;    ;              ;                  ;                    ;  ;
+					"0;Bull_GraphicMama_team_80x80.png;sunrise.jpg;320;80% 0 0;auto;55:255:255:0.5;0:0:10:2:lightblue;2:solid:90:158:217:1;15;16:showcard gothic;0:0:200:1;10;16:courier new;0:0:200:1;200:200:200:0.45;1:solid:0:90:250:1;26;26;5"
+					//;                               ;           ;   ;       ;    ;              ;                  ;                    ;  ;                  ;         ;  ;              ;         ;                ;                  ;
 					)	// Debug info
 			;
 		}
@@ -94,18 +94,26 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			<!-- If there isn't any static CSS stylesheet selected, fetch and use the user defined values: -->
 			<?php if ( ! $loghorn_css ) {	
 			
-					$loghorn_logo_file 		= $this->loghorn_get_login_logo 	(  ) ;	// name of the image file to be used as the logo.
-					$loghorn_bg_file 		= $this->loghorn_get_login_bg   	(  ) ;	// name of the image file to be used as the background.
-					$loghorn_form_wd 		= $this->loghorn_get_form_wd		(  ) ;	// form width in pixels.
-					$loghorn_form_pad 		= $this->loghorn_get_form_padding	(  ) ;	// form padding.
-					$loghorn_form_mrgn 		= $this->loghorn_get_form_margin	(  ) ;	// form margin.
-					$loghorn_form_bg_colr 	= $this->loghorn_get_form_bg_colr	(  ) ;	// form background color.
-					$loghorn_form_shdw		= $this->loghorn_get_form_shadow	(  ) ;	// form box shadow.
-					$loghorn_form_bordr		= $this->loghorn_get_form_border	(  ) ;	// form border design.
-					$loghorn_form_bordr_rad	= $this->loghorn_get_form_radius	(  ) ;	// form border radius.
-					$loghorn_form_lbl_font	= $this->loghorn_get_form_label		(  ) ;	// form label - font and font size.
-					$loghorn_form_lbl_colr	= $this->loghorn_get_form_color		(  ) ;	// form label - color.
-					//echo $loghorn_form_lbl_font ; // Debug info
+					$loghorn_logo_file 			= $this->loghorn_get_login_logo 		(  ) ;	// URL of the image file to be used as the logo.
+					$loghorn_bg_file 			= $this->loghorn_get_login_bg   		(  ) ;	// URL of the image file to be used as the background.
+					$loghorn_form_wd 			= $this->loghorn_get_form_wd			(  ) ;	// form width in pixels.
+					$loghorn_form_pad 			= $this->loghorn_get_form_padding		(  ) ;	// form padding.
+					$loghorn_form_mrgn 			= $this->loghorn_get_form_margin		(  ) ;	// form margin.
+					$loghorn_form_bg_colr 		= $this->loghorn_get_form_bg_colr		(  ) ;	// form background color.
+					$loghorn_form_shdw			= $this->loghorn_get_form_shadow		(  ) ;	// form box shadow.
+					$loghorn_form_bordr			= $this->loghorn_get_form_border		(  ) ;	// form border design.
+					$loghorn_form_bordr_rad		= $this->loghorn_get_form_radius		(  ) ;	// form border radius.
+					$loghorn_form_lbl_font		= $this->loghorn_get_form_label			(  ) ;	// form label - font and font size.
+					$loghorn_form_lbl_colr		= $this->loghorn_get_form_color			(  ) ;	// form label - color.
+					$loghorn_input_radius		= $this->loghorn_get_input_radius		(  ) ;  // text box edge radius.
+					$loghorn_input_font			= $this->loghorn_get_input_font			(  ) ;	// text box font size and family.
+					$loghorn_input_font_colr	= $this->loghorn_get_input_font_color	(  ) ;	// text box font color.
+					$loghorn_input_bg_colr		= $this->loghorn_get_input_bg_color		(  ) ;	// text box background color.
+					$loghorn_input_border		= $this->loghorn_get_input_border		(  ) ;	// text box border thickness, stule and color.
+					$loghorn_cb_width			= $this->loghorn_get_cb_width			(  ) ;  // 'Remember Me' check box width.
+					$loghorn_cb_height			= $this->loghorn_get_cb_height			(  ) ;  // 'Remember Me' check box height.
+					$loghorn_cb_radius			= $this->loghorn_get_cb_radius			(  ) ;  // 'Remember Me' check box edge radius.
+					echo $loghorn_cb_radius ; // Debug info
 					
 			
 			?>
@@ -153,22 +161,11 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 							color: rgba( <?php echo $loghorn_form_lbl_colr ; ?> ) ;
 						}
 						/*
-						 * Input fields: common attributes 
-						 */
-						#user_login ,
-						#user_pass ,
-						#rememberme	{
-							color: #dba608 ;
-							background-color: #fcfa71 ;
-							border-color:#dba608 ;
-							opacity: 1.0 ;
-						}
-						/*
 						 * Username and Password text-box: 
 						 */			
 						.login input[type="text"] ,
 						.login input[type="password"]	{
-							-webkit-border-radius: 10px; 
+							-webkit-border-radius: <?php echo $loghorn_input_radius ; ?> ; 
 						}
 						/*
 						 * Login text-box: username and password
@@ -176,20 +173,90 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 						#user_login ,
 						#user_pass	{
 						/** These values will override the one above since it is more specific */
-							font: 16px "showcard gothic";
-							color: rgba( 100,0,100,1 ) ;
+							font: <?php echo $loghorn_input_font ; ?> ;
+						}
+						/*
+						 * Input fields: common attributes 
+						 */
+						#user_login ,
+						#user_pass ,
+						#rememberme	{
+							color: rgba( <?php echo $loghorn_input_font_colr ; ?> ) ;
+							background-color: rgba( <?php echo $loghorn_input_bg_colr ; ?> ) ; 
+							border: <?php echo $loghorn_input_border ; ?> ; 
 						}
 						/*
 						 * Login check-box: Remember Me 
 						 */
 						#rememberme {
-							width: 12px;
-							height: 12px;
-							-webkit-border-radius: 2px;
-							border: 2px solid #0d9ed9;
+							width: <?php echo $loghorn_cb_width ; ?> ; 
+							height: <?php echo $loghorn_cb_height ; ?> ; 
+							-webkit-border-radius: <?php echo $loghorn_cb_radius ; ?> ; 
 						}
 						
 
+						.login .button-primary {
+						/** Primary button: */
+							width: 130px;
+							float: right;
+							background-color:#17a8e3 !important;
+							background: -o-linear-gradient(top, #17a8e3, #17a8e3);
+							background-image: -ms-linear-gradient(top, #17a8e3 0%, #17a8e3 100%);
+							color: #ffffff;
+							-webkit-border-radius: 4px;
+							border: 1px solid #0d9ed9;
+							opacity: 1.0 ;
+						}
+
+						.login .button-primary:hover {
+							/** Primary button on-hover action: */
+							background-color:#1788e3 !important;
+							background: -webkit-gradient(linear, left top, left bottom, from(#17a8e3), to(#0d9ed9 ));
+							background-image: -ms-linear-gradient(top, #0b436e 0%, #0d9ed9 100%);
+							color: #fff;
+							-webkit-border-radius: 4px;
+							border: 1px solid #0d9ed9;
+						}
+
+						.login .button-primary:active {
+						/** Primary button on-active: */
+							background-color:#1798e3 !important;
+							background: -webkit-gradient(linear, left top, left bottom, from(#0d9ed9), to(#17a8e3));
+							background-image: -ms-linear-gradient(top, #0d9ed9 0%, #17a8e3 100%);
+							color: #fff;
+							-webkit-border-radius: 4px;
+							border: 1px solid #0d9ed9;
+						}
+				
+						#lostpasswordform	{ 
+						/** The forgot password form that asks for username*/
+							background: rgba( <?php echo $loghorn_form_bg_colr ; ?> ) ;
+							box-shadow: <?php echo $loghorn_form_shdw ; ?> ;
+							border: <?php echo $loghorn_form_bordr ; ?> ;
+							-webkit-border-radius: <?php echo $loghorn_form_bordr_rad ; ?> ;
+						}
+						#lostpasswordform label{ 
+							font: <?php echo $loghorn_form_lbl_font ; ?> ;
+							color: rgba( <?php echo $loghorn_form_lbl_colr ; ?> ) ;
+						}
+						.login .message,
+						.login #login_error	{
+						/** Errors and messages */
+							background-color: #0a080f !important;
+							color: #005555;
+							text-shadow: none;
+							border-left: 5px solid #00a0d2;
+							border-right: 5px solid #00a0d2;
+							border-top: 5px solid #00a0d2;
+							border-bottom: 5px solid #00a0d2;
+							-webkit-border-radius: 15px;
+							opacity: 0.85;
+						}
+		
+						.login #login_error {
+						/** Error message */
+							border-color: #dc3232 ;
+						}
 					</style>
 			
 			<?php 
@@ -315,24 +382,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		 */
 		function loghorn_get_form_border ( $loghorn_default_form_border = LOGHORN_DEFAULT_FORM_BORDR )	{
 			
-			// The settings for form border is stored in the format 'WIDTH:BORDER-STYLE:Red:Green:Blue:Alpha'.
-			// An exception to above format is if 'none' is set. In this case, it is the only value present in the settings.
-			// Let's explode it to get the values:
-			$loghorn_form_border = explode (":" , self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_BORDR ] ) ;
-			
-			if ( "none" == $loghorn_form_border [ 0 ] )		// Yoda says: "If 'none', the value is!"
-				// No borders here!
-				return $loghorn_default_form_border ;
-			
-			// Let's get the values:
-			$loghorn_border_width	=	$loghorn_form_border [ 0 ]."px" ;
-			$loghorn_border_style	=	$loghorn_form_border [ 1 ] ;
-			$loghorn_border_r_hue	=	$loghorn_form_border [ 2 ] ;
-			$loghorn_border_g_hue	=	$loghorn_form_border [ 3 ] ;
-			$loghorn_border_b_hue	=	$loghorn_form_border [ 4 ] ;
-			$loghorn_border_a_val	=	$loghorn_form_border [ 5 ] ;
-			
-			return "$loghorn_border_width $loghorn_border_style rgba( $loghorn_border_r_hue , $loghorn_border_g_hue , $loghorn_border_b_hue , $loghorn_border_a_val )";
+			return $this->loghorn_get_border ( LOGHORN_SETTINGS_FORM_BORDR , $loghorn_default_form_border ) ;
 		}
 		
 		/*
@@ -359,6 +409,69 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			
 			return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_FORM_LBL_COLR , $loghorn_default_form_label_colr ) ;
 		}
+		
+		/*
+		 * Get the edge radius of the input text fields (username and password fields).
+		 */
+		function loghorn_get_input_radius ( $loghorn_default_input_font = 0 )	{
+			
+			return self::$loghorn_settings [ LOGHORN_SETTINGS_INP_RADIUS ]."px" ;
+		}
+		/*
+		 * Get the Font and font-size of the input text fields (username and password fields).
+		 */
+		function loghorn_get_input_font ( $loghorn_default_input_font = LOGHORN_DEFAULT_FORM_FONT )	{
+			
+			return $this->loghorn_get_font_size_and_family ( LOGHORN_SETTINGS_INP_FONT , $loghorn_default_input_font ) ;
+		}
+		
+		/*
+		 * Get the Font color for the input text fields (username and password fields).
+		 */
+		function loghorn_get_input_font_color ( $loghorn_default_input_font_color = LOGHORN_DEFAULT_FORM_FONT_COLR )	{
+			
+			return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_INP_FONT_COLR , $loghorn_default_input_font_color ) ;
+		}
+		
+		/*
+		 * Get the Background color for the input text fields (username and password fields).
+		 */
+		function loghorn_get_input_bg_color ( $loghorn_default_input_bg_color = LOGHORN_DEFAULT_FORM_COLR )	{
+			
+			return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_INP_BG , $loghorn_default_input_bg_color ) ;
+		}
+		
+		/*
+		 * Get the Border Thickness, style and color settings for the input text fields (username and password fields).
+		 */
+		function loghorn_get_input_border ( $loghorn_default_input_border = LOGHORN_DEFAULT_FORM_BORDR )	{
+			return $this->loghorn_get_border ( LOGHORN_SETTINGS_INP_BORDR , $loghorn_default_input_border ) ;
+		}
+		
+		/*
+		 * Get the width of the check box 'Remember Me' field.
+		 */
+		function loghorn_get_cb_width ( $loghorn_default_cb_width = LOGHORN_DEFAULT_CB_WIDTH )	{
+			
+			return self::$loghorn_settings [ LOGHORN_SETTINGS_CB_WIDTH ]."px" ;
+		}
+		
+		/*
+		 * Get the width of the check box 'Remember Me' field.
+		 */
+		function loghorn_get_cb_height ( $loghorn_default_cb_height = LOGHORN_DEFAULT_CB_HEIGHT )	{
+			
+			return self::$loghorn_settings [ LOGHORN_SETTINGS_CB_WIDTH ]."px" ;
+		}
+		
+		/*
+		 * Get the edge radius of the check box 'Remember Me' field.
+		 */
+		function loghorn_get_cb_radius ( $loghorn_default_cb_radius = 0 )	{
+			
+			return self::$loghorn_settings [ LOGHORN_SETTINGS_CB_RADIUS ]."px" ;
+		}
+		
 		/*************************************************************************************************************************************/
 		/**********************                            GENERIC FUNCTIONS                                   *******************************/
 		/*************************************************************************************************************************************/
@@ -437,6 +550,28 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 				$loghorn_rgba_colr = $loghorn_default_rgba_colr ;
 			
 			return $loghorn_rgba_colr ;
+		}
+		
+		function loghorn_get_border ( $loghorn_settings_constant , $loghorn_default_border )	{
+			
+			// The settings for the border is stored in the format 'WIDTH:BORDER-STYLE:Red:Green:Blue:Alpha'.
+			// An exception to above format is if 'none' is set. In this case, it is the only value present in the settings.
+			// Let's explode it to get the values:
+			$loghorn_form_border = explode (":" , self::$loghorn_settings [ $loghorn_settings_constant ] ) ;
+			
+			if ( "none" == $loghorn_form_border [ 0 ] )		// Yoda says: "If 'none', the value is!"
+				// No borders here!
+				return $loghorn_default_border ;
+			
+			// Let's get the values:
+			$loghorn_border_width	=	$loghorn_form_border [ 0 ]."px" ;
+			$loghorn_border_style	=	$loghorn_form_border [ 1 ] ;
+			$loghorn_border_r_hue	=	$loghorn_form_border [ 2 ] ;
+			$loghorn_border_g_hue	=	$loghorn_form_border [ 3 ] ;
+			$loghorn_border_b_hue	=	$loghorn_form_border [ 4 ] ;
+			$loghorn_border_a_val	=	$loghorn_form_border [ 5 ] ;
+			
+			return "$loghorn_border_width $loghorn_border_style rgba( $loghorn_border_r_hue , $loghorn_border_g_hue , $loghorn_border_b_hue , $loghorn_border_a_val )";
 		}
 	} //class Log_Horn_Display ends here.
 	
