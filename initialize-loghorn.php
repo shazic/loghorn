@@ -124,6 +124,26 @@
     if  ( ! defined ( 'LOGHORN_DEFAULT_CB_HEIGHT' )  )  {
         define ( 'LOGHORN_DEFAULT_CB_HEIGHT' , 12 ) ;
 	}
+	// Set the default 'Log In' button width:
+    if  ( ! defined ( 'LOGHORN_DEFAULT_BUTTON_WIDTH' )  )  {
+        define ( 'LOGHORN_DEFAULT_BUTTON_WIDTH' , 90 ) ;
+	}
+	// Set the default 'Log In' button text color:
+    if  ( ! defined ( 'LOGHORN_DEFAULT_BUTTON_TXT_COLR' )  )  {
+        define ( 'LOGHORN_DEFAULT_BUTTON_TXT_COLR' , '255 , 255 , 255 , 1' ) ;
+	}
+	// Set the default 'Log In' button text shadow:
+    if  ( ! defined ( 'LOGHORN_DEFAULT_BUTTON_TXT_SHDW' )  )  {
+        define ( 'LOGHORN_DEFAULT_BUTTON_TXT_SHDW' , 'none' ) ;
+	}
+	// Set the default 'Log In' button background color:
+    if  ( ! defined ( 'LOGHORN_DEFAULT_BUTTON_BG_COLR' )  )  {
+        define ( 'LOGHORN_DEFAULT_BUTTON_BG_COLR' , '50 , 50 , 50 , 1' ) ;
+	}
+	// Set the default Button Border Style :
+    if  ( ! defined ( 'LOGHORN_DEFAULT_BUTTON_BORDR' )  )  {
+        define ( 'LOGHORN_DEFAULT_BUTTON_BORDR' , '1px solid rgba(0,0,0,1)' ) ; // Stored as WIDTH BORDER-STYLE  rgba( R , G , B , A )
+	}
 	/**********************************  SETTINGS OPTIONS   *************************************/
 	// Set the CSS Theme Option label:
     if  ( ! defined ( 'LOGHORN_SETTINGS_CSS_THEME' )  )  {
@@ -205,36 +225,75 @@
 	if  ( ! defined ( 'LOGHORN_SETTINGS_CB_RADIUS' )  )  {
 		define ( 'LOGHORN_SETTINGS_CB_RADIUS' , 19 ) ;
 	}
+	// Set 'Log In' Submit Button Width Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_WIDTH' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_WIDTH' , 20 ) ;
+	}
+	// Set 'Log In' Submit Button Text Color Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_TXT_COLR' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_TXT_COLR' , 21 ) ;
+	}
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW' , 22 ) ;
+	}
+	// Set 'Log In' Submit Button Text Color Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR' , 23 ) ;
+	}
+	// Set 'Log In' Submit Button Background Image Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG' , 24 ) ;
+	}
+	// Set 'Log In' Submit Button Opacity Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY' , 25 ) ;
+	}
+	// Set 'Log In' Submit Button Opacity Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BORDR' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR' , 26 ) ;
+	}
+	// Set 'Log In' Submit Button Border Radius label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS' , 27 ) ;
+	}
 	
 	
 
-define ( 'LOGHORN_SETTINGS_SUBMIT_WIDTH' , 20 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_COLR' , 21 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR' , 22 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG' , 23 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY' , 24 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_WIDTH' , 25 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_STYLE' , 26 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_COLR' , 27 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_WIDTH_HOVR' , 28 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_COLR_HOVR' , 29 ) ;
+
+define ( 'LOGHORN_SETTINGS_SUBMIT_COLR_HOVR' , 28 ) ;
+define ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_HOVR' , 29 ) ;
 define ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR' , 30 ) ;
 define ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG_HOVR' , 31 ) ;
 define ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY_HOVR' , 32 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_WIDTH_HOVR' , 33 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_STYLE_HOVR' , 34 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_COLR_HOVR' , 35 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_WIDTH_ACTV' , 36 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_COLR_ACTV' , 37 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_ACTV' , 38 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG_ACTV' , 39 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY_ACTV' , 40 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_WIDTH_ACTV' , 41 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_STYLE_ACTV' , 42 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_COLR_ACTV' , 43 ) ;
-define ( 'LOGHORN_SETTINGS_LOST_PASS_FORM' , 44 ) ;
-define ( 'LOGHORN_SETTINGS_MSG_BG_COLR' , 45 ) ;
-define ( 'LOGHORN_SETTINGS_MSG_COLR' , 46 ) ;
-define ( 'LOGHORN_SETTINGS_MSG_TXT_SHDW' , 47 ) ;
-define ( 'LOGHORN_SETTINGS_MSG_OPACITY' , 48 ) ;
+define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_HOVR' , 33 ) ;
+define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS_HOVR' , 34 ) ;
+
+define ( 'LOGHORN_SETTINGS_SUBMIT_COLR_ACTV' , 35 ) ;
+define ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_ACTV' , 36 ) ;
+define ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_ACTV' , 37 ) ;
+define ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG_ACTV' , 38 ) ;
+define ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY_ACTV' , 39 ) ;
+define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_ACTV' , 40 ) ;
+define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS_ACTV' , 41 ) ;
+
+define ( 'LOGHORN_SETTINGS_LOST_PASS_FORM' , 42 ) ;
+define ( 'LOGHORN_SETTINGS_MSG_BG_COLR' , 43 ) ;
+define ( 'LOGHORN_SETTINGS_MSG_COLR' , 44 ) ;
+define ( 'LOGHORN_SETTINGS_MSG_TXT_SHDW' , 45 ) ;
+define ( 'LOGHORN_SETTINGS_MSG_OPACITY' , 46 ) ;
+
+	/**********************************   OTHER CONSTANTS   *************************************/
+	
+    if  ( ! defined ( 'LOGHORN_NORMAL_STATE' )  )  {
+		define ( 'LOGHORN_NORMAL_STATE' , 0 ) ;	
+	}
+	
+	if  ( ! defined ( 'LOGHORN_ON_HOVER' )  )  {
+		define ( 'LOGHORN_ON_HOVER' , 1 ) ;	
+	}
+	
+	if  ( ! defined ( 'LOGHORN_ON_ACTIVE' )  )  {
+		define ( 'LOGHORN_ON_ACTIVE' , 2 ) ;	
+	}
+	
 ?>

@@ -55,8 +55,8 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			#explode (";" , get_option('loghorn_settings') ) 
 			// Debug info
 			explode (";" , 
-					"0;Bull_GraphicMama_team_80x80.png;sunrise.jpg;320;80% 0 0;auto;55:255:255:0.5;0:0:10:2:lightblue;2:solid:90:158:217:1;15;16:showcard gothic;0:0:200:1;10;16:courier new;0:0:200:1;200:200:200:0.45;1:solid:0:90:250:1;26;26;5"
-					//;                               ;           ;   ;       ;    ;              ;                  ;                    ;  ;                  ;         ;  ;              ;         ;                ;                  ;
+					"3;Bull_GraphicMama_team_80x80.png;sunrise.jpg;320;80% 0 0;auto;55:255:255:0.5;0:0:10:2:lightblue;2:solid:90:158:217:1;15;16:showcard gothic;0:0:200:1;10;16:courier new;0:0:200:1;200:200:200:0.45;1:solid:0:90:250:1;16;16;05;080;000:000:200:1;1:1:2:010:010:010:1;200:200:200:1;none;1;1:solid:13:158:217:1;04;020:020:020:1;1:1:2:200:000:000:1;013:160:210:1;none;01;1:solid:13:158:217:1;04;255:255:255:1;1:1:2:200:000:000:1;013:160:210:1;none;01;1:solid:13:158:217:1;04"
+					//;                1              ;      2    ; 3 ;   4   ; 5  ;      6       ;        7         ;         8          ; 9;    10            ;    11   ;12;      13      ;   14    ;      15        ;       16         ;17;18;19; 20;     21      ;         22        ;      23     ; 24 ; ;        26          ;27;    28       ;         29        ;     30      ; 31 ;32;       33           ;34;     35      ;       36          ;     37      ; 38 ;39;       40           ;41
 					)	// Debug info
 			;
 		}
@@ -84,18 +84,19 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		function loghorn_login_scripts () 	{
 	
 			$loghorn_css 		= $this->loghorn_get_css ( ) ;	// static predefined CSS stylesheets. 
-			echo $loghorn_css ; // Debug info
-			?>
 			
-			<!-- Check if user had opted for a Static CSS stylesheet: -->
-			<?php if ( $loghorn_css ) ?>
+			// Check if user had opted for a Static CSS stylesheet: -->
+			if ( $loghorn_css ) 
+?>
 			<link rel='stylesheet' type='text/css' href=<?php echo "'$loghorn_css'"; ?> >
 			
-			<!-- If there isn't any static CSS stylesheet selected, fetch and use the user defined values: -->
-			<?php if ( ! $loghorn_css ) {	
-			
+<?php 		if ( ! $loghorn_css ) {	
+				  // If there isn't any static CSS stylesheet selected, fetch and use the user defined values: -->
+					// Logo
 					$loghorn_logo_file 			= $this->loghorn_get_login_logo 		(  ) ;	// URL of the image file to be used as the logo.
+					// Background
 					$loghorn_bg_file 			= $this->loghorn_get_login_bg   		(  ) ;	// URL of the image file to be used as the background.
+					// Login Form
 					$loghorn_form_wd 			= $this->loghorn_get_form_wd			(  ) ;	// form width in pixels.
 					$loghorn_form_pad 			= $this->loghorn_get_form_padding		(  ) ;	// form padding.
 					$loghorn_form_mrgn 			= $this->loghorn_get_form_margin		(  ) ;	// form margin.
@@ -105,19 +106,42 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 					$loghorn_form_bordr_rad		= $this->loghorn_get_form_radius		(  ) ;	// form border radius.
 					$loghorn_form_lbl_font		= $this->loghorn_get_form_label			(  ) ;	// form label - font and font size.
 					$loghorn_form_lbl_colr		= $this->loghorn_get_form_color			(  ) ;	// form label - color.
-					$loghorn_input_radius		= $this->loghorn_get_input_radius		(  ) ;  // text box edge radius.
+					// Text/Check boxes in the Login Form
+					$loghorn_input_radius		= $this->loghorn_get_input_radius		(  ) ;  // text box corner radius.
 					$loghorn_input_font			= $this->loghorn_get_input_font			(  ) ;	// text box font size and family.
 					$loghorn_input_font_colr	= $this->loghorn_get_input_font_color	(  ) ;	// text box font color.
 					$loghorn_input_bg_colr		= $this->loghorn_get_input_bg_color		(  ) ;	// text box background color.
-					$loghorn_input_border		= $this->loghorn_get_input_border		(  ) ;	// text box border thickness, stule and color.
+					$loghorn_input_border		= $this->loghorn_get_input_border		(  ) ;	// text box border thickness, style and color.
 					$loghorn_cb_width			= $this->loghorn_get_cb_width			(  ) ;  // 'Remember Me' check box width.
 					$loghorn_cb_height			= $this->loghorn_get_cb_height			(  ) ;  // 'Remember Me' check box height.
-					$loghorn_cb_radius			= $this->loghorn_get_cb_radius			(  ) ;  // 'Remember Me' check box edge radius.
-					echo $loghorn_cb_radius ; // Debug info
-					
-			
-			?>
-					<!-- Dyanamic CSS stylesheets: -->
+					$loghorn_cb_radius			= $this->loghorn_get_cb_radius			(  ) ;  // 'Remember Me' check box corner radius.
+					// 'Log In' Submit Button
+					$loghorn_butn_wd			= $this->loghorn_get_button_width		( LOGHORN_NORMAL_STATE ) ;  // 'Log In' button width.
+					$loghorn_butn_text_colr		= $this->loghorn_get_button_text_color	( LOGHORN_NORMAL_STATE ) ;	// 'Log In' button text color.
+					$loghorn_butn_text_shdw		= $this->loghorn_get_button_text_shadow	( LOGHORN_NORMAL_STATE ) ;	// 'Log In' button text shadow.
+					$loghorn_butn_bg_colr		= $this->loghorn_get_button_bg_color	( LOGHORN_NORMAL_STATE ) ;	// 'Log In' button background color.
+					//$loghorn_butn_bg_img		= $this->loghorn_get_button_bg_image	( LOGHORN_NORMAL_STATE ) ;	// 'Log In' button background image. Not supported in the current version.
+					//$loghorn_butn_opacity		= $this->loghorn_get_button_opacity		( LOGHORN_NORMAL_STATE ) ;	// 'Log In' button opacity. Not used currently, since loghorn_butn_bg_colr provides this through rgba.
+					$loghorn_butn_bordr			= $this->loghorn_get_button_border		( LOGHORN_NORMAL_STATE ) ;  // 'Log In' button border.
+					$loghorn_butn_radius		= $this->loghorn_get_button_radius		( LOGHORN_NORMAL_STATE ) ;  // 'Log In' button corner radius.
+					// 'Log In' Submit Button: On Hover 
+					$loghorn_butn_text_colr_h	= $this->loghorn_get_button_text_color	( LOGHORN_ON_HOVER ) ;	// 'Log In' button text color: On Hover.
+					$loghorn_butn_text_shdw_h	= $this->loghorn_get_button_text_shadow	( LOGHORN_ON_HOVER ) ;	// 'Log In' button text shadow: On Hover.
+					$loghorn_butn_bg_colr_h		= $this->loghorn_get_button_bg_color	( LOGHORN_ON_HOVER ) ;	// 'Log In' button background color: On Hover.
+					//$loghorn_butn_bg_img_h	= $this->loghorn_get_button_bg_image	( LOGHORN_ON_HOVER ) ;	// 'Log In' button background image. Not supported in the current version.
+					//$loghorn_butn_opacity_h	= $this->loghorn_get_button_opacity		( LOGHORN_ON_HOVER ) ;	// 'Log In' button opacity. Not used currently, since loghorn_butn_bg_colr provides this through rgba.
+					$loghorn_butn_bordr_h		= $this->loghorn_get_button_border		( LOGHORN_ON_HOVER ) ;  // 'Log In' button border: On Hover.
+					$loghorn_butn_radius_h		= $this->loghorn_get_button_radius		( LOGHORN_ON_HOVER ) ;  // 'Log In' button corner radius: On Hover.
+					// 'Log In' Submit Button: On Active 
+					$loghorn_butn_text_colr_a	= $this->loghorn_get_button_text_color	( LOGHORN_ON_ACTIVE ) ;	// 'Log In' button text color: On Active.
+					$loghorn_butn_text_shdw_a	= $this->loghorn_get_button_text_shadow	( LOGHORN_ON_ACTIVE ) ;	// 'Log In' button text shadow: On Active.
+					$loghorn_butn_bg_colr_a		= $this->loghorn_get_button_bg_color	( LOGHORN_ON_ACTIVE ) ;	// 'Log In' button background color: On Active.
+					//$loghorn_butn_bg_img_a	= $this->loghorn_get_button_bg_image	( LOGHORN_ON_ACTIVE ) ;	// 'Log In' button background image. Not supported in the current version.
+					//$loghorn_butn_opacity_a	= $this->loghorn_get_button_opacity		( LOGHORN_ON_ACTIVE ) ;	// 'Log In' button opacity. Not used currently, since loghorn_butn_bg_colr provides this through rgba.
+					$loghorn_butn_bordr_a		= $this->loghorn_get_button_border		( LOGHORN_ON_ACTIVE ) ;  // 'Log In' button border: On Active.
+					$loghorn_butn_radius_a		= $this->loghorn_get_button_radius		( LOGHORN_ON_ACTIVE ) ;  // 'Log In' button corner radius: On Active.
+					echo $loghorn_form_bg_colr."<br>" ;
+?>
 					<style type="text/css" >
 						/** 
 						 * user logo goes here:
@@ -148,7 +172,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 						 * the main login form design:
 						 */
 						#loginform { 
-							background-color: rgba( <?php echo $loghorn_form_bg_colr ; ?> ) ;
+							background-color: <?php echo $loghorn_form_bg_colr ; ?> ;
 							box-shadow: <?php echo $loghorn_form_shdw ; ?> ;
 							border: <?php echo $loghorn_form_bordr ; ?> ;
 							-webkit-border-radius: <?php echo $loghorn_form_bordr_rad ; ?> ;
@@ -158,7 +182,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 						 */
 						#loginform label{ 
 							font: <?php echo $loghorn_form_lbl_font ; ?> ;
-							color: rgba( <?php echo $loghorn_form_lbl_colr ; ?> ) ;
+							color: <?php echo $loghorn_form_lbl_colr ; ?> ;
 						}
 						/*
 						 * Username and Password text-box: 
@@ -181,8 +205,8 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 						#user_login ,
 						#user_pass ,
 						#rememberme	{
-							color: rgba( <?php echo $loghorn_input_font_colr ; ?> ) ;
-							background-color: rgba( <?php echo $loghorn_input_bg_colr ; ?> ) ; 
+							color: <?php echo $loghorn_input_font_colr ; ?> ;
+							background-color: <?php echo $loghorn_input_bg_colr ; ?>  ; 
 							border: <?php echo $loghorn_input_border ; ?> ; 
 						}
 						/*
@@ -193,44 +217,48 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 							height: <?php echo $loghorn_cb_height ; ?> ; 
 							-webkit-border-radius: <?php echo $loghorn_cb_radius ; ?> ; 
 						}
-						
-
+						/*
+						 * Primary button:
+						 */
 						.login .button-primary {
-						/** Primary button: */
-							width: 130px;
-							float: right;
-							background-color:#17a8e3 !important;
-							background: -o-linear-gradient(top, #17a8e3, #17a8e3);
-							background-image: -ms-linear-gradient(top, #17a8e3 0%, #17a8e3 100%);
-							color: #ffffff;
-							-webkit-border-radius: 4px;
-							border: 1px solid #0d9ed9;
-							opacity: 1.0 ;
+							width: <?php echo $loghorn_butn_wd ; ?> ; 
+							float: right !important;
+							color: <?php echo $loghorn_butn_text_colr ; ?> !important ;
+							background-color: <?php echo $loghorn_butn_bg_colr ; ?> !important;
+							text-shadow: <?php echo $loghorn_butn_text_shdw ; ?> !important ;
+							/* background-image: <?php echo $loghorn_butn_bg_img ; ?> ; */
+							/* opacity: <?php echo $loghorn_butn_opacity ; ?> ; */
+							border: <?php echo $loghorn_butn_bordr ; ?> !important; 
+							-webkit-border-radius: <?php echo $loghorn_butn_radius ; ?> !important; 
 						}
-
+						/*
+						 * Primary button: on-hover action
+						 */
 						.login .button-primary:hover {
-							/** Primary button on-hover action: */
-							background-color:#1788e3 !important;
-							background: -webkit-gradient(linear, left top, left bottom, from(#17a8e3), to(#0d9ed9 ));
-							background-image: -ms-linear-gradient(top, #0b436e 0%, #0d9ed9 100%);
-							color: #fff;
-							-webkit-border-radius: 4px;
-							border: 1px solid #0d9ed9;
+							color: <?php echo $loghorn_butn_text_colr_h ; ?> !important ;
+							background-color:<?php echo $loghorn_butn_bg_colr_h ; ?> !important;
+							text-shadow: <?php echo $loghorn_butn_text_shdw_h ; ?> !important ;
+							/* background-image: <?php echo $loghorn_butn_bg_img_h ; ?> ; */
+							/* opacity: <?php echo $loghorn_butn_opacity_h ; ?> ; */
+							-webkit-border-radius: <?php echo $loghorn_butn_radius_h ; ?> !important; 
+							border: <?php echo $loghorn_butn_bordr_h ; ?> !important; /*1px solid #0d9ed9;*/
 						}
-
+						/*
+						 * Primary button: on-active action
+						 */
 						.login .button-primary:active {
-						/** Primary button on-active: */
-							background-color:#1798e3 !important;
-							background: -webkit-gradient(linear, left top, left bottom, from(#0d9ed9), to(#17a8e3));
-							background-image: -ms-linear-gradient(top, #0d9ed9 0%, #17a8e3 100%);
-							color: #fff;
-							-webkit-border-radius: 4px;
-							border: 1px solid #0d9ed9;
+							color: <?php echo $loghorn_butn_text_colr_a ; ?> !important ;
+							background-color:<?php echo $loghorn_butn_bg_colr_a ; ?> !important;
+							text-shadow: <?php echo $loghorn_butn_text_shdw_a ; ?> !important ;
+							/* background-image: <?php echo $loghorn_butn_bg_img_a ; ?> ; */
+							/* opacity: <?php echo $loghorn_butn_opacity_a ; ?> ; */
+							-webkit-border-radius: <?php echo $loghorn_butn_radius_a ; ?> !important; 
+							border: <?php echo $loghorn_butn_bordr_a ; ?> !important; 
 						}
 				
 						#lostpasswordform	{ 
 						/** The forgot password form that asks for username*/
-							background: rgba( <?php echo $loghorn_form_bg_colr ; ?> ) ;
+							background: rgba( <?php echo $loghorn_form_bg_colr ; ?> ) !important;
 							box-shadow: <?php echo $loghorn_form_shdw ; ?> ;
 							border: <?php echo $loghorn_form_bordr ; ?> ;
 							-webkit-border-radius: <?php echo $loghorn_form_bordr_rad ; ?> ;
@@ -259,7 +287,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 						}
 					</style>
 			
-			<?php 
+<?php 
 			}
 		}
 		
@@ -283,6 +311,10 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 				case '2':	
 						// Login Theme 2
 						$loghorn_current_script	=	LOGHORN_CSS_URL.'loghorn_enqueue_script - sunrise'.'.css' ;
+						break;
+				case '3':	
+						// Login Theme 2
+						$loghorn_current_script	=	LOGHORN_CSS_URL.'loghorn_enqueue_script - forest'.'.css' ;
 						break;
 				default:	
 						// Either the values were not set, or invalid. Let's display our default theme!
@@ -358,23 +390,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		 */
 		function loghorn_get_form_shadow ( $loghorn_default_form_shadow = LOGHORN_DEFAULT_FORM_SHDW )	{
 			
-			// The settings for form shadow is stored in 'h-shadow:v-shadow:blur:spread:color' format. 
-			// An exception to above format is if 'none' is set. In this case, it is the only value present in the settings.
-			// Let's explode it to get the values:
-			$loghorn_form_shadow = explode (":" , self::$loghorn_settings [ LOGHORN_SETTINGS_FORM_SHDW ] ) ;
-			
-			if ( "none" == $loghorn_form_shadow [ 0 ] )		// Yoda says: "If 'none', the value is!"
-				// No shadows please!
-				return $loghorn_default_form_shadow ;
-			
-			// Let's get the values:
-			$loghorn_h_shadow	=	$loghorn_form_shadow [ 0 ]."px" ;
-			$loghorn_v_shadow	=	$loghorn_form_shadow [ 1 ]."px" ;
-			$loghorn_blur		=	$loghorn_form_shadow [ 2 ]."px" ;
-			$loghorn_spread		=	$loghorn_form_shadow [ 3 ]."px" ;
-			$loghorn_color		=	$loghorn_form_shadow [ 4 ] ;
-			
-			return "$loghorn_h_shadow $loghorn_v_shadow $loghorn_blur $loghorn_spread $loghorn_color" ;
+			return $this->loghorn_get_box_shadow ( LOGHORN_SETTINGS_FORM_SHDW , $loghorn_default_form_shadow ) ;
 		}
 		
 		/*
@@ -445,6 +461,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		 * Get the Border Thickness, style and color settings for the input text fields (username and password fields).
 		 */
 		function loghorn_get_input_border ( $loghorn_default_input_border = LOGHORN_DEFAULT_FORM_BORDR )	{
+			
 			return $this->loghorn_get_border ( LOGHORN_SETTINGS_INP_BORDR , $loghorn_default_input_border ) ;
 		}
 		
@@ -472,8 +489,115 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			return self::$loghorn_settings [ LOGHORN_SETTINGS_CB_RADIUS ]."px" ;
 		}
 		
+		/*
+		 * Get 'Log In' submit button width.
+		 */
+		function loghorn_get_button_width ( $loghorn_default_button_width = LOGHORN_DEFAULT_BUTTON_WIDTH )	{
+			
+			return self::$loghorn_settings [ LOGHORN_SETTINGS_SUBMIT_WIDTH ]."px" ;
+		}
+		 
+		/*
+		 * Get 'Log In' submit button text color.
+		 */
+		function loghorn_get_button_text_color ( $loghorn_state , $loghorn_default_button_text_color = LOGHORN_DEFAULT_BUTTON_TXT_COLR )	{
+			
+			switch ( $loghorn_state )	{
+					case LOGHORN_NORMAL_STATE :
+						return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_SUBMIT_TXT_COLR  , $loghorn_default_button_text_color ) ;
+						break ;
+					case LOGHORN_ON_HOVER :
+						return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_SUBMIT_COLR_HOVR , $loghorn_default_button_text_color ) ;
+						break ;
+					case LOGHORN_ON_ACTIVE :
+						return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_SUBMIT_COLR_ACTV , $loghorn_default_button_text_color ) ;
+						break ;
+					default :
+						return $loghorn_default_button_text_color ;
+			}
+		}
+		
+		/*
+		 * Get 'Log In' submit button text shadow effects.
+		 */
+		function loghorn_get_button_text_shadow ( $loghorn_state , $loghorn_default_button_text_shdw = LOGHORN_DEFAULT_BUTTON_TXT_SHDW )	{
+			
+			switch ( $loghorn_state )	{
+					case LOGHORN_NORMAL_STATE :
+						return $this->loghorn_get_txt_shadow ( LOGHORN_SETTINGS_SUBMIT_TXT_SHDW      , $loghorn_default_button_text_shdw ) ;
+						break ;
+					case LOGHORN_ON_HOVER :
+						return $this->loghorn_get_txt_shadow ( LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_HOVR , $loghorn_default_button_text_shdw ) ;
+						break ;
+					case LOGHORN_ON_ACTIVE :
+						return $this->loghorn_get_txt_shadow ( LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_ACTV , $loghorn_default_button_text_shdw ) ;
+						break ;
+					default :
+						return $loghorn_default_button_text_shdw ;
+			}
+		} 
+		
+		/*
+		 * Get 'Log In' submit button background color.
+		 */
+		function loghorn_get_button_bg_color ( $loghorn_state , $loghorn_default_button_color = LOGHORN_DEFAULT_BUTTON_BG_COLR )	{
+			
+			switch ( $loghorn_state )	{
+					case LOGHORN_NORMAL_STATE :
+						return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_SUBMIT_BG_COLR     , $loghorn_default_button_color ) ;
+						break ;
+					case LOGHORN_ON_HOVER :
+						return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR , $loghorn_default_button_color ) ;
+						break ;
+					case LOGHORN_ON_ACTIVE :
+						return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_SUBMIT_BG_COLR_ACTV , $loghorn_default_button_color ) ;
+						break ;
+					default :
+						return $loghorn_default_button_color ;
+			}
+		}
+		
+		/*
+		 * Get 'Log In' submit button border thickness, style and color.
+		 */
+		function loghorn_get_button_border ( $loghorn_state , $loghorn_default_button_border = LOGHORN_DEFAULT_BUTTON_BORDR )	{
+			
+			switch ( $loghorn_state )	{
+					case LOGHORN_NORMAL_STATE :
+						return $this->loghorn_get_border ( LOGHORN_SETTINGS_SUBMIT_BORDR , $loghorn_default_button_border ) ;
+						break ;
+					case LOGHORN_ON_HOVER :
+						return $this->loghorn_get_border ( LOGHORN_SETTINGS_SUBMIT_BORDR_HOVR , $loghorn_default_button_border ) ;
+						break ;
+					case LOGHORN_ON_ACTIVE :
+						return $this->loghorn_get_border ( LOGHORN_SETTINGS_SUBMIT_BORDR_ACTV , $loghorn_default_button_border ) ;
+						break ;
+					default :
+						return $loghorn_default_button_border ;
+			}
+		}
+		
+		/*
+		 * Get 'Log In' submit button corner radius.
+		 */
+		function loghorn_get_button_radius ( $loghorn_state , $loghorn_default_button_radius = 0 )	{
+			
+			switch ( $loghorn_state )	{
+					case LOGHORN_NORMAL_STATE :
+						return self::$loghorn_settings [ LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS ]."px" ;
+						break ;
+					case LOGHORN_ON_HOVER :
+						return self::$loghorn_settings [ LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS_HOVR ]."px" ;
+						break ;
+					case LOGHORN_ON_ACTIVE :
+						return self::$loghorn_settings [ LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS_ACTV ]."px" ;
+						break ;
+					default :
+						return $loghorn_default_button_radius."px" ;
+			}
+		}
 		/*************************************************************************************************************************************/
-		/**********************                            GENERIC FUNCTIONS                                   *******************************/
+		/**********************                        GENERIC UTILITY METHODS                                 *******************************/
 		/*************************************************************************************************************************************/
 		/*
 		 * Get an image URL.
@@ -523,7 +647,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		 */
 		function loghorn_rgba_settings ( $loghorn_settings_constant , $loghorn_default_rgba_colr )	{
 			
-			// This function reads the settings in 'red:green:blue:alpha' format and returns in ( r , g , b , a) format.
+			// This function reads the settings in 'red:green:blue:alpha' format and returns in 'rgba( r , g , b , a)' format.
 			// Let's explode the field to get the values:
 			$loghorn_rgb_settings	=	explode ( ":", self::$loghorn_settings [ $loghorn_settings_constant ] ) ;
 			
@@ -533,24 +657,14 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			$loghorn_b_hue	=	( int ) $loghorn_rgb_settings [ 2 ] ;
 			$loghorn_a_val	=	$loghorn_rgb_settings [ 3 ] ;
 			
-			// Cross check to verify if each color element is a valid integer and alpha value is a numeric one:
-			if ( is_int ($loghorn_r_hue) && is_int ($loghorn_g_hue) && is_int ($loghorn_b_hue) && is_numeric ($loghorn_a_val) )
-				// Good! Now check if they are within valid range:
-				if ( $loghorn_r_hue > 255 || $loghorn_g_hue > 255 || $loghorn_b_hue > 255 || 
-					 $loghorn_r_hue < 0   || $loghorn_g_hue < 0   || $loghorn_b_hue < 0   || 
-					 $loghorn_a_val < 0.0 || $loghorn_a_val > 1.0 )
-					// Oops, not a valid value! Return the default rgba value as set by the function default parameter.
-					$loghorn_rgba_colr = $loghorn_default_rgba_colr ;
-				else
-					// OK! We have valid integers (r,g,b) and numeric alpha values that are within the permissible range.
-					// Let's now contrsuct the return value based on these:
-					$loghorn_rgba_colr = "$loghorn_r_hue , $loghorn_g_hue , $loghorn_b_hue , $loghorn_a_val" ;
-			else
-				// Not integer RGB or a numeric alpha value! Return the default rgba value.
-				$loghorn_rgba_colr = $loghorn_default_rgba_colr ;
+			$loghorn_rgba_colr = $this->loghorn_verify_rgba_colors ( $loghorn_r_hue , $loghorn_g_hue , $loghorn_b_hue , $loghorn_a_val , $loghorn_default_rgba_colr ) ;
 			
 			return $loghorn_rgba_colr ;
 		}
+		
+		/*
+		 * Get the border settings from a 'WIDTH:BORDER-STYLE:Red:Green:Blue:Alpha' format field.
+		 */
 		
 		function loghorn_get_border ( $loghorn_settings_constant , $loghorn_default_border )	{
 			
@@ -572,6 +686,105 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			$loghorn_border_a_val	=	$loghorn_form_border [ 5 ] ;
 			
 			return "$loghorn_border_width $loghorn_border_style rgba( $loghorn_border_r_hue , $loghorn_border_g_hue , $loghorn_border_b_hue , $loghorn_border_a_val )";
+		}
+		
+		/*
+		 * Get the box shadow parameter for the login form.
+		 */
+		function loghorn_get_box_shadow ( $loghorn_settings_constant , $loghorn_default_box_shadow )	{
+			
+			// The settings for box shadow is stored in 'h-shadow:v-shadow:blur:spread:color' format. 
+			// An exception to above format is if 'none' is set. In this case, it is the only value present in the settings.
+			// Let's explode it to get the values:
+			
+			$loghorn_box_shadow = explode (":" , self::$loghorn_settings [ $loghorn_settings_constant ] ) ;
+			
+			if ( "none" == $loghorn_box_shadow [ 0 ] )		// Yoda says: "If 'none', the value is!"
+				// No shadows please!
+				return $loghorn_default_box_shadow ;
+			
+			// Let's get the values:
+			$loghorn_h_shadow	=	$loghorn_box_shadow [ 0 ]."px" ;
+			$loghorn_v_shadow	=	$loghorn_box_shadow [ 1 ]."px" ;
+			$loghorn_blur		=	$loghorn_box_shadow [ 2 ]."px" ;
+			$loghorn_spread		=	$loghorn_box_shadow [ 3 ]."px" ;
+			// color may be expressed as hex, or rgba in the settings.
+			if ( NULL == $loghorn_box_shadow [ 5 ] )	{
+				// just one parameter, which means, the color must have been expressed as a hex or by its englishname.
+				$loghorn_color	=	$loghorn_box_shadow [ 4 ] ;
+				return "$loghorn_h_shadow $loghorn_v_shadow $loghorn_blur $loghorn_spread $loghorn_color" ;
+			}
+			
+			// rgba values need to be extracted.
+			$loghorn_r_hue	=	( int ) $loghorn_box_shadow [ 4 ] ;
+			$loghorn_g_hue	=	( int ) $loghorn_box_shadow [ 5 ] ;
+			$loghorn_b_hue	=	( int ) $loghorn_box_shadow [ 6 ] ;
+			$loghorn_a_val	=	$loghorn_box_shadow [ 7 ] ;
+			
+			$loghorn_colr = $this->loghorn_verify_rgba_colors ( $loghorn_r_hue , $loghorn_g_hue , $loghorn_b_hue , $loghorn_a_val , "rgba( ".LOGHORN_DEFAULT_BUTTON_TXT_COLR." ) " );
+			
+			return "$loghorn_h_shadow $loghorn_v_shadow $loghorn_blur $loghorn_spread $loghorn_color" ;
+		}
+		
+		/*
+		 * Get the text shadow parameter for the login form.
+		 */
+		function loghorn_get_txt_shadow ( $loghorn_settings_constant , $loghorn_default_txt_shadow )	{
+			
+			// The settings for text shadow is stored in 'h-shadow:v-shadow:blur:color' format. 
+			// An exception to above format is if 'none' is set. In this case, it is the only value present in the settings.
+			// Let's explode it to get the values:
+			
+			$loghorn_txt_shadow = explode (":" , self::$loghorn_settings [ $loghorn_settings_constant ] ) ;
+			
+			if ( "none" == $loghorn_txt_shadow [ 0 ] )		// Yoda says: "If 'none', the value is!"
+				// No shadows please!
+				return $loghorn_default_txt_shadow ;
+			
+			// Let's get the values:
+			$loghorn_h_shadow	=	$loghorn_txt_shadow [ 0 ]."px" ;
+			$loghorn_v_shadow	=	$loghorn_txt_shadow [ 1 ]."px" ;
+			$loghorn_blur		=	$loghorn_txt_shadow [ 2 ]."px" ;
+			// color may be expressed as hex, or rgba in the settings.
+			if ( NULL == $loghorn_txt_shadow [ 4 ] )	{
+				// just one parameter, which means, the color must have been expressed as a hex or by its english name.
+				$loghorn_color	=	$loghorn_txt_shadow [ 3 ] ;
+				return "$loghorn_h_shadow $loghorn_v_shadow $loghorn_blur $loghorn_color" ;
+			}
+			
+			// rgba values need to be extracted.
+			$loghorn_r_hue	=	( int ) $loghorn_txt_shadow [ 3 ] ;
+			$loghorn_g_hue	=	( int ) $loghorn_txt_shadow [ 4 ] ;
+			$loghorn_b_hue	=	( int ) $loghorn_txt_shadow [ 5 ] ;
+			$loghorn_a_val	=	$loghorn_txt_shadow [ 6 ] ;
+			
+			$loghorn_color = $this->loghorn_verify_rgba_colors ( $loghorn_r_hue , $loghorn_g_hue , $loghorn_b_hue , $loghorn_a_val , "rgba( ".LOGHORN_DEFAULT_BUTTON_TXT_COLR." ) " );
+						
+			return "$loghorn_h_shadow $loghorn_v_shadow $loghorn_blur $loghorn_color" ;
+		}
+		
+		/*
+		 * Verify if the rgba values are valid or not. Returns 'rgba(red , green , blue , alpha )' if a valid value, default otherwise.
+		 */
+		function loghorn_verify_rgba_colors ( $loghorn_r_hue , $loghorn_g_hue , $loghorn_b_hue , $loghorn_a_val , $loghorn_default_rgba_colr )	{
+			
+			// Cross check to verify if each color element is a valid integer and alpha value is a numeric one:
+			if ( is_int ($loghorn_r_hue) && is_int ($loghorn_g_hue) && is_int ($loghorn_b_hue) && is_numeric ($loghorn_a_val) )
+				// Good! Now check if they are within valid range:
+				if ( $loghorn_r_hue > 255 || $loghorn_g_hue > 255 || $loghorn_b_hue > 255 || 
+					 $loghorn_r_hue < 0   || $loghorn_g_hue < 0   || $loghorn_b_hue < 0   || 
+					 $loghorn_a_val < 0.0 || $loghorn_a_val > 1.0 )
+					// Oops, not a valid value! Return the default rgba value as set by the function default parameter.
+					$loghorn_color = $loghorn_default_rgba_colr ;
+				else
+					// OK! We have valid integers (r,g,b) and numeric alpha values that are within the permissible range.
+					// Let's now contrsuct the return value based on these:
+					$loghorn_color = "rgba( $loghorn_r_hue , $loghorn_g_hue , $loghorn_b_hue , $loghorn_a_val )" ;
+			else
+				// Not integer RGB or a numeric alpha value! Return the default rgba value.
+				$loghorn_color = $loghorn_default_rgba_colr ;
+			
+			return $loghorn_color ;
 		}
 	} //class Log_Horn_Display ends here.
 	
