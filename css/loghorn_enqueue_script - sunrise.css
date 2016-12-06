@@ -2,14 +2,18 @@
 			background-image: url('http://127.0.0.1/FWP/FirstWordPress/wp-content/plugins/loghorn/images/sunrise.jpg');
 			background-repeat: no-repeat;
 			background-attachment: fixed;
-			background-position: right;
+			background-position: center;
 		}
 		
 		#login h1 a, 
 		.login h1 a{
 			/** User logo goes here:*/
-			background-image: url('http://127.0.0.1/FWP/FirstWordPress/wp-content/plugins/loghorn/images/gnu_80x80.png');
+			background-image: url('http://127.0.0.1/FWP/FirstWordPress/wp-content/plugins/loghorn/images/earth.png');
 			padding-bottom: 30px;
+			-webkit-background-size: 12px;
+			background-size: 12px;
+			height: 12px;
+			width: 12px;
 		}
 		
 		.login label {
@@ -59,7 +63,7 @@
 			background: -o-linear-gradient(top, #17a8e3, #17a8e3);
 			background-image: -ms-linear-gradient(top, #17a8e3 0%, #17a8e3 100%);
 			color: #ffffff;
-			-webkit-border-radius: 4px;
+			-webkit-border-radius: 50% !important;
 			border: 1px solid #0d9ed9;
 			opacity: 1.0 ;
 		}
@@ -101,9 +105,10 @@
 		#loginform { 
 			/** The main login form */
 			opacity: 0.85 ;					/* All elements in the login form would have this value of opacity */
+			width: 350px ;
 			background: #0a080f ;
-			border: 2px solid #0f9ed9;
-			border-color:#0000ff;
+			border: 2px solid #0000ff;
+			box-shadow: 1px 1px 6px 2px lightblue !important;
 			-webkit-border-radius: 15px;
 		}
 		

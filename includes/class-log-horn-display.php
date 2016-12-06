@@ -164,7 +164,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 						 * login form dimensions go here:
 						*/
 						#login {
-							width: <?php echo $loghorn_form_wd ; ?> !important ;
+							width: <?php _e ( $loghorn_form_wd ) ; ?> !important ;
 							padding: <?php echo $loghorn_form_pad ; ?> ;
 							margin: <?php echo $loghorn_form_mrgn ; ?>;
 						}
