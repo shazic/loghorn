@@ -1,14 +1,15 @@
 		body.login {
-			background-image: url('http://127.0.0.1/FWP/FirstWordPress/wp-content/plugins/loghorn/images/forest.jpg');
+			background-image: url('images/forest.jpg');
 			background-repeat: no-repeat;
 			background-attachment: fixed;
 			background-position: center;
+			background-size: cover;
 		}
 		
 		#login h1 a, 
 		.login h1 a{
 			/** User logo goes here:*/
-			background-image: url('http://127.0.0.1/FWP/FirstWordPress/wp-content/plugins/loghorn/images/gnu_80x80.png');
+			background-image: url('images/gnu_80x80.png');
 			padding-bottom: 30px;
 		}
 

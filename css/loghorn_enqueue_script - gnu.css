@@ -1,8 +1,9 @@
 		body.login {
-			background-image: url('http://127.0.0.1/FWP/FirstWordPress/wp-content/plugins/loghorn/images/GNU_charmer_1820x980.png');
+			background-image: url('images/GNU_charmer_1820x980.png');
 			background-repeat: no-repeat;
 			background-attachment: fixed;
 			background-position: center;
+			background-size: cover;
 		}
 		
 		.login label {
@@ -14,7 +15,7 @@
 		#login h1 a, 
 		.login h1 a{
 			/** User logo goes here:*/
-			background-image: url('http://127.0.0.1/FWP/FirstWordPress/wp-content/plugins/loghorn/images/gnu_80x80.png');
+			background-image: url('images/gnu_80x80.png');
 			padding-bottom: 30px;
 		}
 

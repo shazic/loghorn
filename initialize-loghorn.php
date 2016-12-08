@@ -15,7 +15,7 @@
 	 * All constants are checked if they have been already defined or not before assigning them values. 
 	 */
 	
-	/*********************************** BASIC DIRECTORIES **************************************/
+	/*********************************** BASIC DIRECTORIES ****************************************/
 	// Set the current file name:
     if  ( ! defined ( 'LOGHORN_FILE' )  )  {
          define ( 'LOGHORN_FILE' , __FILE__ ) ;
@@ -25,7 +25,7 @@
     if  ( ! defined (  'LOGHORN_DIR' )  )  {
 		define ( 'LOGHORN_DIR' , __DIR__.DIRECTORY_SEPARATOR ) ;
     }
-	/***********************************       URLs        **************************************/
+	/***********************************       URLs        ****************************************/
     // Set the plugin folder's URL:
     if  ( ! defined ( 'LOGHORN_URL' )  )  {
         define ( 'LOGHORN_URL' , plugin_dir_url ( LOGHORN_FILE )  ) ;
@@ -41,7 +41,7 @@
         define ( 'LOGHORN_CSS_URL' , LOGHORN_URL.'css/' ) ;	//For future use.
     }
 	
-	/***********************************      BASENAMES    **************************************/
+	/**************************************     BASENAMES    **************************************/
     // Set the basename:
     if  ( ! defined ( 'LOGHORN_BASENAME' )  )  {
         define (  'LOGHORN_BASENAME' , plugin_basename ( LOGHORN_FILE )  ) ;
@@ -51,7 +51,7 @@
     if  ( ! defined ( 'LOGHORN_BASE_DIRNAME' )  )  {
         define ( 'LOGHORN_BASE_DIRNAME' ,dirname ( LOGHORN_BASENAME )  ) ;
     }
-	/*********************************** OTHER DIRECTORIES **************************************/
+	/*********************************** OTHER DIRECTORIES ****************************************/
     // Set the admin directory name:
     if  ( ! defined ( 'LOGHORN_ADMIN_DIRNAME' )  )  {
         define ( 'LOGHORN_ADMIN_DIRNAME' , LOGHORN_DIR.'admin'.DIRECTORY_SEPARATOR ) ;	
@@ -67,7 +67,7 @@
         define ( 'LOGHORN_IMAGES_DIRNAME' , LOGHORN_DIR.'images'.DIRECTORY_SEPARATOR ) ;	
     }
 		
-	/***********************************  PLUGIN DEFAULTS  **************************************/
+	/***********************************  PLUGIN DEFAULTS  ****************************************/
 	// Set the logo image URL:
     if  ( ! defined ( 'LOGHORN_DEFAULT_LOGO_IMAGE' )  )  {
         define ( 'LOGHORN_DEFAULT_LOGO_IMAGE' , 'gnu_80x80.png' ) ;
@@ -94,7 +94,7 @@
 	}
 	// Set the default Form Color (Opaque White):
     if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_COLR' )  )  {
-        define ( 'LOGHORN_DEFAULT_FORM_COLR' , '255 , 255 , 255 , 1' ) ; // Read as R , G , B , A
+        define ( 'LOGHORN_DEFAULT_FORM_COLR' , 'rgba( 255 , 255 , 255 , 1 )' ) ; // Read as R , G , B , A
 	}
 	// Set the default Form Shadow:
     if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_SHDW' )  )  {
@@ -114,7 +114,7 @@
 	}
 	// Set the default Form Label Font color:
     if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_FONT_COLR' )  )  {
-        define ( 'LOGHORN_DEFAULT_FORM_FONT_COLR' , '100 , 100 , 100 , 1' ) ;
+        define ( 'LOGHORN_DEFAULT_FORM_FONT_COLR' , 'rgba( 100 , 100 , 100 , 1 )' ) ;
 	}
 	// Set the default 'Remeber Me' Check-Box Width:
     if  ( ! defined ( 'LOGHORN_DEFAULT_CB_WIDTH' )  )  {
@@ -130,7 +130,7 @@
 	}
 	// Set the default 'Log In' button text color:
     if  ( ! defined ( 'LOGHORN_DEFAULT_BUTTON_TXT_COLR' )  )  {
-        define ( 'LOGHORN_DEFAULT_BUTTON_TXT_COLR' , '255 , 255 , 255 , 1' ) ;
+        define ( 'LOGHORN_DEFAULT_BUTTON_TXT_COLR' , 'rgba( 255 , 255 , 255 , 1 )' ) ;
 	}
 	// Set the default 'Log In' button text shadow:
     if  ( ! defined ( 'LOGHORN_DEFAULT_BUTTON_TXT_SHDW' )  )  {
@@ -138,13 +138,16 @@
 	}
 	// Set the default 'Log In' button background color:
     if  ( ! defined ( 'LOGHORN_DEFAULT_BUTTON_BG_COLR' )  )  {
-        define ( 'LOGHORN_DEFAULT_BUTTON_BG_COLR' , '50 , 50 , 50 , 1' ) ;
+        define ( 'LOGHORN_DEFAULT_BUTTON_BG_COLR' , 'rgba( 50 , 50 , 50 , 1 )' ) ;
 	}
 	// Set the default Button Border Style :
     if  ( ! defined ( 'LOGHORN_DEFAULT_BUTTON_BORDR' )  )  {
         define ( 'LOGHORN_DEFAULT_BUTTON_BORDR' , '1px solid rgba(0,0,0,1)' ) ; // Stored as WIDTH BORDER-STYLE  rgba( R , G , B , A )
 	}
-	/**********************************  SETTINGS OPTIONS   *************************************/
+	/**********************************  SETTINGS OPTIONS   ***************************************
+	 * The below constants define the field/properties that can be customized through this plugin *
+	 **********************************************************************************************/
+	
 	// Set the CSS Theme Option label:
     if  ( ! defined ( 'LOGHORN_SETTINGS_CSS_THEME' )  )  {
 		define ( 'LOGHORN_SETTINGS_CSS_THEME' , 0 ) ;	
@@ -236,7 +239,7 @@
 	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW' )  )  {
 		define ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW' , 22 ) ;
 	}
-	// Set 'Log In' Submit Button Text Color Option label:
+	// Set 'Log In' Submit Button Background Color Option label:
 	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR' )  )  {
 		define ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR' , 23 ) ;
 	}
@@ -256,31 +259,118 @@
 	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS' )  )  {
 		define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS' , 27 ) ;
 	}
-	
-	
-
-
-define ( 'LOGHORN_SETTINGS_SUBMIT_COLR_HOVR' , 28 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_HOVR' , 29 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR' , 30 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG_HOVR' , 31 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY_HOVR' , 32 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_HOVR' , 33 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS_HOVR' , 34 ) ;
-
-define ( 'LOGHORN_SETTINGS_SUBMIT_COLR_ACTV' , 35 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_ACTV' , 36 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_ACTV' , 37 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG_ACTV' , 38 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY_ACTV' , 39 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_ACTV' , 40 ) ;
-define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS_ACTV' , 41 ) ;
-
-define ( 'LOGHORN_SETTINGS_LOST_PASS_FORM' , 42 ) ;
-define ( 'LOGHORN_SETTINGS_MSG_BG_COLR' , 43 ) ;
-define ( 'LOGHORN_SETTINGS_MSG_COLR' , 44 ) ;
-define ( 'LOGHORN_SETTINGS_MSG_TXT_SHDW' , 45 ) ;
-define ( 'LOGHORN_SETTINGS_MSG_OPACITY' , 46 ) ;
+	// Set 'Log In' Submit Button Text Color On Hover Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_COLR_HOVR' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_COLR_HOVR' , 28 ) ;
+	}
+	// Set 'Log In' Submit Button Text Shadow On Hover Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_HOVR' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_HOVR' , 29 ) ;
+	}
+	// Set 'Log In' Submit Button Background Color On Hover Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR' , 30 ) ;
+	}
+	// Set 'Log In' Submit Button Background Image On Hover Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG_HOVR' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG_HOVR' , 31 ) ;
+	}
+	// Set 'Log In' Submit Button Opacity On Hover Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY_HOVR' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY_HOVR' , 32 ) ;
+	}
+	// Set 'Log In' Submit Button Border On Hover Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_HOVR' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_HOVR' , 33 ) ;
+	}
+	// Set 'Log In' Submit Button Border Radius On Hover Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS_HOVR' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS_HOVR' , 34 ) ;
+	}
+	// Set 'Log In' Submit Button Text Color On Active Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_COLR_ACTV' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_COLR_ACTV' , 35 ) ;
+	}
+	// Set 'Log In' Submit Button Text Shadow On Active Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_ACTV' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_ACTV' , 36 ) ;
+	}
+	// Set 'Log In' Submit Button Background Color On Active Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_ACTV' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_ACTV' , 37 ) ;
+	}
+	// Set 'Log In' Submit Button Background Image On Active Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG_ACTV' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BG_IMG_ACTV' , 38 ) ;
+	}
+	// Set 'Log In' Submit Button Opacity On Active Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY_ACTV' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_OPACITY_ACTV' , 39 ) ;
+	}
+	// Set 'Log In' Submit Button Border On Active Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_ACTV' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_ACTV' , 40 ) ;
+	}
+	// Set 'Log In' Submit Button Border Radius On Active Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS_ACTV' )  )  {
+		define ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_RADIUS_ACTV' , 41 ) ;
+	}
+	// Set 'Lost Password' Form Option label:	-> This is not needed, since the Lost Password Form uses the same settings as Login Form.
+	if  ( ! defined ( 'LOGHORN_SETTINGS_LOST_PASS_FORM' )  )  {
+		define ( 'LOGHORN_SETTINGS_LOST_PASS_FORM' , 42 ) ;
+	}
+	// Set Messages Background Color Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_BG_COLR' )  )  {
+		define ( 'LOGHORN_SETTINGS_MSG_BG_COLR' , 43 ) ;
+	}
+	// Set Messages Text Color Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_COLR' )  )  {
+		define ( 'LOGHORN_SETTINGS_MSG_COLR' , 44 ) ;
+	}
+	// Set Messages Text Shadow Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_TXT_SHDW' )  )  {
+		define ( 'LOGHORN_SETTINGS_MSG_TXT_SHDW' , 45 ) ;
+	}
+	// Set Message Box Opacity Option label:	-> not needed
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_OPACITY' )  )  {
+		define ( 'LOGHORN_SETTINGS_MSG_OPACITY' , 46 ) ;
+	}
+	// Set Message Box Border Radius Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_BRDR_RAD' )  )  {
+		define ( 'LOGHORN_SETTINGS_MSG_BRDR_RAD' , 47 ) ;
+	}
+	// Set Message Box Left Border Style Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_L_BRDR' )  )  {
+		define ( 'LOGHORN_SETTINGS_MSG_L_BRDR' , 48 ) ;
+	}
+	// Set Message Box Right Border Style Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_R_BRDR' )  )  {
+		define ( 'LOGHORN_SETTINGS_MSG_R_BRDR' , 49 ) ;
+	}
+	// Set Message Box Top Border Style Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_T_BRDR' )  )  {
+		define ( 'LOGHORN_SETTINGS_MSG_T_BRDR' , 50 ) ;
+	}
+	// Set Message Box Bottom Border Style Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_B_BRDR' )  )  {
+		define ( 'LOGHORN_SETTINGS_MSG_B_BRDR' , 51 ) ;
+	}
+	// Set Error Message Box Left Border Style Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_L_BRDR' )  )  {
+		define ( 'LOGHORN_SETTINGS_ERR_L_BRDR' , 52 ) ;
+	}
+	// Set Error Message Box Right Border Style Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_R_BRDR' )  )  {
+		define ( 'LOGHORN_SETTINGS_ERR_R_BRDR' , 53 ) ;
+	}
+	// Set Error Message Box Top Border Style Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_T_BRDR' )  )  {
+		define ( 'LOGHORN_SETTINGS_ERR_T_BRDR' , 54 ) ;
+	}
+	// Set Error Message Box Bottom Border Style Option label:
+	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_B_BRDR' )  )  {
+		define ( 'LOGHORN_SETTINGS_ERR_B_BRDR' , 55 ) ;
+	}
 
 	/**********************************   OTHER CONSTANTS   *************************************/
 	

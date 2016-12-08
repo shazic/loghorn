@@ -55,8 +55,8 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			#explode (";" , get_option('loghorn_settings') ) 
 			// Debug info
 			explode (";" , 
-					"3;Bull_GraphicMama_team_80x80.png;sunrise.jpg;320;80% 0 0;auto;55:255:255:0.5;0:0:10:2:lightblue;2:solid:90:158:217:1;15;16:showcard gothic;0:0:200:1;10;16:courier new;0:0:200:1;200:200:200:0.45;1:solid:0:90:250:1;16;16;05;080;000:000:200:1;1:1:2:010:010:010:1;200:200:200:1;none;1;1:solid:13:158:217:1;04;020:020:020:1;1:1:2:200:000:000:1;013:160:210:1;none;01;1:solid:13:158:217:1;04;255:255:255:1;1:1:2:200:000:000:1;013:160:210:1;none;01;1:solid:13:158:217:1;04"
-					//;                1              ;      2    ; 3 ;   4   ; 5  ;      6       ;        7         ;         8          ; 9;    10            ;    11   ;12;      13      ;   14    ;      15        ;       16         ;17;18;19; 20;     21      ;         22        ;      23     ; 24 ; ;        26          ;27;    28       ;         29        ;     30      ; 31 ;32;       33           ;34;     35      ;       36          ;     37      ; 38 ;39;       40           ;41
+					"0;Bull_GraphicMama_team_80x80.png;cowboys.jpg;320;80% 0 0;auto;55:025:025:0.5;0:0:10:2:orange;2:solid:255:165:00:1;15;16:showcard gothic;255:165:000:1;10;16:courier new;0:0:200:1;200:200:200:0.45;1:solid:255:165:000:1;16;16;05;130;255:255:255:1;1:1:2:010:010:010:1;255:165:000:1;none;1;1:solid:13:158:217:1;04;020:020:020:1;1:1:2:200:000:000:1;013:160:210:1;none;01;1:solid:13:158:217:1;04;255:255:255:1;1:1:2:200:000:000:1;013:160:210:1;none;01;1:solid:13:158:217:1;04;0000;255:155:000:0.85;255:255:050:1"
+					//;                1              ;      2    ; 3 ;   4   ; 5  ;      6       ;        7      ;         8          ; 9;    10            ;    11       ;12;      13      ;   14    ;      15        ;       16            ;17;18;19; 20;     21      ;         22        ;      23     ; 24 ; ;        26          ;27;    28       ;         29        ;     30      ; 31 ;32;       33           ;34;     35      ;       36          ;     37      ; 38 ;39;       40           ;41; 42 ;      43        ;     44      ;
 					)	// Debug info
 			;
 		}
@@ -140,7 +140,10 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 					//$loghorn_butn_opacity_a	= $this->loghorn_get_button_opacity		( LOGHORN_ON_ACTIVE ) ;	// 'Log In' button opacity. Not used currently, since loghorn_butn_bg_colr provides this through rgba.
 					$loghorn_butn_bordr_a		= $this->loghorn_get_button_border		( LOGHORN_ON_ACTIVE ) ;  // 'Log In' button border: On Active.
 					$loghorn_butn_radius_a		= $this->loghorn_get_button_radius		( LOGHORN_ON_ACTIVE ) ;  // 'Log In' button corner radius: On Active.
-					echo $loghorn_form_bg_colr."<br>" ;
+					// Message Box:
+					$loghorn_msg_bg_colr		= $this->loghorn_get_msg_bg_color		(  ) ;  // Messages Background Color.
+					$loghorn_msg_lbl_colr		= $this->loghorn_get_msg_lbl_color		(  ) ;  // Messages text Color.
+					_e ( $loghorn_msg_lbl_colr."<br>" ) ;
 ?>
 					<style type="text/css" >
 						/** 
@@ -148,48 +151,49 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 						 */
 						#login h1 a, 
 						.login h1 a{
-							background-image: url(<?php echo esc_url( $loghorn_logo_file ) ; ?>);
+							background-image: url(<?php _e ( esc_url( $loghorn_logo_file ) ) ; ?>);
 							padding-bottom: 30px;
 						}
 						/** 
 						 * background image goes here:
 						*/ 
 						body.login {
-							background-image: url(<?php echo esc_url( $loghorn_bg_file ) ; ?>) ;
+							background-image: url(<?php _e ( esc_url( $loghorn_bg_file ) ) ; ?>) ;
 							background-repeat: no-repeat;
 							background-attachment: fixed;
 							background-position: center;
+							background-size: cover;
 						} 
 						/** 
 						 * login form dimensions go here:
 						*/
 						#login {
 							width: <?php _e ( $loghorn_form_wd ) ; ?> !important ;
-							padding: <?php echo $loghorn_form_pad ; ?> ;
-							margin: <?php echo $loghorn_form_mrgn ; ?>;
+							padding: <?php _e ( $loghorn_form_pad ) ; ?> ;
+							margin: <?php _e ( $loghorn_form_mrgn ) ; ?>;
 						}
 						/*
 						 * the main login form design:
 						 */
 						#loginform { 
-							background-color: <?php echo $loghorn_form_bg_colr ; ?> ;
-							box-shadow: <?php echo $loghorn_form_shdw ; ?> ;
-							border: <?php echo $loghorn_form_bordr ; ?> ;
-							-webkit-border-radius: <?php echo $loghorn_form_bordr_rad ; ?> ;
+							background-color: <?php _e ( $loghorn_form_bg_colr ) ; ?> ;
+							box-shadow: <?php _e ( $loghorn_form_shdw ) ; ?> ;
+							border: <?php _e ( $loghorn_form_bordr ) ; ?> ;
+							-webkit-border-radius: <?php _e ( $loghorn_form_bordr_rad ) ; ?> ;
 						}
 						/*
 						 * login form label (username, password, and remember me labels): 
 						 */
 						#loginform label{ 
-							font: <?php echo $loghorn_form_lbl_font ; ?> ;
-							color: <?php echo $loghorn_form_lbl_colr ; ?> ;
+							font: <?php _e ( $loghorn_form_lbl_font ) ; ?> ;
+							color: <?php _e ( $loghorn_form_lbl_colr ) ; ?> ;
 						}
 						/*
 						 * Username and Password text-box: 
 						 */			
 						.login input[type="text"] ,
 						.login input[type="password"]	{
-							-webkit-border-radius: <?php echo $loghorn_input_radius ; ?> ; 
+							-webkit-border-radius: <?php _e ( $loghorn_input_radius ) ; ?> ; 
 						}
 						/*
 						 * Login text-box: username and password
@@ -197,7 +201,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 						#user_login ,
 						#user_pass	{
 						/** These values will override the one above since it is more specific */
-							font: <?php echo $loghorn_input_font ; ?> ;
+							font: <?php _e ( $loghorn_input_font ) ; ?> ;
 						}
 						/*
 						 * Input fields: common attributes 
@@ -205,85 +209,98 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 						#user_login ,
 						#user_pass ,
 						#rememberme	{
-							color: <?php echo $loghorn_input_font_colr ; ?> ;
-							background-color: <?php echo $loghorn_input_bg_colr ; ?>  ; 
-							border: <?php echo $loghorn_input_border ; ?> ; 
+							color: <?php _e ( $loghorn_input_font_colr ) ; ?> ;
+							background-color: <?php _e ( $loghorn_input_bg_colr ) ; ?>  ; 
+							border: <?php _e ( $loghorn_input_border ) ; ?> ; 
 						}
 						/*
 						 * Login check-box: Remember Me 
 						 */
 						#rememberme {
-							width: <?php echo $loghorn_cb_width ; ?> ; 
-							height: <?php echo $loghorn_cb_height ; ?> ; 
-							-webkit-border-radius: <?php echo $loghorn_cb_radius ; ?> ; 
+							width: <?php _e ( $loghorn_cb_width ) ; ?> ; 
+							height: <?php _e ( $loghorn_cb_height ) ; ?> ; 
+							/* -webkit-border-radius: <?php _e ( $loghorn_cb_radius ) ; ?> ; */
+							border-top-left-radius: <?php _e ( $loghorn_cb_radius ) ; ?> ; 
+							border-bottom-left-radius: <?php _e ( $loghorn_cb_radius ) ; ?> ; 
+							border-top-right-radius: <?php _e ( $loghorn_cb_radius ) ; ?> ; 
+							border-bottom-right-radius: <?php _e ( $loghorn_cb_radius ) ; ?> ;  
 						}
 						/*
 						 * Primary button:
 						 */
 						.login .button-primary {
-							width: <?php echo $loghorn_butn_wd ; ?> ; 
+							width: <?php _e ( $loghorn_butn_wd ) ; ?> ; 
 							float: right !important;
-							color: <?php echo $loghorn_butn_text_colr ; ?> !important ;
-							background-color: <?php echo $loghorn_butn_bg_colr ; ?> !important;
-							text-shadow: <?php echo $loghorn_butn_text_shdw ; ?> !important ;
-							/* background-image: <?php echo $loghorn_butn_bg_img ; ?> ; */
-							/* opacity: <?php echo $loghorn_butn_opacity ; ?> ; */
-							border: <?php echo $loghorn_butn_bordr ; ?> !important; 
-							-webkit-border-radius: <?php echo $loghorn_butn_radius ; ?> !important; 
+							color: <?php _e ( $loghorn_butn_text_colr ) ; ?> !important ;
+							background-color: <?php _e ( $loghorn_butn_bg_colr ) ; ?> !important;
+							text-shadow: <?php _e ( $loghorn_butn_text_shdw ) ; ?> !important ;
+							/* background-image: <?php _e ( $loghorn_butn_bg_img ) ; ?> ; */
+							/* opacity: <?php _e ( $loghorn_butn_opacity ) ; ?> ; */
+							border: <?php _e ( $loghorn_butn_bordr ) ; ?> !important; 
+							-webkit-border-radius: <?php _e ( $loghorn_butn_radius ) ; ?> !important; 
 						}
 						/*
 						 * Primary button: on-hover action
 						 */
 						.login .button-primary:hover {
-							color: <?php echo $loghorn_butn_text_colr_h ; ?> !important ;
-							background-color:<?php echo $loghorn_butn_bg_colr_h ; ?> !important;
-							text-shadow: <?php echo $loghorn_butn_text_shdw_h ; ?> !important ;
-							/* background-image: <?php echo $loghorn_butn_bg_img_h ; ?> ; */
-							/* opacity: <?php echo $loghorn_butn_opacity_h ; ?> ; */
-							-webkit-border-radius: <?php echo $loghorn_butn_radius_h ; ?> !important; 
-							border: <?php echo $loghorn_butn_bordr_h ; ?> !important; /*1px solid #0d9ed9;*/
+							color: <?php _e ( $loghorn_butn_text_colr_h ) ; ?> !important ;
+							background-color:<?php _e ( $loghorn_butn_bg_colr_h ) ; ?> !important;
+							text-shadow: <?php _e ( $loghorn_butn_text_shdw_h ) ; ?> !important ;
+							/* background-image: <?php _e ( $loghorn_butn_bg_img_h ) ; ?> ; */
+							/* opacity: <?php _e ( $loghorn_butn_opacity_h ) ; ?> ; */
+							-webkit-border-radius: <?php _e ( $loghorn_butn_radius_h ) ; ?> !important; 
+							border: <?php _e ( $loghorn_butn_bordr_h ) ; ?> !important; 
 						}
 						/*
 						 * Primary button: on-active action
 						 */
 						.login .button-primary:active {
-							color: <?php echo $loghorn_butn_text_colr_a ; ?> !important ;
-							background-color:<?php echo $loghorn_butn_bg_colr_a ; ?> !important;
-							text-shadow: <?php echo $loghorn_butn_text_shdw_a ; ?> !important ;
-							/* background-image: <?php echo $loghorn_butn_bg_img_a ; ?> ; */
-							/* opacity: <?php echo $loghorn_butn_opacity_a ; ?> ; */
-							-webkit-border-radius: <?php echo $loghorn_butn_radius_a ; ?> !important; 
-							border: <?php echo $loghorn_butn_bordr_a ; ?> !important; 
+							color: <?php _e ( $loghorn_butn_text_colr_a ) ; ?> !important ;
+							background-color:<?php _e ( $loghorn_butn_bg_colr_a ) ; ?> !important;
+							text-shadow: <?php _e ( $loghorn_butn_text_shdw_a ) ; ?> !important ;
+							/* background-image: <?php _e ( $loghorn_butn_bg_img_a ) ; ?> ; */
+							/* opacity: <?php _e ( $loghorn_butn_opacity_a ) ; ?> ; */
+							-webkit-border-radius: <?php _e ( $loghorn_butn_radius_a ) ; ?> !important; 
+							border: <?php _e ( $loghorn_butn_bordr_a ) ; ?> !important; 
 						}
-				
+						/*
+						 * The forgot password form that asks for username
+						 */
 						#lostpasswordform	{ 
-						/** The forgot password form that asks for username*/
-							background: rgba( <?php echo $loghorn_form_bg_colr ; ?> ) !important;
-							box-shadow: <?php echo $loghorn_form_shdw ; ?> ;
-							border: <?php echo $loghorn_form_bordr ; ?> ;
-							-webkit-border-radius: <?php echo $loghorn_form_bordr_rad ; ?> ;
+							background: <?php _e ( $loghorn_form_bg_colr ) ; ?> !important;
+							box-shadow: <?php _e ( $loghorn_form_shdw ) ; ?> ;
+							border: <?php _e ( $loghorn_form_bordr ) ; ?> ;
+							-webkit-border-radius: <?php _e ( $loghorn_form_bordr_rad ) ; ?> ;
 						}
+						/*
+						 * The label style for the forgot password form 
+						 */
 						#lostpasswordform label{ 
-							font: <?php echo $loghorn_form_lbl_font ; ?> ;
-							color: rgba( <?php echo $loghorn_form_lbl_colr ; ?> ) ;
+							font: <?php _e ( $loghorn_form_lbl_font ) ; ?> ;
+							color: <?php _e ( $loghorn_form_lbl_colr ) ; ?> ;
 						}
+						/*
+						 * The Errors and messages
+						 */
 						.login .message,
 						.login #login_error	{
-						/** Errors and messages */
-							background-color: #0a080f !important;
-							color: #005555;
+							background-color: <?php _e ( $loghorn_msg_bg_colr ) ; ?> !important;
+							color: <?php _e ( $loghorn_msg_lbl_colr ) ; ?> ;;
 							text-shadow: none;
-							border-left: 5px solid #00a0d2;
-							border-right: 5px solid #00a0d2;
-							border-top: 5px solid #00a0d2;
+							border-radius: 8px;
+							border-left: none !important;
+							border-right: none;
+							border-top: none;
 							border-bottom: 5px solid #00a0d2;
-							-webkit-border-radius: 15px;
-							opacity: 0.85;
 						}
-		
+						/*
+						 * The Error messages
+						 */
 						.login #login_error {
-						/** Error message */
-							border-color: #dc3232 ;
+							border-left: none !important;
+							border-right: none;
+							border-top: none;
+							border-bottom: 5px solid #dc3232 ;
 						}
 					</style>
 			
@@ -595,6 +612,22 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 					default :
 						return $loghorn_default_button_radius."px" ;
 			}
+		}
+		
+		/*
+		 * Get Messages Background Color .
+		 */
+		function loghorn_get_msg_bg_color ( $loghorn_default_msg_bg_color = LOGHORN_DEFAULT_FORM_COLR )	{
+			
+			return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_MSG_BG_COLR , $loghorn_default_msg_bg_color ) ;
+		}
+		
+		/*
+		 * Get Messages Text Color .
+		 */
+		function loghorn_get_msg_lbl_color ( $loghorn_default_msg_txt_color = LOGHORN_DEFAULT_FORM_FONT_COLR )	{
+			
+			return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_MSG_COLR , $loghorn_default_msg_txt_color ) ;
 		}
 		/*************************************************************************************************************************************/
 		/**********************                        GENERIC UTILITY METHODS                                 *******************************/
