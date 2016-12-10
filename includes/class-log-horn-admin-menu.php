@@ -52,7 +52,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 								'manage_options', 							// capability
 								'class-log-horn-admin-menu.php', 			// menu-slug
 								array ( $this, 'loghorn_plugin_options' ), 	// function
-								'dashicons-welcome-view-site'							// icon (used WordPress dashicons)
+								'dashicons-welcome-view-site'				// icon (used WordPress dashicons)
 						);
 			}
 		}
@@ -64,29 +64,37 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			
 			wp_enqueue_style( 'wpb-fa', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
+			
+			$loghorn_lg = $_POST["loghorn_custom_logo"] ;
+			
 			_e ( '<div class="wrap">' ) ; ?>
 			
 			
 			<h2>Log Horn Options</h2>
-			<form method="post" action="options.php">
+			<form method="post" action="settings.php">
 			<?php settings_fields( 'loghorn-settings-group' ); ?>
 			<?php do_settings_sections( 'loghorn-settings-group' ); ?>
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row">Logo File</th>
 					<td>
-					<input type="file" id="loghorn_logo_browse" name="loghorn_logo_fileupload" style="display: none" onChange="HandleLogochange();"/>
-					<input type="text" id="loghorn_logo_filename" name="loghorn_custom_logo" value="<?php echo esc_attr( get_option('loghorn_custom_logo') ); ?>" placeholder="Logo Filename" />
-					<input type="button" value="..." id="loghorn_logo_browse_button" onclick="HandleLogoBrowseClick();"/>
+						<input type="file" id="loghorn_logo_browse" name="loghorn_logo_fileupload" style="display: none" onChange="HandleLogochange();"/>
+						<input type="text" id="loghorn_logo_filename" name="loghorn_custom_logo" value="<?php echo esc_attr( get_option('loghorn_custom_logo') ); ?>" placeholder="Logo Filename" />
+						<a id="loghorn_logo_browse_button" class="btn btn-primary" onclick="HandleLogoBrowseClick();">
+							<i class="fa fa-upload" aria-hidden="true"></i>
+						</a>
 					</td>
 				</tr>
-				
+				<p style="clear:both"></p>
 				<tr valign="top">
 					<th scope="row">Background File</th>
 					<td>
 					<input type="file" id="loghorn_bg_browse" name="loghorn_bg_fileupload" style="display: none" onChange="HandleBGchange();"/>
 					<input type="text" id="loghorn_bg_filename" name="loghorn_custom_background" value="<?php echo esc_attr( get_option('loghorn_custom_background') ); ?>" placeholder="Background Filename" />
-					<input type="button" value="..." id="loghorn_bg_browse_button" onclick="HandleBGBrowseClick();"/>
+					<!--input type="button" value="..." id="loghorn_bg_browse_button" onclick="HandleBGBrowseClick();"/-->
+					<a id="loghorn_bg_browse_button" class="btn btn-primary" onclick="HandleBGBrowseClick();">
+							<i class="fa fa-upload" aria-hidden="true"></i>
+					</a>
 					</td>
 				</tr>
 			</table>
@@ -126,37 +134,39 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 
 			</script>
 			<?php $current_color = get_user_option( 'admin_color' ); 
-				echo $current_color ;?>
+				$loghorn_lg = "drake" ;
+				echo $current_color."<br>".$loghorn_lg ;?>
 			<style type="text/css" >
-						/** 
-						 * user logo goes here:
-						 */
-						#loghorn_logo_browse_button	{
-							background-color:lightgreen;
-							color: #fff;
-							-webkit-border-radius: 5px;
-							border: 2px solid green;
-							opacity: 0.9 ; 
-						}
+						#loghorn_logo_browse_button ,
 						#loghorn_bg_browse_button	{
-							background-color:lightblue ;
-							color: #fff;
-							-webkit-border-radius: 5px;
-							border: 2px solid blue;
+							background-color: #4682b4 ;			/* steelblue */
+							color: #202020 ;
+							padding: 10px ;
 						}
-						#loghorn_logo_filename	{
-							background-color:#f0f099 !important;
+						#loghorn_logo_browse_button:hover ,
+						#loghorn_bg_browse_button:hover	{
+							background-color: #4682c4 ;			
+							color: #000 ;						/* black */
+							border: 2px solid rgba(0,0,0,0) ;	/* invisible border */
+							
+						}
+						#loghorn_logo_browse_button:active ,
+						#loghorn_bg_browse_button:active	{
+							background-color: #4682b4;			/* steelblue */
 							color: #000;
-							width: 300px;
-							-webkit-border-radius: 5px;
-							border: 2px solid #000000;
+							border: 2px solid rgba(0,0,0,0);	/* invisible border */
+							transition-duration: 0.1s;
 						}
+						#loghorn_logo_filename ,
 						#loghorn_bg_filename	{
-							background-color:#f0f099 !important;
-							color: #000;
+							background-color: #b0c4de ;			/* lightsteelblue */
+							color: #000000;						/* steelblue */
 							width: 300px;
-							-webkit-border-radius: 5px;
-							border: 2px solid #000000;
+							padding: 10px ; 
+						}
+						#loghorn_logo_filename:focus ,
+						#loghorn_bg_filename:focus	{
+							border-left: 4px solid #4682b4;		/* steelblue */
 						}
 			</style>
 			<!-- Template
@@ -170,9 +180,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_plugin_settings()	{
 			
-			/*register_setting( 'loghorn-settings-group', 'loghorn_custom_logo' );
-			register_setting( 'loghorn-settings-group', 'loghorn_custom_background' ); */
-			register_setting( 'loghorn-settings-group', 'loghorn_settings' );
+			register_setting( 'loghorn-settings-group', 'loghorn_custom_logo' );
+			register_setting( 'loghorn-settings-group', 'loghorn_custom_background' ); 
 		}
 		
 	} //class Log_Horn_Admin_Menu ends here.
