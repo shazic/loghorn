@@ -52,12 +52,12 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		function loghorn_get_settings()	{
 			
 			self::$loghorn_settings = 
-			#explode (";" , get_option('loghorn_settings') ) 
-			// Debug info
+			explode (";" , get_option('loghorn_settings') ) 
+			/* Debug info
 			explode (";" , 
 					"0;Bull_GraphicMama_team_80x80.png;cowboys.jpg;320;80% 0 0;auto;55:025:025:0.5;0:0:10:2:orange;2:solid:255:165:00:1;15;16:showcard gothic;255:165:000:1;10;16:courier new;0:0:200:1;200:200:200:0.45;1:solid:255:165:000:1;16;16;05;130;255:255:255:1;1:1:2:010:010:010:1;255:165:000:1;none;1;1:solid:13:158:217:1;04;020:020:020:1;1:1:2:200:000:000:1;013:160:210:1;none;01;1:solid:13:158:217:1;04;255:255:255:1;1:1:2:200:000:000:1;013:160:210:1;none;01;1:solid:13:158:217:1;04;0000;255:155:000:0.85;255:255:050:1"
 					//;                1              ;      2    ; 3 ;   4   ; 5  ;      6       ;        7      ;         8          ; 9;    10            ;    11       ;12;      13      ;   14    ;      15        ;       16            ;17;18;19; 20;     21      ;         22        ;      23     ; 24 ; ;        26          ;27;    28       ;         29        ;     30      ; 31 ;32;       33           ;34;     35      ;       36          ;     37      ; 38 ;39;       40           ;41; 42 ;      43        ;     44      ;
-					)	// Debug info
+					)	// Debug info */
 			;
 		}
 		
@@ -143,7 +143,6 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 					// Message Box:
 					$loghorn_msg_bg_colr		= $this->loghorn_get_msg_bg_color		(  ) ;  // Messages Background Color.
 					$loghorn_msg_lbl_colr		= $this->loghorn_get_msg_lbl_color		(  ) ;  // Messages text Color.
-					_e ( $loghorn_msg_lbl_colr."<br>" ) ;
 ?>
 					<style type="text/css" >
 						/** 
@@ -287,7 +286,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 							background-color: <?php _e ( $loghorn_msg_bg_colr ) ; ?> !important;
 							color: <?php _e ( $loghorn_msg_lbl_colr ) ; ?> ;;
 							text-shadow: none;
-							border-radius: 8px;
+							border-radius: 0px;
 							border-left: none !important;
 							border-right: none;
 							border-top: none;
