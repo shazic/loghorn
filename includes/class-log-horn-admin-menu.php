@@ -20,7 +20,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
   
 	class Log_Horn_Admin_Menu	{
 		
-		private static $loghorn_custom_logo ;		// stores the name of the logo file.
+		private static $loghorn_settings ;		// stores the plugin settings.
 		
 		/**
 		 * Constructor: All initializations occur here.
@@ -63,42 +63,18 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 			}
 			
-			wp_enqueue_style( 'wpb-fa', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
+			wp_enqueue_style( 'wpb-fa' , 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
 			
-			$loghorn_lg = $_POST["loghorn_custom_logo"] ;
-			
+			self::$loghorn_settings = get_option ( 'loghorn_settings2' ) ;
 			_e ( '<div class="wrap">' ) ; ?>
 			
 			
 			<h2>Log Horn Options</h2>
-			<form method="post" action="settings.php">
-			<?php settings_fields( 'loghorn-settings-group' ); ?>
-			<?php do_settings_sections( 'loghorn-settings-group' ); ?>
+			<form method="post" action="options.php">
+			<?php settings_fields( 'loghorn_settings_group' ); ?>
+			<?php do_settings_sections( 'loghorn_settings_sections' ); ?>
 			<table class="form-table">
-				<tr valign="top">
-					<th scope="row">Logo File</th>
-					<td>
-						<input type="file" id="loghorn_logo_browse" name="loghorn_logo_fileupload" style="display: none" onChange="HandleLogochange();"/>
-						<input type="text" id="loghorn_logo_filename" name="loghorn_custom_logo" value="<?php echo esc_attr( get_option('loghorn_custom_logo') ); ?>" placeholder="Logo Filename" />
-						<a id="loghorn_logo_browse_button" class="btn btn-primary" onclick="HandleLogoBrowseClick();">
-							<i class="fa fa-upload" aria-hidden="true"></i>
-						</a>
-					</td>
-				</tr>
-				<p style="clear:both"></p>
-				<tr valign="top">
-					<th scope="row">Background File</th>
-					<td>
-					<input type="file" id="loghorn_bg_browse" name="loghorn_bg_fileupload" style="display: none" onChange="HandleBGchange();"/>
-					<input type="text" id="loghorn_bg_filename" name="loghorn_custom_background" value="<?php echo esc_attr( get_option('loghorn_custom_background') ); ?>" placeholder="Background Filename" />
-					<!--input type="button" value="..." id="loghorn_bg_browse_button" onclick="HandleBGBrowseClick();"/-->
-					<a id="loghorn_bg_browse_button" class="btn btn-primary" onclick="HandleBGBrowseClick();">
-							<i class="fa fa-upload" aria-hidden="true"></i>
-					</a>
-					</td>
-				</tr>
 			</table>
-    
 			<?php submit_button(); ?>
 			</form>
 			
@@ -133,19 +109,19 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					}
 
 			</script>
-			<?php $current_color = get_user_option( 'admin_color' ); 
-				$loghorn_lg = "drake" ;
-				echo $current_color."<br>".$loghorn_lg ;?>
+			<?php $current_color = get_user_option( 'admin_color' ); // Debug info
+				$loghorn_lg = "drake" ;	// Debug info
+				echo $current_color."<br>".$loghorn_lg ; // Debug info ?> 
 			<style type="text/css" >
 						#loghorn_logo_browse_button ,
 						#loghorn_bg_browse_button	{
 							background-color: #4682b4 ;			/* steelblue */
-							color: #202020 ;
+							color: #303030 ;
 							padding: 10px ;
 						}
 						#loghorn_logo_browse_button:hover ,
 						#loghorn_bg_browse_button:hover	{
-							background-color: #4682c4 ;			
+							background-color: #4682d4 ;			
 							color: #000 ;						/* black */
 							border: 2px solid rgba(0,0,0,0) ;	/* invisible border */
 							
@@ -155,7 +131,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 							background-color: #4682b4;			/* steelblue */
 							color: #000;
 							border: 2px solid rgba(0,0,0,0);	/* invisible border */
-							transition-duration: 0.1s;
+							transition-duration: 0.2s;
 						}
 						#loghorn_logo_filename ,
 						#loghorn_bg_filename	{
@@ -180,10 +156,46 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_plugin_settings()	{
 			
-			register_setting( 'loghorn-settings-group', 'loghorn_custom_logo' );
-			register_setting( 'loghorn-settings-group', 'loghorn_custom_background' ); 
+			#register_setting( 'loghorn_settings_group', 'loghorn_custom_logo' );
+			#register_setting( 'loghorn_settings_group', 'loghorn_custom_background' ); 
+			register_setting( 'loghorn_settings_group' , 'loghorn_settings2' , 'loghorn_validate_input' ); 
+			
+			add_settings_section('loghorn_images', 'Image Settings', array ( $this, 'loghorn_image_settings' ), 'loghorn_settings_sections');
+				add_settings_field('loghorn_logo_filename', 'Logo File', array ( $this, 'loghorn_show_logo_settings' ), 'loghorn_settings_sections', 'loghorn_images');
+				add_settings_field('loghorn_bg_filename', 'Background', array ( $this, 'loghorn_show_bg_settings' ), 'loghorn_settings_sections', 'loghorn_images');
 		}
 		
+		
+		function loghorn_validate_input()	{
+			
+			 
+		}
+		
+		function loghorn_image_settings (){
+			
+		}
+		
+		function loghorn_show_logo_settings ()	{
+			
+?>
+			<input type="file" id="loghorn_logo_browse" name="loghorn_logo_fileupload" style="display: none" onChange="HandleLogochange();"/>
+			<input type="text" id="loghorn_logo_filename" name="loghorn_settings2[LOGHORN_SETTINGS_LOGO]" value="<?php echo self::$loghorn_settings['LOGHORN_SETTINGS_LOGO'] ; ?>" placeholder="Logo Filename" />
+			<a id="loghorn_logo_browse_button" class="btn btn-primary" onclick="HandleLogoBrowseClick();">
+				<i class="fa fa-pencil" aria-hidden="true"></i>
+			</a>
+				
+<?php
+		}
+		
+		function loghorn_show_bg_settings ()	{
+?>		
+			<input type="file" id="loghorn_bg_browse" name="loghorn_bg_fileupload" style="display: none" onChange="HandleBGchange();"/>
+			<input type="text" id="loghorn_bg_filename" name="loghorn_settings2[LOGHORN_SETTINGS_BG]" value="<?php echo self::$loghorn_settings['LOGHORN_SETTINGS_BG']; ?>" placeholder="Background Filename" />
+			<a id="loghorn_bg_browse_button" class="btn btn-primary" onclick="HandleBGBrowseClick();">
+				<i class="fa fa-pencil" aria-hidden="true"></i>
+			</a>
+<?php		
+		}
 	} //class Log_Horn_Admin_Menu ends here.
 	
 	/**
