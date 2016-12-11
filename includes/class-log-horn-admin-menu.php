@@ -38,6 +38,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			add_action( 'admin_init', 				array ( $this , 'loghorn_plugin_settings' ) );
 			
+			self::$loghorn_settings = get_option ( 'loghorn_settings2' ) ;
 			}
 		
 		/**
@@ -65,12 +66,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			wp_enqueue_style( 'wpb-fa' , 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
 			
-			self::$loghorn_settings = get_option ( 'loghorn_settings2' ) ;
 			_e ( '<div class="wrap">' ) ; ?>
 			
 			
 			<h2>Log Horn Options</h2>
-			<form method="post" action="options.php">
+			<form method="post" action=<?php echo '"'.get_site_url().'/wp-admin/options.php"' ;  ?> >
 			<?php settings_fields( 'loghorn_settings_group' ); ?>
 			<?php do_settings_sections( 'loghorn_settings_sections' ); ?>
 			<table class="form-table">
@@ -179,7 +179,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 ?>
 			<input type="file" id="loghorn_logo_browse" name="loghorn_logo_fileupload" style="display: none" onChange="HandleLogochange();"/>
-			<input type="text" id="loghorn_logo_filename" name="loghorn_settings2[LOGHORN_SETTINGS_LOGO]" value="<?php echo self::$loghorn_settings['LOGHORN_SETTINGS_LOGO'] ; ?>" placeholder="Logo Filename" />
+			<input type="text" id="loghorn_logo_filename" name="loghorn_settings2[LOGHORN_SETTINGS_LOGO]" value="<?php echo self::$loghorn_settings['LOGHORN_SETTINGS_LOGO'] ; ?>" readonly="true" placeholder="Logo Filename" />
 			<a id="loghorn_logo_browse_button" class="btn btn-primary" onclick="HandleLogoBrowseClick();">
 				<i class="fa fa-pencil" aria-hidden="true"></i>
 			</a>
@@ -190,7 +190,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_show_bg_settings ()	{
 ?>		
 			<input type="file" id="loghorn_bg_browse" name="loghorn_bg_fileupload" style="display: none" onChange="HandleBGchange();"/>
-			<input type="text" id="loghorn_bg_filename" name="loghorn_settings2[LOGHORN_SETTINGS_BG]" value="<?php echo self::$loghorn_settings['LOGHORN_SETTINGS_BG']; ?>" placeholder="Background Filename" />
+			<input type="text" id="loghorn_bg_filename" name="loghorn_settings2[LOGHORN_SETTINGS_BG]" value="<?php echo self::$loghorn_settings['LOGHORN_SETTINGS_BG']; ?>" readonly="true" placeholder="Background Filename" />
 			<a id="loghorn_bg_browse_button" class="btn btn-primary" onclick="HandleBGBrowseClick();">
 				<i class="fa fa-pencil" aria-hidden="true"></i>
 			</a>
