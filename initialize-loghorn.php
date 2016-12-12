@@ -31,6 +31,21 @@
         define ( 'LOGHORN_URL' , plugin_dir_url ( LOGHORN_FILE )  ) ;
     }
 
+	// Set the admin URL:
+    if  ( ! defined ( 'LOGHORN_ADMIN_URL' )  )  {
+        define ( 'LOGHORN_ADMIN_URL' , LOGHORN_URL.'admin/' ) ;
+	}
+	
+	// Set the admin js URL:
+    if  ( ! defined ( 'LOGHORN_ADMIN_JS_URL' )  )  {
+        define ( 'LOGHORN_ADMIN_JS_URL' , LOGHORN_ADMIN_URL.'js/' ) ;
+	}
+	
+	// Set the admin js URL:
+    if  ( ! defined ( 'LOGHORN_ADMIN_CSS_URL' )  )  {
+        define ( 'LOGHORN_ADMIN_CSS_URL' , LOGHORN_ADMIN_URL.'css/' ) ;
+	}
+	
 	// Set the image URL:
     if  ( ! defined ( 'LOGHORN_IMAGES_URL' )  )  {
         define ( 'LOGHORN_IMAGES_URL' , LOGHORN_URL.'images/' ) ;
@@ -41,6 +56,10 @@
         define ( 'LOGHORN_CSS_URL' , LOGHORN_URL.'css/' ) ;	//For future use.
     }
 	
+	// Set the JS URL:
+    if  ( ! defined ( 'LOGHORN_JS_URL' )  )  {
+        define ( 'LOGHORN_JS_URL' , LOGHORN_URL.'js/' ) ;	//For future use.
+    }
 	/**************************************     BASENAMES    **************************************/
     // Set the basename:
     if  ( ! defined ( 'LOGHORN_BASENAME' )  )  {

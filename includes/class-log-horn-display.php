@@ -26,16 +26,10 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		
 		private static 	$loghorn_settings ;			// stores the plugin settings.
 		
-		private $loghorn_OS , 						// stores info whether the Operating System is 'Windows' or 'NonWindows'.
-				$loghorn_dir_separator ;			// stores the Directory Separator - backslash for 'Windows', forward-slash for 'NonWindows'.
-		
-		
 		/**
 		 * Constructor: All initializations occur here.
 		 */
 		function Log_Horn_Display () 	{
-			
-			$this->loghorn_detect_OS () ;			// Kept for future use.
 			
 			$this->loghorn_get_settings();			// Fetch settings from wp_options table.
 			
@@ -60,23 +54,6 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 					)	// Debug info */
 			;
 		}
-		
-		/**
-		 * Detect if the OS is Windows based or Non-Windows based platform:
-		 */
-		function loghorn_detect_OS () 	{
-			
-			if  ( strtoupper ( substr ( PHP_OS , 0 , 3 )  )  === 'WIN' )  {
-				$this->loghorn_OS='Windows' ;		$this->loghorn_dir_separator='\\' ;
-			} else {
-				$this->loghorn_OS='NonWindows' ;	$this->loghorn_dir_separator='/' ;
-			}
-			/* Note:	$loghorn_dir_separator is not used in the program. Instead, the constant DIRECTORY_SEPARATOR is used.
-			 *			The function 'loghorn_detect_OS (  ) ' and the variables '$loghorn_OS' and '$loghorn_dir_separator' are only placeholders 
-			 *			These variables/function could be used in future versions.
-			 */
-		}
-		
 		
 		/** 
 		 * This function hooks into WP using the 'login_enqueue_scripts' tag in order to manipulate the WordPress logo through CSS scripts:

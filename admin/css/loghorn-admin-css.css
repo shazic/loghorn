@@ -1,0 +1,28 @@
+	.btn-primary	{
+		background-color: #4682b4 ;			/* steelblue */
+		color: #303030 ;
+		padding: 10px ;
+	}
+	.btn-primary:hover	{
+		background-color: #4682d4 ;			
+		color: #000 ;						/* black */
+		border: 2px solid rgba(0,0,0,0) ;	/* invisible border */
+		
+	}
+	.btn-primary:active	{
+		background-color: #4682b4;			/* steelblue */
+		color: #000;
+		border: 2px solid rgba(0,0,0,0);	/* invisible border */
+		transition-duration: 0.2s;
+	}
+	#loghorn_logo_filename ,
+	#loghorn_bg_filename	{
+		background-color: #b0c4de ;			/* lightsteelblue */
+		color: #000000;						/* steelblue */
+		width: 300px;
+		padding: 10px ; 
+	}
+	#loghorn_logo_filename:focus ,
+	#loghorn_bg_filename:focus	{
+		border-left: 4px solid #4682b4;		/* steelblue */
+	}
