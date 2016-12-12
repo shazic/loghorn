@@ -5,7 +5,7 @@
 	function HandleLogochange()	{
 			var logofileinput = document.getElementById("loghorn_logo_browse");
 			var logotextinput = document.getElementById("loghorn_logo_filename");
-			logotextinput.value = logofileinput.value;
+			logotextinput.value = logofileinput.value.replace("C:\\fakepath\\", "");
 	}
 	function HandleBGBrowseClick()	{
 			var bgfileinput = document.getElementById("loghorn_bg_browse");
@@ -14,7 +14,7 @@
 	function HandleBGchange()	{
 			var bgfileinput = document.getElementById("loghorn_bg_browse");
 			var bgtextinput = document.getElementById("loghorn_bg_filename");
-			bgtextinput.value = bgfileinput.value;
+			bgtextinput.value = bgfileinput.value.replace("C:\\fakepath\\", "");
 	}
 	function showValueFormRed(newValue)
 	{
