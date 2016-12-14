@@ -121,11 +121,19 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_show_logo_settings ()	{
 			
 ?>
-			<input type="file" id="loghorn_logo_browse" name="loghorn_logo_fileupload" style="display: none" onChange="HandleLogochange();"/>
+			<!--input type="file" id="loghorn_logo_browse" name="loghorn_logo_fileupload" style="display: none" onChange="HandleLogochange();"/>
 			<input type="text" id="loghorn_logo_filename" name="loghorn_settings2[LOGHORN_SETTINGS_LOGO]" value="<?php _e ( self::$loghorn_settings['LOGHORN_SETTINGS_LOGO'] ) ; ?>" readonly="true" placeholder="Logo Filename" />
 			<a id="loghorn_logo_browse_button" class="btn btn-primary" onclick="HandleLogoBrowseClick();">
 				<i class="fa fa-pencil" aria-hidden="true"></i>
-			</a>
+			</a -->
+
+			<!-- This is a test -->
+			<input id="upload_image_button" type="button" class="button" value="<?php _e( 'Upload image' ); ?>" />
+			<input type='hidden' name="loghorn_settings2[LOGHORN_SETTINGS_LOGO]" id='image_attachment_id' value="<?php _e ( self::$loghorn_settings['LOGHORN_SETTINGS_LOGO'] ) ; ?>">
+			<div class='image-preview-wrapper'>
+				<img id='image-preview' src="<?php _e ( self::$loghorn_settings['LOGHORN_SETTINGS_LOGO'] ) ; ?>" width='100' height='100' style='max-height: 100px; width: 100px;'>
+			</div>
+			<!-- The above code is a test -->
 				
 <?php
 		}
@@ -171,6 +179,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			$current_color = get_user_option( 'admin_color' ); // This can be used to load stylesheet based on current profile color.
 			
+			wp_enqueue_media(); // this is a test
+			
 			// Font-Awesome CDN:
 			wp_enqueue_style( 'loghorn-fa' , 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
 			
@@ -179,9 +189,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// Plugin Menu's JavaScript:
 			wp_enqueue_script( 'loghorn-admin-javascript' , LOGHORN_ADMIN_JS_URL.'loghorn-admin-js.js' ) ;
+			
 		}
 
-		// display default admin notice
+		/*
+		 * display default admin notice
+		 */
 		function loghorn_updated_notice() {
 		
 			settings_errors();
