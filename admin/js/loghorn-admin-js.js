@@ -1,12 +1,3 @@
-	function HandleLogoBrowseClick()	{
-			var logofileinput = document.getElementById("loghorn_logo_browse");
-			logofileinput.click();
-	}
-	function HandleLogochange()	{
-			var logofileinput = document.getElementById("loghorn_logo_browse");
-			var logotextinput = document.getElementById("loghorn_logo_filename");
-			logotextinput.value = logofileinput.value.replace("C:\\fakepath\\", "");
-	}
 	function HandleBGBrowseClick()	{
 			var bgfileinput = document.getElementById("loghorn_bg_browse");
 			bgfileinput.click();
@@ -32,13 +23,13 @@
 	{
 		document.getElementById("loghorn_form_slider_alpha_span").innerHTML=newValue+"%";
 	}
-	/**** This is a test  - Jeroen Sormani and Mike Jolley ****/
+	// Media frame to select and upload media files. Code template from Mike Jolley 
 	jQuery( document ).ready( function( $ ) {
 			// Uploading files
 			var file_frame;
 			var wp_media_post_id = wp.media.model.settings.post.id; // Store the old id
-			var set_to_post_id = 10 // Set this
-			jQuery('#upload_image_button').on('click', function( event ){
+			var set_to_post_id = null ;// Set this
+			jQuery('#logo_upload_image_button').on('click', function( event ){
 				event.preventDefault();
 				// If the media frame already exists, reopen it.
 				if ( file_frame ) {
@@ -53,18 +44,19 @@
 				}
 				// Create the media frame.
 				file_frame = wp.media.frames.file_frame = wp.media({
-					title: 'Select a image to upload',
+					title: 'Select an image to use as the logo',
 					button: {
 						text: 'Use this image',
 					},
-					multiple: false	// Set to true to allow multiple files to be selected
+					multiple: false	// We set multiple to false so only get one image from the uploader
 				});
 				// When an image is selected, run a callback.
 				file_frame.on( 'select', function() {
 					// We set multiple to false so only get one image from the uploader
 					attachment = file_frame.state().get('selection').first().toJSON();
-					// Do something with attachment.id and/or attachment.url here
-					$( '#image-preview' ).attr( 'src', attachment.url ).css( 'width', 'auto' );
+					// Set the HTML attributes 
+					$( '#logo-image-preview' ).attr( 'src', attachment.url );
+					$( '#logo_image_src' ).attr( 'href', attachment.url );
 					$( '#image_attachment_id' ).val( attachment.id );
 					// Restore the main post ID
 					wp.media.model.settings.post.id = wp_media_post_id;
