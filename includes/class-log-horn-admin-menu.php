@@ -163,9 +163,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_form_width_settings ()	{
 ?>
-			<input type="text" value=<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['hex'] ) ; ?> class="loghorn-color-cp" id="loghorn_form_color" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][hex]" />
+			<input type="range" min="0" max="10" id="loghorn_form_slider_width" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_WIDTH]" value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_WIDTH'] ) ; ?>" step="1" onchange="showValueFormWidth(this.value)" />
+			<span class="loghorn_menu_label"> <?php _e ( 'Form Width: ' ) ; ?> </span>
+			<span class="loghorn_span" id="loghorn_form_slider_width_span"><?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_WIDTH'] ) ; ?></span>	
 			<br>
-			
+		
+<?php		
 		}
 		
 		function loghorn_form_color_settings ()	{
@@ -175,7 +178,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			<br>
 			
 			<input type="range" min="0" max="100" id="loghorn_form_slider_alpha" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][alpha]" value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['alpha'] ) ; ?>" step="1" onchange="showValueFormAlpha(this.value)" />
-			<span class="loghorn_color_label"> <?php _e ( 'Alpha Channel: ' ) ; ?> </span>
+			<span class="loghorn_menu_label"> <?php _e ( 'Alpha Channel: ' ) ; ?> </span>
 			<span class="loghorn_span" id="loghorn_form_slider_alpha_span"><?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['alpha']."%" ) ; ?></span>	
 
 <?php

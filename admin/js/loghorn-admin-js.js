@@ -2,6 +2,10 @@
 	{
 		document.getElementById("loghorn_form_slider_alpha_span").innerHTML=newValue+"%";
 	}
+	function showValueFormWidth(newValue)
+	{
+		document.getElementById("loghorn_form_slider_width_span").innerHTML=newValue;
+	}
 	// Media frame to select and upload media files. Code template from Mike Jolley 
 	jQuery( document ).ready( function( $ ) {
 			// Uploading files
