@@ -1,12 +1,21 @@
-	#logo_div {
+	#logo_div	{
+		width: 80px;
+	}
+	
+	#bg_div	{
+		width: 128px;
+	}
+	
+	div.img1 {
     margin: 5px;
-    border: 3px solid #ccc !important;
-    float: left;
-    width: 80px;
-}
+    border: 5px solid #aaa;
+	border-style: ridge;
+    float: bottom-left;
+    }
 
-	#logo_div:hover {
-    border: 1px solid #777;
+	div.img1:hover {
+		border: 5px solid #555;
+	border-style: ridge;
 	}
 
 	div.img1 img {
@@ -16,33 +25,11 @@
 
 	div.desc {
     padding: 5px;
+	background-color: white ;
+	border: 1px solid #ccc;
+	color: #777;
     text-align: center;
 	}
-	.btn-primary	{
-		background-color: #4682b4 ;			/* steelblue */
-		color: #303030 ;
-		padding: 10px ;
-	}
-	.btn-primary:hover	{
-		background-color: #4682d4 ;			
-		color: #000 ;						/* black */
-		border: 2px solid rgba(0,0,0,0) ;	/* invisible border */
-		
-	}
-	.btn-primary:active	{
-		background-color: #4682b4;			/* steelblue */
-		color: #000;
-		border: 2px solid rgba(0,0,0,0);	/* invisible border */
-		transition-duration: 0.2s;
-	}
-	
-	#loghorn_bg_filename	{
-		background-color: #b0c4de ;			/* lightsteelblue */
-		color: #000000;						/* steelblue */
-		width: 300px;
-		padding: 10px ; 
-	}
-	
-	#loghorn_bg_filename:focus	{
-		border-left: 4px solid #4682b4;		/* steelblue */
+	div.desc:hover {
+    color: #00f;
 	}

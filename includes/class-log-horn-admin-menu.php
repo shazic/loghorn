@@ -96,12 +96,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			register_setting( 'loghorn_settings_group' , 'loghorn_settings2' , 'loghorn_validate_input' ); 
 			
-			add_settings_section('loghorn_images', 'Image Settings', array ( $this, 'loghorn_image_settings' ), 'loghorn_settings_sections');
-				add_settings_field('loghorn_logo_filename', 'Logo File', array ( $this, 'loghorn_show_logo_settings' ), 'loghorn_settings_sections', 'loghorn_images');
-				add_settings_field('loghorn_bg_filename', 'Background', array ( $this, 'loghorn_show_bg_settings' ), 'loghorn_settings_sections', 'loghorn_images');
+			add_settings_section('loghorn_images', 'Image Settings', 			array ( $this, 'loghorn_image_settings' ), 'loghorn_settings_sections');
+				add_settings_field('loghorn_logo_filename', 'Logo File', 			array ( $this, 'loghorn_show_logo_settings' ), 'loghorn_settings_sections', 'loghorn_images');
+				add_settings_field('loghorn_bg_filename', 'Background', 			array ( $this, 'loghorn_show_bg_settings' ), 'loghorn_settings_sections', 'loghorn_images');
 			
-			add_settings_section('loghorn_form', 'Login Form Settings', array ( $this, 'loghorn_form_settings' ), 'loghorn_settings_sections');
-				add_settings_field('loghorn_form_color', 'Form Background Color', array ( $this, 'loghorn_form_color_settings' ), 'loghorn_settings_sections', 'loghorn_form');
+			add_settings_section('loghorn_form', 'Login Form Settings', 		array ( $this, 'loghorn_form_settings' ), 'loghorn_settings_sections');
+				add_settings_field('loghorn_form_width', 'Form Width', 				array ( $this, 'loghorn_form_width_settings' ), 'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_color', 'Form Background Color', 	array ( $this, 'loghorn_form_color_settings' ), 'loghorn_settings_sections', 'loghorn_form');
 		}
 		
 		
@@ -122,7 +123,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// Options table store the logo's image id. Get the image source information:
 			$loghorn_logo_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_LOGO']) ;
-			
 ?>
 			<input id="logo_upload_image_button" type="button" class="button" value="<?php _e( 'Select logo image' ); ?>" />
 			<i class="fa fa-upload" aria-hidden="true"></i>
@@ -134,39 +134,48 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 						<img id='logo-image-preview' src="<?php _e ( $loghorn_logo_image_src [0] ) ; ?>" width="80" height="80"  > 
 					
 				</a>
-				<div class="desc">Logo</div>
+				<div class="desc"> <?php _e ( 'Logo Preview' ) ; ?> </div>
 			</div>
 				
 <?php	
 		}
 		
 		function loghorn_show_bg_settings ()	{
+			
+			// Options table store the background image id. Get the image source information:
+			$loghorn_bg_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_BG']) ;
 ?>
-			<input type="file" id="loghorn_bg_browse" name="loghorn_bg_fileupload" style="display: none" onChange="HandleBGchange();"/>
-			<input type="text" id="loghorn_bg_filename" name="loghorn_settings2[LOGHORN_SETTINGS_BG]" value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_BG'] ) ; ?>" readonly="true" placeholder="Background Filename" />
-			<a id="loghorn_bg_browse_button" class="btn btn-primary" onclick="HandleBGBrowseClick();">
-				<i class="fa fa-pencil" aria-hidden="true"></i>
-			</a>
+			<input id="bg_upload_image_button" type="button" class="button" value="<?php _e( 'Background image' ); ?>" />
+			<i class="fa fa-upload" aria-hidden="true"></i>
+			<input type='hidden' name="loghorn_settings2[LOGHORN_SETTINGS_BG]" id='bg_image_attachment_id' value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_BG'] ) ; ?>">
+					
+			<div id="bg_div" class="img1">
+				<a id="bg_image_src" target="_blank" href='<?php _e ( $loghorn_bg_image_src [0] ) ; ?>' >
+					
+						<img id='bg-image-preview' src="<?php _e ( $loghorn_bg_image_src [0] ) ; ?>" width="80" height="80"  > 
+					
+				</a>
+				<div class="desc"> <?php _e ( 'Background Preview' ) ; ?> </div>
+			</div>
 <?php		
+		}
+		
+		
+		function loghorn_form_width_settings ()	{
+?>
+			<input type="text" value=<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['hex'] ) ; ?> class="loghorn-color-cp" id="loghorn_form_color" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][hex]" />
+			<br>
+			
 		}
 		
 		function loghorn_form_color_settings ()	{
 			
 ?>
-			<input type="range" min="0" max="255" id="loghorn_form_slider_red" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][red]" value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['red'] ) ; ?>" step="1" onchange="showValueFormRed(this.value)" />
-			<span class="loghorn_color_label">Red: </span>
-			<span class="loghorn_span" id="loghorn_form_slider_red_span"><?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['red'] ) ; ?></span>	
+			<input type="text" value=<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['hex'] ) ; ?> class="loghorn-color-cp" id="loghorn_form_color" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][hex]" />
 			<br>
-			<input type="range" min="0" max="255" id="loghorn_form_slider_green" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][green]" value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['green'] ) ; ?>" step="1" onchange="showValueFormGreen(this.value)" />
-			<span class="loghorn_color_label">Green: </span>
-			<span class="loghorn_span" id="loghorn_form_slider_green_span"><?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['green'] ) ; ?></span>	
-			<br>
-			<input type="range" min="0" max="255" id="loghorn_form_slider_blue" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][blue]" value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['blue'] ) ; ?>" step="1" onchange="showValueFormBlue(this.value)" />
-			<span class="loghorn_color_label">Blue: </span>
-			<span class="loghorn_span" id="loghorn_form_slider_blue_span"><?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['blue'] ) ; ?></span>	
-			<br>
+			
 			<input type="range" min="0" max="100" id="loghorn_form_slider_alpha" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][alpha]" value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['alpha'] ) ; ?>" step="1" onchange="showValueFormAlpha(this.value)" />
-			<span class="loghorn_color_label">Alpha Channel: </span>
+			<span class="loghorn_color_label"> <?php _e ( 'Alpha Channel: ' ) ; ?> </span>
 			<span class="loghorn_span" id="loghorn_form_slider_alpha_span"><?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['alpha']."%" ) ; ?></span>	
 
 <?php
@@ -181,7 +190,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			$current_color = get_user_option( 'admin_color' ); // This can be used to load stylesheet based on current profile color.
 			
-			wp_enqueue_media(); // this is a test
+			// Wordpress media library
+			wp_enqueue_media();
+			
+			// WordPress Iris-based Color Picker:
+			wp_enqueue_style( 'wp-color-picker' );
 			
 			// Font-Awesome CDN:
 			wp_enqueue_style( 'loghorn-fa' , 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
@@ -191,6 +204,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// Plugin Menu's JavaScript:
 			wp_enqueue_script( 'loghorn-admin-javascript' , LOGHORN_ADMIN_JS_URL.'loghorn-admin-js.js' ) ;
+			
+			// js for WP Color Picker:
+			wp_enqueue_script( 'loghorn-iris-cp', LOGHORN_ADMIN_JS_URL.'loghorn-admin-color-picker.js', array( 'wp-color-picker' ), false, true );
 			
 		}
 
