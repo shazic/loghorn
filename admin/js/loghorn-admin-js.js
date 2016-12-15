@@ -1,24 +1,3 @@
-	function HandleBGBrowseClick()	{
-			var bgfileinput = document.getElementById("loghorn_bg_browse");
-			bgfileinput.click();
-	}
-	function HandleBGchange()	{
-			var bgfileinput = document.getElementById("loghorn_bg_browse");
-			var bgtextinput = document.getElementById("loghorn_bg_filename");
-			bgtextinput.value = bgfileinput.value.replace("C:\\fakepath\\", "");
-	}
-	function showValueFormRed(newValue)
-	{
-		document.getElementById("loghorn_form_slider_red_span").innerHTML=newValue;
-	}
-	function showValueFormGreen(newValue)
-	{
-		document.getElementById("loghorn_form_slider_green_span").innerHTML=newValue;
-	}
-	function showValueFormBlue(newValue)
-	{
-		document.getElementById("loghorn_form_slider_blue_span").innerHTML=newValue;
-	}
 	function showValueFormAlpha(newValue)
 	{
 		document.getElementById("loghorn_form_slider_alpha_span").innerHTML=newValue+"%";
