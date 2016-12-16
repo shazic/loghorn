@@ -1,10 +1,26 @@
+	function showValueFormWidth(newValue)
+	{
+		document.getElementById("loghorn_form_slider_width_span").innerHTML=newValue+"px";
+	}
+	function showValueFormPad(newValue)
+	{
+		document.getElementById("loghorn_form_slider_pad_span").innerHTML=newValue+"px";
+	}
+	function showValueFormMargin(newValue)
+	{
+		document.getElementById("loghorn_form_slider_margin_span").innerHTML=newValue+"px";
+	}
 	function showValueFormAlpha(newValue)
 	{
 		document.getElementById("loghorn_form_slider_alpha_span").innerHTML=newValue+"%";
 	}
-	function showValueFormWidth(newValue)
+	function showValueFormShdwHor(newValue)
 	{
-		document.getElementById("loghorn_form_slider_width_span").innerHTML=newValue;
+		document.getElementById("loghorn_form_shdw_slider_hor_span").innerHTML=newValue+"px";
+	}
+	function showValueFormShdwAlpha(newValue)
+	{
+		document.getElementById("loghorn_form_shdw_slider_alpha_span").innerHTML=newValue+"%";
 	}
 	// Media frame to select and upload media files. Code template from Mike Jolley 
 	jQuery( document ).ready( function( $ ) {

@@ -81,7 +81,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			_e ( '<div class="wrap">' ) ; 
 ?>
 			
-			<h2>Log Horn Options</h2>
+			<h2> <?php _e ( "Log Horn Options" ) ; ?> </h2>
 			<form method="post" action=<?php _e ( '"'.get_site_url().'/wp-admin/options.php"' ) ;  ?> >
 <?php 			settings_fields( 'loghorn_settings_group' ); 
 				do_settings_sections( 'loghorn_settings_sections' ); 
@@ -96,13 +96,16 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			register_setting( 'loghorn_settings_group' , 'loghorn_settings2' , 'loghorn_validate_input' ); 
 			
-			add_settings_section('loghorn_images', 'Image Settings', 			array ( $this, 'loghorn_image_settings' ), 'loghorn_settings_sections');
-				add_settings_field('loghorn_logo_filename', 'Logo File', 			array ( $this, 'loghorn_show_logo_settings' ), 'loghorn_settings_sections', 'loghorn_images');
-				add_settings_field('loghorn_bg_filename', 'Background', 			array ( $this, 'loghorn_show_bg_settings' ), 'loghorn_settings_sections', 'loghorn_images');
+			add_settings_section('loghorn_images'			, 'Image Settings'		, 		array ( $this, 'loghorn_image_settings' ), 'loghorn_settings_sections');
+				add_settings_field('loghorn_logo_filename'	, 	'Logo File'				, 		array ( $this, 'loghorn_show_logo_settings' 	), 		'loghorn_settings_sections', 'loghorn_images');
+				add_settings_field('loghorn_bg_filename'	,	'Background'			, 		array ( $this, 'loghorn_show_bg_settings' 		), 		'loghorn_settings_sections', 'loghorn_images');
 			
-			add_settings_section('loghorn_form', 'Login Form Settings', 		array ( $this, 'loghorn_form_settings' ), 'loghorn_settings_sections');
-				add_settings_field('loghorn_form_width', 'Form Width', 				array ( $this, 'loghorn_form_width_settings' ), 'loghorn_settings_sections', 'loghorn_form');
-				add_settings_field('loghorn_form_color', 'Form Background Color', 	array ( $this, 'loghorn_form_color_settings' ), 'loghorn_settings_sections', 'loghorn_form');
+			add_settings_section('loghorn_form'				, 'Login Form Settings'	, 		array ( $this, 'loghorn_form_settings' 	), 'loghorn_settings_sections');
+				add_settings_field('loghorn_form_width'		, 	'Form Width'			,		array ( $this, 'loghorn_form_width_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_padding'	, 	'Form Padding'			, 		array ( $this, 'loghorn_form_padding_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_margin'	, 	'Form Margin'			, 		array ( $this, 'loghorn_form_margin_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_color'		, 	'Form Background Color'	, 		array ( $this, 'loghorn_form_color_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_shadow'	, 	'Form Shadow'			, 		array ( $this, 'loghorn_form_shadow_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
 		}
 		
 		
@@ -160,28 +163,121 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 <?php		
 		}
 		
-		
 		function loghorn_form_width_settings ()	{
+			
+			// Fetch form width from options table, if present.
+			$loghorn_form_width_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_WIDTH'] ;
+			
+			// If this is the first time, settings was not present in options table. 
+			if ( !$loghorn_form_width_value )	{
+				$loghorn_form_width_value = LOGHORN_DEFAULT_FORM_WD;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
 ?>
-			<input type="range" min="0" max="10" id="loghorn_form_slider_width" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_WIDTH]" value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_WIDTH'] ) ; ?>" step="1" onchange="showValueFormWidth(this.value)" />
+			<input type="range" min="220" max="800" id="loghorn_form_slider_width" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_WIDTH]" value="<?php _e ( $loghorn_form_width_value ) ; ?>" step="1" onchange="showValueFormWidth(this.value)" />
 			<span class="loghorn_menu_label"> <?php _e ( 'Form Width: ' ) ; ?> </span>
-			<span class="loghorn_span" id="loghorn_form_slider_width_span"><?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_WIDTH'] ) ; ?></span>	
+			<span class="loghorn_span" id="loghorn_form_slider_width_span"><?php printf ( esc_html ( "%dpx") ,$loghorn_form_width_value ) ; ?></span>	
 			<br>
 		
 <?php		
 		}
 		
+		function loghorn_form_padding_settings()	{
+			
+			// Fetch form padding from options table, if present.
+			$loghorn_form_padding_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_PAD'] ;
+			
+			// If this is the first time, settings was not present in options table. 
+			if ( !$loghorn_form_padding_value )	{
+				$loghorn_form_padding_value = 10 ; //LOGHORN_DEFAULT_PADDING;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+?>
+			<input type="range" min="0" max="10" id="loghorn_form_slider_pad" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_PAD]" value="<?php _e ( $loghorn_form_padding_value ) ; ?>" step="1" onchange="showValueFormPad(this.value)" />
+			<span class="loghorn_menu_label"> <?php _e ( 'Form Padding: ' ) ; ?> </span>
+			<span class="loghorn_span" id="loghorn_form_slider_pad_span"><?php printf ( esc_html ( "%dpx") ,$loghorn_form_padding_value ) ; ?></span>	
+			<br>
+<?php				
+		}
+		
+		function loghorn_form_margin_settings()	{
+			
+			// Fetch form margin from options table, if present.
+			$loghorn_form_margin_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_MRGN'] ;
+			
+			// If this is the first time, settings was not present in options table. 
+			if ( !$loghorn_form_margin_value )	{
+				$loghorn_form_margin_value = 5 ; //LOGHORN_DEFAULT_FORM_MRGN;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+?>
+			<input type="range" min="0" max="10" id="loghorn_form_slider_margin" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_MRGN]" value="<?php _e ( $loghorn_form_margin_value ) ; ?>" step="1" onchange="showValueFormMargin(this.value)" />
+			<span class="loghorn_menu_label"> <?php _e ( 'Form Margin: ' ) ; ?> </span>
+			<span class="loghorn_span" id="loghorn_form_slider_margin_span"><?php printf ( esc_html ( "%dpx") ,$loghorn_form_margin_value ) ; ?></span>	
+			<br>
+<?php				
+		}
+		
 		function loghorn_form_color_settings ()	{
 			
+			// Fetch form color and alpha channel values from options table, if present.
+			$loghorn_form_color_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['hex'] ;
+			$loghorn_form_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['alpha'] ;
+			
+			// If this is the first time, settings was not present in options table. 
+			if ( !$loghorn_form_color_value )	{
+				$loghorn_form_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_form_alpha_value )	{
+				$loghorn_form_alpha_value = LOGHORN_DEFAULT_ALPHA;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
 ?>
-			<input type="text" value=<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['hex'] ) ; ?> class="loghorn-color-cp" id="loghorn_form_color" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][hex]" />
+			<input type="text" value=<?php _e ( $loghorn_form_color_value) ; ?> class="loghorn-color-cp" id="loghorn_form_color" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][hex]" />
 			<br>
 			
-			<input type="range" min="0" max="100" id="loghorn_form_slider_alpha" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][alpha]" value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['alpha'] ) ; ?>" step="1" onchange="showValueFormAlpha(this.value)" />
+			<input type="range" min="0" max="100" id="loghorn_form_slider_alpha" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][alpha]" value="<?php _e ( $loghorn_form_alpha_value ) ; ?>" step="1" onchange="showValueFormAlpha(this.value)" />
 			<span class="loghorn_menu_label"> <?php _e ( 'Alpha Channel: ' ) ; ?> </span>
-			<span class="loghorn_span" id="loghorn_form_slider_alpha_span"><?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['alpha']."%" ) ; ?></span>	
+			<span class="loghorn_span" id="loghorn_form_slider_alpha_span"><?php _e ( $loghorn_form_alpha_value."%" ) ; ?></span>	
 
 <?php
+		}
+		
+		function loghorn_form_shadow_settings ()	{
+			
+			// Fetch values of form shadow elements from options table, if present.
+			$loghorn_form_shadow_hor_value   = self::$loghorn_options['LOGHORN_SETTINGS_FORM_SHDW']['hor'] ;
+			$loghorn_form_shadow_ver_value   = self::$loghorn_options['LOGHORN_SETTINGS_FORM_SHDW']['ver'] ;
+			$loghorn_form_shadow_blur_value  = self::$loghorn_options['LOGHORN_SETTINGS_FORM_SHDW']['blur'] ;
+			$loghorn_form_shadow_colr_value  = self::$loghorn_options['LOGHORN_SETTINGS_FORM_SHDW']['hex'] ;
+			$loghorn_form_shadow_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_SHDW']['alpha'] ;
+			
+			
+			// If this is the first time, settings was not present in options table.
+			// By default, there would be no shadows. 
+			if ( !$loghorn_form_shadow_hor_value )	{
+				$loghorn_form_shadow_hor_value = 0;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_form_shadow_ver_value )	{
+				$loghorn_form_shadow_ver_value = 0;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_form_shadow_blur_value )	{
+				$loghorn_form_shadow_blur_value = 0;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_form_shadow_colr_value )	{
+				$loghorn_form_shadow_colr_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_form_shadow_alpha_value )	{
+				$loghorn_form_shadow_alpha_value = 0;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+?>
+			<input type="text" value=<?php _e ( $loghorn_form_shadow_colr_value) ; ?> class="loghorn-color-cp" id="loghorn_form_shadow_color" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][hex]" />
+			<br>
+			<input type="range" min="0" max="10" id="loghorn_form_shdw_slider_hor" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][hor]" value="<?php _e ( $loghorn_form_shadow_hor_value ) ; ?>" step="1" onchange="showValueFormShdwHor(this.value)" />
+			<span class="loghorn_menu_label"> <?php _e ( 'Horizontal Displacement: ' ) ; ?> </span>
+			<span class="loghorn_span" id="loghorn_form_shdw_slider_hor_span"><?php printf ( esc_html ( "%dpx") ,$loghorn_form_shadow_hor_value ) ; ?></span>	
+			<br>
+			<input type="range" min="0" max="100" id="loghorn_form_shdw_slider_alpha" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][alpha]" value="<?php _e ( $loghorn_form_shadow_alpha_value ) ; ?>" step="1" onchange="showValueFormShdwAlpha(this.value)" />
+			<span class="loghorn_menu_label"> <?php _e ( 'Alpha Channel: ' ) ; ?> </span>
+			<span class="loghorn_span" id="loghorn_form_shdw_slider_alpha_span"><?php _e ( $loghorn_form_shadow_alpha_value."%" ) ; ?></span>	
+
+<?php	
 		}
 		
 		function loghorn_load_custom_script( $hook ) {

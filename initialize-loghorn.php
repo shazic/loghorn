@@ -113,7 +113,11 @@
 	}
 	// Set the default Form Color (Opaque White):
     if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_COLR' )  )  {
-        define ( 'LOGHORN_DEFAULT_FORM_COLR' , 'rgba( 255 , 255 , 255 , 1 )' ) ; // Read as R , G , B , A
+        define ( 'LOGHORN_DEFAULT_FORM_COLR' , '#fff' ) ; 
+	}
+	// Set the default Alpha Channel (Opacity):
+    if  ( ! defined ( 'LOGHORN_DEFAULT_ALPHA' )  )  {
+        define ( 'LOGHORN_DEFAULT_ALPHA' , 100 ) ; // 100% Opaque
 	}
 	// Set the default Form Shadow:
     if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_SHDW' )  )  {
