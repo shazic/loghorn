@@ -130,16 +130,16 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			<input id="logo_upload_image_button" type="button" class="button" value="<?php _e( 'Select logo image' ); ?>" />
 			<i class="fa fa-upload" aria-hidden="true"></i>
 			<input type='hidden' name="loghorn_settings2[LOGHORN_SETTINGS_LOGO]" id='image_attachment_id' value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_LOGO'] ) ; ?>">
-					
+			<br>		
 			<div id="logo_div" class="img1">
-				<a id="logo_image_src" target="_blank" href='<?php _e ( $loghorn_logo_image_src [0] ) ; ?>' >
+				<!--a id="logo_image_src" target="_blank" href='<?php _e ( $loghorn_logo_image_src [0] ) ; ?>' -->
 					
 						<img id='logo-image-preview' src="<?php _e ( $loghorn_logo_image_src [0] ) ; ?>" width="80" height="80"  > 
 					
-				</a>
-				<div class="desc"> <?php _e ( 'Logo Preview' ) ; ?> </div>
+				<!--/a-->
+				<div class="desc"> <?php _e ( 'Preview' ) ; ?> </div>
 			</div>
-				
+			<br>	
 <?php	
 		}
 		
@@ -151,34 +151,35 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			<input id="bg_upload_image_button" type="button" class="button" value="<?php _e( 'Background image' ); ?>" />
 			<i class="fa fa-upload" aria-hidden="true"></i>
 			<input type='hidden' name="loghorn_settings2[LOGHORN_SETTINGS_BG]" id='bg_image_attachment_id' value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_BG'] ) ; ?>">
-					
+			<br>		
 			<div id="bg_div" class="img1">
-				<a id="bg_image_src" target="_blank" href='<?php _e ( $loghorn_bg_image_src [0] ) ; ?>' >
+				<!--a id="bg_image_src" target="_blank" href='<?php _e ( $loghorn_bg_image_src [0] ) ; ?>' -->
 					
 						<img id='bg-image-preview' src="<?php _e ( $loghorn_bg_image_src [0] ) ; ?>" width="80" height="80"  > 
 					
-				</a>
+				<!--/a-->
 				<div class="desc"> <?php _e ( 'Background Preview' ) ; ?> </div>
 			</div>
+			<br>
 <?php		
 		}
 		
 		function loghorn_form_width_settings ()	{
 			
-			// Fetch form width from options table, if present.
+			// Fetch form-width from options table, if present.
 			$loghorn_form_width_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_WIDTH'] ;
 			
 			// If this is the first time, settings was not present in options table. 
 			if ( !$loghorn_form_width_value )	{
 				$loghorn_form_width_value = LOGHORN_DEFAULT_FORM_WD;			// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-?>
-			<input type="range" min="220" max="800" id="loghorn_form_slider_width" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_WIDTH]" value="<?php _e ( $loghorn_form_width_value ) ; ?>" step="1" onchange="showValueFormWidth(this.value)" />
-			<span class="loghorn_menu_label"> <?php _e ( 'Form Width: ' ) ; ?> </span>
-			<span class="loghorn_span" id="loghorn_form_slider_width_span"><?php printf ( esc_html ( "%dpx") ,$loghorn_form_width_value ) ; ?></span>	
-			<br>
-		
-<?php		
+			
+			// Display slider for Form Width:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_WIDTH]"
+															, "option_id"	=> "loghorn_form_width"
+															, "value"		=> $loghorn_form_width_value
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 		}
 		
 		function loghorn_form_padding_settings()	{
@@ -190,12 +191,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_form_padding_value )	{
 				$loghorn_form_padding_value = 10 ; //LOGHORN_DEFAULT_PADDING;	// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-?>
-			<input type="range" min="0" max="10" id="loghorn_form_slider_pad" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_PAD]" value="<?php _e ( $loghorn_form_padding_value ) ; ?>" step="1" onchange="showValueFormPad(this.value)" />
-			<span class="loghorn_menu_label"> <?php _e ( 'Form Padding: ' ) ; ?> </span>
-			<span class="loghorn_span" id="loghorn_form_slider_pad_span"><?php printf ( esc_html ( "%dpx") ,$loghorn_form_padding_value ) ; ?></span>	
-			<br>
-<?php				
+			
+			// Display slider for Form Padding:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_PAD]"
+															, "option_id"	=> "loghorn_form_pad"
+															, "value"		=> $loghorn_form_padding_value
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 		}
 		
 		function loghorn_form_margin_settings()	{
@@ -207,12 +209,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_form_margin_value )	{
 				$loghorn_form_margin_value = 5 ; //LOGHORN_DEFAULT_FORM_MRGN;	// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-?>
-			<input type="range" min="0" max="10" id="loghorn_form_slider_margin" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_MRGN]" value="<?php _e ( $loghorn_form_margin_value ) ; ?>" step="1" onchange="showValueFormMargin(this.value)" />
-			<span class="loghorn_menu_label"> <?php _e ( 'Form Margin: ' ) ; ?> </span>
-			<span class="loghorn_span" id="loghorn_form_slider_margin_span"><?php printf ( esc_html ( "%dpx") ,$loghorn_form_margin_value ) ; ?></span>	
-			<br>
-<?php				
+			// Display slider for Form Margin:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_MRGN]"
+															, "option_id"	=> "loghorn_form_mrgn"
+															, "value"		=> $loghorn_form_margin_value
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 		}
 		
 		function loghorn_form_color_settings ()	{
@@ -232,11 +234,15 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			<input type="text" value=<?php _e ( $loghorn_form_color_value) ; ?> class="loghorn-color-cp" id="loghorn_form_color" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][hex]" />
 			<br>
 			
-			<input type="range" min="0" max="100" id="loghorn_form_slider_alpha" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][alpha]" value="<?php _e ( $loghorn_form_alpha_value ) ; ?>" step="1" onchange="showValueFormAlpha(this.value)" />
-			<span class="loghorn_menu_label"> <?php _e ( 'Alpha Channel: ' ) ; ?> </span>
-			<span class="loghorn_span" id="loghorn_form_slider_alpha_span"><?php _e ( $loghorn_form_alpha_value."%" ) ; ?></span>	
-
 <?php
+		
+			// Display slider for Form Color Alpha Channel:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][alpha]"
+															, "option_id"	=> "loghorn_form_colr_alpha"
+															, "value"		=> $loghorn_form_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 		}
 		
 		function loghorn_form_shadow_settings ()	{
@@ -272,51 +278,36 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 
 <?php
 			// Display slider for Horizontal Displacement:
-			$loghorn_slider_control_input = array (	 "min"	=> "0"														// Min. value of slider 
-													,"max"	=> "10" 													// Max. value of slider 
-													,"id"	=> "loghorn_form_shdw_slider_hor"							// id for HTML input form 
-													,"name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][hor]" 	// This is the name of the input form and used by WP to store the value of the setting
-													,"value" 	=>	$loghorn_form_shadow_hor_value						// The value of the slider element
-													,"step"	=> "1" 														// slider increment
-													,"js"	=> "showValueFormShdwHor"									// JavaScript function associated with this slider
-												);
-			$loghorn_slider_control_span1 = array (	 "class" => "loghorn_menu_label"									// class for the label describing the slider
-													,"text"	 => "Horizontal Displacement: "								// Text for the label describing the slider
-												);
-			$loghorn_slider_control_span2 = array (	 "class" => "loghorn_span"											// class for the label displaying the value of the slider
-													,"id"	 => "loghorn_form_shdw_slider_hor_span"						// id for the label displaying the value of the slider
-													,"postfix"	=> "px"													// this value is displayed after the slider value. It basically describes the unit of measurement.
-												);									
-			$this->loghorn_show_slider_control ( $loghorn_slider_control_input , $loghorn_slider_control_span1 , $loghorn_slider_control_span2);
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][hor]"
+															, "option_id"	=> "loghorn_form_shadow_hor"
+															, "value"		=> $loghorn_form_shadow_hor_value
+															, "label"		=> "Horizontal Displacement: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 			
+			// Display slider for Vertical Displacement:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][ver]"
+															, "option_id"	=> "loghorn_form_shadow_ver"
+															, "value"		=> $loghorn_form_shadow_ver_value
+															, "label"		=> "Vertical Displacement: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 			
-			// Display slider for Alpha Channel:
-			$loghorn_slider_control_input = array (	 "min"	=> "0" 														// Min. value of slider 
-													,"max"	=> "100" 													// Max. value of slider 
-													,"id"	=> "loghorn_form_shdw_slider_alpha"							// id for HTML input form 
-													,"name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][alpha]"	// This is the name of the input form and used by WP to store the value of the setting
-													,"value" 	=>	$loghorn_form_shadow_alpha_value					// The value of the slider element
-													,"step"	=> "1" 														// slider increment
-													,"js"	=> "showValueFormShdwAlpha"									// JavaScript function associated with this slider
-												);
-			$loghorn_slider_control_span1 = array (	 "class" => "loghorn_menu_label"									// class for the label describing the slider
-													,"text"	 => "Alpha Channel: "										// Text for the label describing the slider
-												);
-			$loghorn_slider_control_span2 = array (	 "class" => "loghorn_span"											// class for the label displaying the value of the slider
-													,"id"	 => "loghorn_form_shdw_slider_alpha_span"					// id for the label displaying the value of the slider
-													,"postfix"	=> "%"													// this value is displayed after the slider value. It basically describes the unit of measurement.
-												);								
-			$this->loghorn_show_slider_control ( $loghorn_slider_control_input , $loghorn_slider_control_span1 , $loghorn_slider_control_span2);
-?>			
-			<input type="hidden" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][ver]" id="loghorn_form_shadow_ver_inp" value="<?php _e ( $loghorn_form_shadow_ver_value ) ; ?>">
-			<span class="loghorn_menu_label"> Vertical Displacement: </span>
-			<div id="loghorn_form_shadow_ver_slider" class="ui-slider">
-				<div id="loghorn_form_shadow_ver_handle" class="ui-slider-handle" ></div>
-			</div>
-			<br>
+			// Display slider for Blur:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][blur]"
+															, "option_id"	=> "loghorn_form_shadow_blur"
+															, "value"		=> $loghorn_form_shadow_blur_value
+															, "label"		=> "Blur Effect: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 			
-<?php	
-			
+			// Display slider for Form Shadow Alpha Channel:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][alpha]"
+															, "option_id"	=> "loghorn_form_shadow_alpha"
+															, "value"		=> $loghorn_form_shadow_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 		}
 		
 		function loghorn_load_custom_script( $hook ) {
@@ -348,8 +339,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			// JQuery UI Core for ui slider:
-			wp_enqueue_script('jquery'); 
-			wp_enqueue_script('jquery-ui-core'); 
 			wp_enqueue_script('jquery-ui-slider');
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			
@@ -369,22 +358,17 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			settings_errors();
 		}
 		/*
-		 *
+		 * Displays the slider
 		 */
-		function loghorn_show_slider_control ( 	$loghorn_slider_inp, $loghorn_slider_span1, $loghorn_slider_span2 )	{
-?>		
-			<input type="range" min="<?php _e ( $loghorn_slider_inp["min"] ) ; ?>" max="<?php _e ( $loghorn_slider_inp["max"] ) ; ?>" id="<?php _e ( $loghorn_slider_inp["id"] ) ; ?>" name="<?php _e ( $loghorn_slider_inp["name"] ) ; ?>" value="<?php _e ( $loghorn_slider_inp["value"] ) ; ?>" step="<?php _e ( $loghorn_slider_inp["step"] ) ; ?>" onchange="<?php _e ( $loghorn_slider_inp["js"] ) ; ?>(this.value)" />
-			<span class="<?php _e ( $loghorn_slider_span1["class"] ) ; ?>"> <?php _e ( $loghorn_slider_span1["text"] ) ; ?> </span>
-			<span class="<?php _e ( $loghorn_slider_span2["class"] ) ; ?>" id="<?php _e ( $loghorn_slider_span2["id"] ) ; ?>"><?php _e ( $loghorn_slider_inp["value"].$loghorn_slider_span2["postfix"] ) ; ?></span>	
-			<br>
-			
-			<!-- Some experiments with jquery for the form shadow alpha channel using jquery ui slider:
-			<input type="hidden" name="loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][ver]" id="loghorn_form_shadow_ver_inp" value="<?php _e ( $loghorn_form_shadow_ver_value ) ; ?>">
-			<div id="slider" value="<?php _e ( $loghorn_form_shadow_ver_value ) ; ?>">
-				<div id="custom-handle" class="ui-slider-handle" value="<?php _e ( $loghorn_form_shadow_ver_value ) ; ?>" ></div>
+		function loghorn_jquery_slider($loghorn_jquery_slider_parms)	{
+?>			
+			<span class="loghorn_menu_label"> <?php _e ( $loghorn_jquery_slider_parms["label"] ) ; ?> </span>
+			<input type="text" class="loghorn_slider_textbox" name="<?php _e ( $loghorn_jquery_slider_parms["option_name"] ) ; ?>" id="<?php _e ( $loghorn_jquery_slider_parms["option_id"] ) ; ?>_inp" value="<?php _e ( $loghorn_jquery_slider_parms["value"] ) ; ?>">
+			<div id="<?php _e ( $loghorn_jquery_slider_parms["option_id"] ) ; ?>_slider" class="ui-slider">
+				<div id="<?php _e ( $loghorn_jquery_slider_parms["option_id"] ) ; ?>_handle" class="ui-slider-handle" ></div>
 			</div>
-			-->
-<?php			
+			
+<?php	
 		}
 	} //class Log_Horn_Admin_Menu ends here.
 	

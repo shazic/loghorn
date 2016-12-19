@@ -1,35 +1,30 @@
 	#logo_div	{
 		width: 80px;
+		height: 80px;
 	}
 	
 	#bg_div	{
-		width: 180px;
+		width: 160px;
+		height: 100px;
 	}
 	
 	div.img1 {
-    margin: 5px;
-    border: 5px solid #aaa;
-	border-style: ridge;
-    float: bottom-left;
-    }
-
+		border: 1px solid #ccc;
+	}
+	
 	div.img1:hover {
-		border: 5px solid #555;
-	border-style: ridge;
+		border: 1px solid #555;
 	}
 
 	div.img1 img {
-    width: 100%;
-    height: 100%;
+		width: 100%;
+		height: 100%;
+		background-size: contain;
 	}
 
 	div.desc {
-    padding: 5px;
-	background-color: white ;
-	border: 1px solid #ccc;
-	color: #777;
-    text-align: center;
-	}
-	div.desc:hover {
-    color: #00f;
+		background-color: #fff ;
+		border: 1px solid #ccc;
+		color: #777;
+		text-align: center;
 	}
