@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	jQuery(document).ready(function($){
 		// The below items could be put in a CSS file.
-		$(".ui-slider-handle").css("width", 40);
+		$(".ui-slider-handle").css("width", 36);
 		$(".ui-slider-handle").css("text-align", "center");
-		$(".ui-slider-handle").css("font-size", 12);
-		$(".ui-slider").css("width", 500);
+		$(".ui-slider-handle").css("font-size", 10);
+		$(".ui-slider").css("width", 600);
 		$(".ui-slider").css("height", 6);
 		// Make  the slider text-box invisible.
 		$(".loghorn_slider_textbox").hide();
@@ -14,7 +14,7 @@
 		var form_width_handle = $( "#loghorn_form_width_handle" );
 		form_slider_value = document.getElementById("loghorn_form_width_inp").value;
 		form_width_slider.slider({
-			min:220, max:800, value:form_slider_value,
+			min:220, max:800, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_width_handle.text( $( this ).slider( "value" )+"px" );
 			},
@@ -28,7 +28,7 @@
 		var form_pad_handle = $( "#loghorn_form_pad_handle" );
 		form_slider_value = document.getElementById("loghorn_form_pad_inp").value;
 		form_pad_slider.slider({
-			min:0, max:10, value:form_slider_value,
+			min:0, max:10, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_pad_handle.text( $( this ).slider( "value" )+"px" );
 			},
@@ -61,7 +61,7 @@
 				form_colr_alpha_handle.text( $( this ).slider( "value" )+"%" );
 			},
 			slide: function( event, ui ) {
-				form_colr_alpha_handle.text( ui.value+"px" );
+				form_colr_alpha_handle.text( ui.value+"%" );
 				document.getElementById("loghorn_form_colr_alpha_inp").value=ui.value;
 			}
 		});
@@ -117,37 +117,55 @@
 				form_shadow_alpha_handle.text( $( this ).slider( "value" )+"%" );
 			},
 			slide: function( event, ui ) {
-				form_shadow_alpha_handle.text( ui.value+"px" );
+				form_shadow_alpha_handle.text( ui.value+"%" );
 				document.getElementById("loghorn_form_shadow_alpha_inp").value=ui.value;
+			}
+		});
+		/////////////////////////////////////////////////   Login Form: Border - Thickness slider:
+		var form_border_thick_slider = $("#loghorn_form_border_thick_slider");
+		var form_border_thick_handle = $( "#loghorn_form_border_thick_handle" );
+		form_slider_value = document.getElementById("loghorn_form_border_thick_inp").value;
+		form_border_thick_slider.slider({
+			min:0, max:10, value:form_slider_value,
+			create: function() {
+				form_border_thick_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				form_border_thick_handle.text( ui.value+"px" );
+				document.getElementById("loghorn_form_border_thick_inp").value=ui.value;
+			}
+		});
+		/////////////////////////////////////////////////   Login Form: Border - Alpha Channel slider:
+		var form_border_alpha_slider = $("#loghorn_form_border_alpha_slider");
+		var form_border_alpha_handle = $( "#loghorn_form_border_alpha_handle" );
+		form_slider_value = document.getElementById("loghorn_form_border_alpha_inp").value;
+		form_border_alpha_slider.slider({
+			min:0, max:100, value:form_slider_value,
+			create: function() {
+				form_border_alpha_handle.text( $( this ).slider( "value" )+"%" );
+			},
+			slide: function( event, ui ) {
+				form_border_alpha_handle.text( ui.value+"%" );
+				document.getElementById("loghorn_form_border_alpha_inp").value=ui.value;
+			}
+		});
+		/////////////////////////////////////////////////   Login Form: Border - Radius slider:
+		var form_border_radius_slider = $("#loghorn_form_border_radius_slider");
+		var form_border_radius_handle = $( "#loghorn_form_border_radius_handle" );
+		form_slider_value = document.getElementById("loghorn_form_border_radius_inp").value;
+		form_border_radius_slider.slider({
+			min:0, max:50, value:form_slider_value,
+			create: function() {
+				form_border_radius_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				form_border_radius_handle.text( ui.value+"px" );
+				document.getElementById("loghorn_form_border_radius_inp").value=ui.value;
 			}
 		});
 		//
 	} );
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  	function showValueFormWidth(newValue)
-	{
-		document.getElementById("loghorn_form_slider_width_span").innerHTML=newValue+"px";
-	}
-	function showValueFormPad(newValue)
-	{
-		document.getElementById("loghorn_form_slider_pad_span").innerHTML=newValue+"px";
-	}
-	function showValueFormMargin(newValue)
-	{
-		document.getElementById("loghorn_form_slider_margin_span").innerHTML=newValue+"px";
-	}
-	function showValueFormAlpha(newValue)
-	{
-		document.getElementById("loghorn_form_slider_alpha_span").innerHTML=newValue+"%";
-	}
-	function showValueFormShdwHor(newValue)
-	{
-		document.getElementById("loghorn_form_shdw_slider_hor_span").innerHTML=newValue+"px";
-	}
-	function showValueFormShdwAlpha(newValue)
-	{
-		document.getElementById("loghorn_form_shdw_slider_alpha_span").innerHTML=newValue+"%";
-	}
 	// Media frame to select and upload media files. Code template from Mike Jolley 
 	jQuery( document ).ready( function( $ ) {
 			// Uploading files
@@ -207,7 +225,7 @@
 				}
 				// Create the media frame.
 				file_frame_background = wp.media.frames.file_frame_background = wp.media({
-					title: 'Select an image to use as the bg',
+					title: 'Select an image to use as the background',
 					button: {
 						text: 'Use this image',
 					},

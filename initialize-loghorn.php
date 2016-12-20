@@ -97,7 +97,7 @@
 	}
 	// Set the default Form Width:
     if  ( ! defined ( 'LOGHORN_DEFAULT_FORM_WD' )  )  {
-        define ( 'LOGHORN_DEFAULT_FORM_WD' , '320px' ) ;
+        define ( 'LOGHORN_DEFAULT_FORM_WD' , 320 ) ;
 	}
 	// Set the Minimum Allowable Form Width:
     if  ( ! defined ( 'LOGHORN_MIN_FORM_WD' )  )  {
