@@ -409,4 +409,12 @@
 		define ( 'LOGHORN_ON_ACTIVE' , 2 ) ;	
 	}
 	
+	/**************************************   GLOBALS   *****************************************/
+	
+	global 	$loghorn_border_styles_global ;
+			$loghorn_border_styles_global = array (	 "solid"
+													,"double"
+													,"dashed"
+											);
+    
 ?>

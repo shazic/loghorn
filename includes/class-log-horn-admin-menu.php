@@ -233,12 +233,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			
 			// Display Color Picker for the Form:
-			$loghorn_color_options				= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][hex]"
+			$loghorn_color_picker_parms				= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][hex]"
 															, "option_id"	=> "form"
 															, "value"		=> $loghorn_form_color_value
 														);
 			
-			$this->loghorn_color_picker( $loghorn_color_options ) ;
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
 
 			// Display slider for Form Color Alpha Channel:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][alpha]"
@@ -278,12 +278,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			
 			// Display Color Picker for Form Shadow:
-			$loghorn_color_options				= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][hex]"
+			$loghorn_color_picker_parms				= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][hex]"
 															, "option_id"	=> "form_shadow"
 															, "value"		=> $loghorn_form_shadow_colr_value
 														);
 			
-			$this->loghorn_color_picker( $loghorn_color_options ) ;
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
 			
 			// Display slider for selecting Horizontal Displacement value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][hor]"
@@ -345,6 +345,14 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				$loghorn_form_border_radius_value = 0;							// Move default value.
 			}
 			
+			// Display Color Picker for Form Border:
+			$loghorn_color_picker_parms				= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][hex]"
+															, "option_id"	=> "form_border"
+															, "value"		=> $loghorn_form_border_color_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
 			// Display slider for selecting Form Border Thickness value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][thick]"
 															, "option_id"	=> "loghorn_form_border_thick"
@@ -368,6 +376,15 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "label"		=> "Corner Radius: "
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display listbox for selecting Border style for the Form:
+			global $loghorn_border_styles_global ;							// Options for border styles. Defined under initialize-loghorn.php.
+			$loghorn_show_listbox_parms	=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][style]"
+													,"option_id"	=> "loghorn_form_border_style"
+													,"value"		=> $loghorn_form_border_style_value
+											);
+			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
+			echo $loghorn_form_border_style_value;
 			
 		}
 		
@@ -424,11 +441,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		 * Displaying the Color Picker would be handled by wp-color-picker.
 		 * Let's prepare the textbox for the browser to fall back upon, if JavaScript is disabled.
 		 */
-		function loghorn_color_picker( $loghorn_color_options)	{
+		function loghorn_color_picker( $loghorn_color_picker_parms)	{
 			
-			$loghorn_txtbox_id = "loghorn_".$loghorn_color_options["option_id"]."_color" ;
+			$loghorn_txtbox_id = "loghorn_".$loghorn_color_picker_parms["option_id"]."_color" ;
 ?>	
-			<input type="text" value=<?php _e ( $loghorn_color_options["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?> " name="<?php _e ( $loghorn_color_options["option_name"]) ; ?>" />
+			<input type="text" value=<?php _e ( $loghorn_color_picker_parms["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?> " name="<?php _e ( $loghorn_color_picker_parms["option_name"]) ; ?>" />
 			<br>
 <?php
 		}
@@ -450,6 +467,36 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			</div>
 			
 <?php	
+		}
+		
+		function loghorn_show_listbox( $loghorn_listbox_options, $loghorn_listbox_parms )	{
+			
+			$loghorn_textbox_id	= $loghorn_listbox_parms["option_id"]."_textbox" ;
+			$loghorn_listbox_id	= $loghorn_listbox_parms["option_id"]."_listbox" ;
+?>			
+			<div class="loghorn_list">
+				<form action="class-log-horn-admin-menu.php" method="post">
+					<select class="loghorn_list_select" id="<?php _e ( $loghorn_listbox_id ) ; ?>">
+<?php
+					foreach ( $loghorn_listbox_options as $loghorn_listbox_key => $a_loghorn_listbox ) {
+						$loghorn_listbox_name = $a_loghorn_listbox;
+						if ( $loghorn_listbox_key == $loghorn_listbox_parms["value"] )	{
+							$selected = " selected='selected'";
+						}
+						else	{
+							$selected = '';
+						}
+						$loghorn_listbox_name = esc_attr($loghorn_listbox_name);
+						$loghorn_listbox_key = esc_attr($loghorn_listbox_key);
+						_e ( "\n\t<option value=\"$loghorn_listbox_key\" $selected>$loghorn_listbox_name</option>" ) ;
+					}
+?>
+					</select>
+				</form>
+				<input type="text" class="loghorn_list_selected_textbox" id="<?php _e("$loghorn_textbox_id") ; ?>" name="<?php _e( $loghorn_listbox_parms["option_name"] ) ; ?>" value="<?php _e( $loghorn_listbox_parms["value"] ) ; ?>" >
+			</div>
+<?php
+			
 		}
 	} //class Log_Horn_Admin_Menu ends here.
 	

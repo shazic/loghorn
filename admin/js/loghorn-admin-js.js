@@ -4,10 +4,13 @@
 		$(".ui-slider-handle").css("width", 36);
 		$(".ui-slider-handle").css("text-align", "center");
 		$(".ui-slider-handle").css("font-size", 10);
+		$(".ui-slider-handle").css("border-color", "gray");
 		$(".ui-slider").css("width", 600);
 		$(".ui-slider").css("height", 6);
 		// Make  the slider text-box invisible.
 		$(".loghorn_slider_textbox").hide();
+		// Make the input field for list box selected item invisible.
+		$(".loghorn_list_selected_textbox").hide();
 		var form_slider_value = 0;
 		/////////////////////////////////////////////////   Login Form: Width:  ////////////////////////////////////////////////////////////////
 		var form_width_slider = $("#loghorn_form_width_slider");
@@ -248,5 +251,13 @@
 			// Restore the main ID when the add media button is pressed
 			jQuery( 'a.add_media' ).on( 'click', function() {
 				wp.media.model.settings.post.id = wp_media_post_id;
+			});
+		});
+		////////////////////////////////////////  List item	
+		( function( $ ) {
+		    $( "#loghorn_form_border_style_listbox" ).selectmenu({
+				change: function( event, data ) {
+					document.getElementById("loghorn_form_border_style_textbox").value=data.item.value;
+				}
 			});
 		});
