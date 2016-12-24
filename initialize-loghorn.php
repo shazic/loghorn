@@ -412,9 +412,16 @@
 	/**************************************   GLOBALS   *****************************************/
 	
 	global 	$loghorn_border_styles_global ;
-			$loghorn_border_styles_global = array (	 "solid"
-													,"double"
+			$loghorn_border_styles_global = array (	 "none"
+													,"solid"
+													,"dotted"
 													,"dashed"
+													,"double"
+													,"groove"
+													,"ridge"
+													,"inset"
+													,"outset"
+													,"hidden"
 											);
     
 ?>

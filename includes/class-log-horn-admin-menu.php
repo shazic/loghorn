@@ -384,10 +384,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 													,"value"		=> $loghorn_form_border_style_value
 											);
 			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
-			echo $loghorn_form_border_style_value;
 			
 		}
-		
 		
 		function loghorn_load_custom_script( $hook ) {
 			
@@ -417,7 +415,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			wp_enqueue_style( 'loghorn-admin-stylesheet' , LOGHORN_ADMIN_CSS_URL.'loghorn-admin-css.css' ) ;
 			
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			// JQuery UI Core for ui slider:
+			// JQuery UI Core and for ui slider:
+			//wp_enqueue_script('jquery');
+			//wp_enqueue_script('jquery-ui');
 			wp_enqueue_script('jquery-ui-slider');
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			
@@ -471,12 +471,14 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_show_listbox( $loghorn_listbox_options, $loghorn_listbox_parms )	{
 			
-			$loghorn_textbox_id	= $loghorn_listbox_parms["option_id"]."_textbox" ;
-			$loghorn_listbox_id	= $loghorn_listbox_parms["option_id"]."_listbox" ;
+			$loghorn_textbox_id		= $loghorn_listbox_parms["option_id"]."_textbox" ;
+			$loghorn_listbox_id		= $loghorn_listbox_parms["option_id"]."_listbox" ;
+			$loghorn_onchange_fn	= $loghorn_listbox_parms["option_id"]."_onchange()" ;
 ?>			
 			<div class="loghorn_list">
-				<form action="class-log-horn-admin-menu.php" method="post">
-					<select class="loghorn_list_select" id="<?php _e ( $loghorn_listbox_id ) ; ?>">
+				<form action="#">
+					<fieldset>
+					<select class="loghorn_list_select" id="<?php _e ( $loghorn_listbox_id ) ; ?>" name="<?php _e ( $loghorn_listbox_id ) ; ?>" onchange="<?php _e ( $loghorn_onchange_fn ) ; ?>">
 <?php
 					foreach ( $loghorn_listbox_options as $loghorn_listbox_key => $a_loghorn_listbox ) {
 						$loghorn_listbox_name = $a_loghorn_listbox;
@@ -488,12 +490,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 						}
 						$loghorn_listbox_name = esc_attr($loghorn_listbox_name);
 						$loghorn_listbox_key = esc_attr($loghorn_listbox_key);
-						_e ( "\n\t<option value=\"$loghorn_listbox_key\" $selected>$loghorn_listbox_name</option>" ) ;
+						_e ( "<option value=\"$loghorn_listbox_key\" $selected>$loghorn_listbox_name</option>" ) ;
 					}
 ?>
 					</select>
+					</fieldset>
 				</form>
-				<input type="text" class="loghorn_list_selected_textbox" id="<?php _e("$loghorn_textbox_id") ; ?>" name="<?php _e( $loghorn_listbox_parms["option_name"] ) ; ?>" value="<?php _e( $loghorn_listbox_parms["value"] ) ; ?>" >
+				<input type="text" class="loghorn_list_selected_textbox" id="<?php _e( $loghorn_textbox_id ) ; ?>" name="<?php _e( $loghorn_listbox_parms["option_name"] ) ; ?>" value="<?php _e( $loghorn_listbox_parms["value"] ) ; ?>" >
 			</div>
 <?php
 			

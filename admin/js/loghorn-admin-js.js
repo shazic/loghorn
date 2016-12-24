@@ -253,11 +253,7 @@
 				wp.media.model.settings.post.id = wp_media_post_id;
 			});
 		});
-		////////////////////////////////////////  List item	
-		( function( $ ) {
-		    $( "#loghorn_form_border_style_listbox" ).selectmenu({
-				change: function( event, data ) {
-					document.getElementById("loghorn_form_border_style_textbox").value=data.item.value;
-				}
-			});
-		});
+	///////////////////////////////////////  List item	
+	function loghorn_form_border_style_onchange()	{
+		document.getElementById("loghorn_form_border_style_textbox").value= document.getElementById("loghorn_form_border_style_listbox").value;
+	}
