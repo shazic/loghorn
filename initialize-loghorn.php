@@ -220,7 +220,7 @@
 		define ( 'LOGHORN_SETTINGS_FORM_LBL_COLR' , 11 ) ;
 	}
 	// Set the Input Box Edge Radius size Option label:
-	if  ( ! defined ( 'LOGHORN_SETTINGS_INP_RADIUS' )  )	{
+	if  ( ! defined ( 'LOGHORN_SETTINGS_INP_RADIUS' )  )	{		//  <<  Don't miss this one.
 		define ( 'LOGHORN_SETTINGS_INP_RADIUS' , 12 ) ;
 	}
 	// Set the Input text font Option label:

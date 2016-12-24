@@ -107,6 +107,10 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_settings_field('loghorn_form_shadow'	, 	'Form Shadow'			, 		array ( $this, 'loghorn_form_shadow_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
 				add_settings_field('loghorn_form_border'	, 	'Form Border'			, 		array ( $this, 'loghorn_form_border_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
 				add_settings_field('loghorn_form_label'		, 	'Form Label'			, 		array ( $this, 'loghorn_form_label_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
+			
+			add_settings_section('loghorn_input'			, 'Input Fields Settings', 		array ( $this, 'loghorn_input_settings' 	), 'loghorn_settings_sections');
+				add_settings_field('loghorn_input_text'		, 	'Text'					, 		array ( $this, 'loghorn_input_text_settings' 	), 		'loghorn_settings_sections', 'loghorn_input');
+		
 		}
 		
 		
@@ -120,6 +124,10 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		}
 		
 		function loghorn_form_settings (){
+			
+		}
+		
+		function loghorn_input_settings()	{
 			
 		}
 		
@@ -373,6 +381,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
 			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][style]"
 															,"option_id"	=> "loghorn_form_border_style"
+															,"label"		=> "Border Type:"
 															,"value"		=> $loghorn_form_border_style_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
@@ -417,9 +426,31 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			global $loghorn_fonts_global ;									// Options for border styles. Defined in initialize-loghorn.php.
 			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_LBL][font]"
 															,"option_id"	=> "loghorn_form_label_font"
+															,"label"		=> "Font:"
 															,"value"		=> $loghorn_form_label_font_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_fonts_global, $loghorn_show_listbox_parms ) ;
+			
+			
+		}
+		
+		function loghorn_input_text_settings()	{
+			
+			// Fetch values of input text settings from options table, if present.
+			$loghorn_input_text_font_value   		= self::$loghorn_options['LOGHORN_SETTINGS_INP_FONT']['font'] ;
+			$loghorn_input_text_size_value   		= self::$loghorn_options['LOGHORN_SETTINGS_INP_FONT']['size'] ;
+			$loghorn_input_text_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_INP_FONT']['hex'] ;
+			
+			// Set defaults, if not present.
+			if ( !$loghorn_input_text_font_value )	{
+				$loghorn_input_text_font_value = 0;								// Move default value.
+			}
+			if ( !$loghorn_input_text_size_value )	{
+				$loghorn_input_text_size_value = 10;							// Move default value.
+			}
+			if ( !$loghorn_input_text_color_value )	{
+				$loghorn_input_text_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
+			}
 			
 			
 		}
@@ -538,6 +569,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 ?>			
 			<div class="loghorn_list">
 				<form action="#">
+					<span class="loghorn_menu_label"> <?php _e ( $loghorn_listbox_parms["label"] ) ; ?> </span>
 					<select class="loghorn_list_select" id="<?php _e ( $loghorn_listbox_id ) ; ?>" name="<?php _e ( $loghorn_listbox_id ) ; ?>" onchange="<?php _e ( $loghorn_onchange_fn ) ; ?>">
 <?php
 					foreach ( $loghorn_listbox_options as $loghorn_listbox_key => $a_loghorn_listbox ) {
