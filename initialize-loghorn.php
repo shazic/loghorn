@@ -411,7 +411,10 @@
 	
 	/**************************************   GLOBALS   *****************************************/
 	
-	global 	$loghorn_border_styles_global ;
+	global 	  $loghorn_border_styles_global 
+			, $loghorn_fonts_global
+			;
+			
 			$loghorn_border_styles_global = array (	 "none"
 													,"solid"
 													,"dotted"
@@ -422,6 +425,10 @@
 													,"inset"
 													,"outset"
 													,"hidden"
+											);
+			$loghorn_fonts_global 		  = array (	 "Arial"
+													,"Times New Roman"
+													,"Courier New"
 											);
     
 ?>
