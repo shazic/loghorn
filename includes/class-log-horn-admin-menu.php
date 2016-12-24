@@ -52,7 +52,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// Load Settings from the Options Table:
 			self::$loghorn_options = get_option ( 'loghorn_settings2' ) ;
-			
 			}
 		
 		/**
@@ -107,6 +106,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_settings_field('loghorn_form_color'		, 	'Form Background Color'	, 		array ( $this, 'loghorn_form_color_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
 				add_settings_field('loghorn_form_shadow'	, 	'Form Shadow'			, 		array ( $this, 'loghorn_form_shadow_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
 				add_settings_field('loghorn_form_border'	, 	'Form Border'			, 		array ( $this, 'loghorn_form_border_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_label'		, 	'Form Label'			, 		array ( $this, 'loghorn_form_label_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
 		}
 		
 		
@@ -127,42 +127,34 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// Options table store the logo's image id. Get the image source information:
 			$loghorn_logo_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_LOGO']) ;
-?>
-			<input id="logo_upload_image_button" type="button" class="button" value="<?php _e( 'Select logo image' ); ?>" />
-			<i class="fa fa-upload" aria-hidden="true"></i>
-			<input type='hidden' name="loghorn_settings2[LOGHORN_SETTINGS_LOGO]" id='image_attachment_id' value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_LOGO'] ) ; ?>">
-			<br>		
-			<div id="logo_div" class="img1">
-				<!--a id="logo_image_src" target="_blank" href='<?php _e ( $loghorn_logo_image_src [0] ) ; ?>' -->
-					
-						<img id='logo-image-preview' src="<?php _e ( $loghorn_logo_image_src [0] ) ; ?>" width="80" height="80"  > 
-					
-				<!--/a-->
-				<div class="desc"> <?php _e ( 'Preview' ) ; ?> </div>
-			</div>
-			<br>	
-<?php	
+			
+			// Display Logo Image:
+			$loghorn_logo_image_parameters		= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_LOGO]"
+															, "option_id"	=> "logo"
+															, "button_text"	=> "Select logo image"
+															, "value"		=> self::$loghorn_options['LOGHORN_SETTINGS_LOGO']
+															, "width"		=> "80"
+															, "height"		=> "80"
+															, "desc"		=> "Preview"
+														);
+			$this->loghorn_show_image_settings ( $loghorn_logo_image_parameters , $loghorn_logo_image_src ) ;
 		}
 		
 		function loghorn_show_bg_settings ()	{
 			
 			// Options table store the background image id. Get the image source information:
 			$loghorn_bg_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_BG']) ;
-?>
-			<input id="bg_upload_image_button" type="button" class="button" value="<?php _e( 'Background image' ); ?>" />
-			<i class="fa fa-upload" aria-hidden="true"></i>
-			<input type='hidden' name="loghorn_settings2[LOGHORN_SETTINGS_BG]" id='bg_image_attachment_id' value="<?php _e ( self::$loghorn_options['LOGHORN_SETTINGS_BG'] ) ; ?>">
-			<br>		
-			<div id="bg_div" class="img1">
-				<!--a id="bg_image_src" target="_blank" href='<?php _e ( $loghorn_bg_image_src [0] ) ; ?>' -->
-					
-						<img id='bg-image-preview' src="<?php _e ( $loghorn_bg_image_src [0] ) ; ?>" width="80" height="80"  > 
-					
-				<!--/a-->
-				<div class="desc"> <?php _e ( 'Background Preview' ) ; ?> </div>
-			</div>
-			<br>
-<?php		
+			
+			// Display background image:
+			$loghorn_bg_image_parameters		= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_BG]"
+															, "option_id"	=> "bg"
+															, "button_text"	=> "Background image"
+															, "value"		=> self::$loghorn_options['LOGHORN_SETTINGS_BG']
+															, "width"		=> "160"
+															, "height"		=> "100"
+															, "desc"		=> "Background Preview"
+														);
+			$this->loghorn_show_image_settings ( $loghorn_bg_image_parameters , $loghorn_bg_image_src ) ;
 		}
 		
 		function loghorn_form_width_settings ()	{
@@ -233,7 +225,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			
 			// Display Color Picker for the Form:
-			$loghorn_color_picker_parms				= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][hex]"
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][hex]"
 															, "option_id"	=> "form"
 															, "value"		=> $loghorn_form_color_value
 														);
@@ -278,7 +270,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			
 			// Display Color Picker for Form Shadow:
-			$loghorn_color_picker_parms				= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][hex]"
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][hex]"
 															, "option_id"	=> "form_shadow"
 															, "value"		=> $loghorn_form_shadow_colr_value
 														);
@@ -346,7 +338,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			
 			// Display Color Picker for Form Border:
-			$loghorn_color_picker_parms				= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][hex]"
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][hex]"
 															, "option_id"	=> "form_border"
 															, "value"		=> $loghorn_form_border_color_value
 														);
@@ -378,12 +370,57 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 			
 			// Display listbox for selecting Border style for the Form:
-			global $loghorn_border_styles_global ;							// Options for border styles. Defined under initialize-loghorn.php.
-			$loghorn_show_listbox_parms	=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][style]"
-													,"option_id"	=> "loghorn_form_border_style"
-													,"value"		=> $loghorn_form_border_style_value
-											);
+			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][style]"
+															,"option_id"	=> "loghorn_form_border_style"
+															,"value"		=> $loghorn_form_border_style_value
+														);
 			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
+			
+		}
+		
+		function loghorn_form_label_settings()	{
+			
+			// Fetch values of form label settings from options table, if present.
+			$loghorn_form_label_font_value   		= self::$loghorn_options['LOGHORN_SETTINGS_FORM_LBL']['font'] ;
+			$loghorn_form_label_size_value   		= self::$loghorn_options['LOGHORN_SETTINGS_FORM_LBL']['size'] ;
+			$loghorn_form_label_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_FORM_LBL']['hex'] ;
+			
+			// Set defaults, if not present.
+			if ( !$loghorn_form_label_font_value )	{
+				$loghorn_form_label_font_value = 0;								// Move default value.
+			}
+			if ( !$loghorn_form_label_size_value )	{
+				$loghorn_form_label_size_value = 10;							// Move default value.
+			}
+			if ( !$loghorn_form_label_color_value )	{
+				$loghorn_form_label_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
+			}
+			
+			// Display Color Picker for Form Label:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_LBL][hex]"
+															, "option_id"	=> "form_label"
+															, "value"		=> $loghorn_form_label_color_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display slider for selecting Form Font Size value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_LBL][size]"
+															, "option_id"	=> "loghorn_form_label_size"
+															, "value"		=> $loghorn_form_label_size_value
+															, "label"		=> "Font Size: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display listbox for selecting Font style for the Form Label:
+			global $loghorn_fonts_global ;									// Options for border styles. Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_LBL][font]"
+															,"option_id"	=> "loghorn_form_label_font"
+															,"value"		=> $loghorn_form_label_font_value
+														);
+			$this->loghorn_show_listbox ( $loghorn_fonts_global, $loghorn_show_listbox_parms ) ;
+			
 			
 		}
 		
@@ -399,14 +436,14 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			// Wordpress media library
 			wp_enqueue_media();
 			
+			/************************************************* Enqueue Styles **************************************************************/
+			
 			// WordPress Iris-based Color Picker:
 			wp_enqueue_style( 'wp-color-picker' );
 			
-			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			// JQuery UI CSS for slider:
 			wp_register_style('loghorn-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
 			wp_enqueue_style( 'loghorn-jquery-ui' );   
-			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			
 			// Font-Awesome CDN:
 			wp_enqueue_style( 'loghorn-fa' , 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
@@ -414,19 +451,16 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			// Plugin Menu's stylesheet:
 			wp_enqueue_style( 'loghorn-admin-stylesheet' , LOGHORN_ADMIN_CSS_URL.'loghorn-admin-css.css' ) ;
 			
-			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			/************************************************* Enqueue Scripts *************************************************************/
+			
 			// JQuery UI Core and for ui slider:
-			//wp_enqueue_script('jquery');
-			//wp_enqueue_script('jquery-ui');
 			wp_enqueue_script('jquery-ui-slider');
-			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			
 			// Plugin Menu's JavaScript:
 			wp_enqueue_script( 'loghorn-admin-javascript' , LOGHORN_ADMIN_JS_URL.'loghorn-admin-js.js' ) ;
 			
 			// js for WP Color Picker:
 			wp_enqueue_script( 'loghorn-iris-cp', LOGHORN_ADMIN_JS_URL.'loghorn-admin-color-picker.js', array( 'wp-color-picker' ), false, true );
-			
 		}
 
 		/*
@@ -435,6 +469,33 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_updated_notice() {
 		
 			settings_errors();
+		}
+		
+		/*************************************************************************************************************************************/
+		/**********************                        Generic methods for HTML                                *******************************/
+		/*************************************************************************************************************************************/
+		
+		function loghorn_show_image_settings ( $loghorn_image_parameters , $loghorn_image_source)	{
+			
+			$loghorn_img_button_id		= $loghorn_image_parameters["option_id"]."_upload_image_button" ;
+			$loghorn_img_attachment_id	= $loghorn_image_parameters["option_id"]."_image_attachment_id" ;
+			$loghorn_img_division_id	= $loghorn_image_parameters["option_id"]."_div" ;
+			$loghorn_img_preview_id		= $loghorn_image_parameters["option_id"]."-image-preview" ;
+?>
+			<input id="<?php _e( $loghorn_img_button_id ); ?>" type="button" class="button" value="<?php _e( $loghorn_image_parameters["button_text"] ); ?>" />
+			<i class="fa fa-upload" aria-hidden="true"></i>
+			<input type='hidden' name="<?php _e( $loghorn_image_parameters["option_name"] ); ?>" id="<?php _e( $loghorn_img_attachment_id ); ?>" value="<?php _e ( $loghorn_image_parameters["value"] ) ; ?>">
+			<br>		
+			<div id="<?php _e( $loghorn_img_division_id ); ?>" class="img1">
+				<!--a id="bg_image_src" target="_blank" href='<?php _e ( $loghorn_image_source [0] ) ; ?>' -->
+					
+					<img id="<?php _e( $loghorn_img_preview_id ); ?>" src="<?php _e ( $loghorn_image_source [0] ) ; ?>" width="<?php _e( $loghorn_image_parameters["width"] ); ?>" height="<?php _e( $loghorn_image_parameters["height"] ); ?>"  > 
+					
+				<!--/a-->
+				<div class="desc"> <?php _e ( $loghorn_image_parameters["desc"] ) ; ?> </div>
+			</div>
+			<br>
+<?php		
 		}
 		
 		/*
@@ -451,8 +512,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		}
 		
 		/*
-		 * Slider would be displayed by JQuery.
-		 * So, let's prepare the textbox so it can gracefully fall back to that, if JavaScript is disabled on the browser.
+		 * Slider would be displayed by JQuery UI.
+		 * So, let's prepare the textbox so it can fall back to that, if JavaScript is disabled on the browser.
 		 */
 		function loghorn_jquery_slider($loghorn_jquery_slider_parms)	{
 			
@@ -465,7 +526,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			<div id="<?php _e ( $loghorn_slider_id ) ; ?>" class="ui-slider">
 				<div id="<?php _e ( $loghorn_handle_id ) ; ?>" class="ui-slider-handle" ></div>
 			</div>
-			
+			<br>
 <?php	
 		}
 		
@@ -477,7 +538,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 ?>			
 			<div class="loghorn_list">
 				<form action="#">
-					<fieldset>
 					<select class="loghorn_list_select" id="<?php _e ( $loghorn_listbox_id ) ; ?>" name="<?php _e ( $loghorn_listbox_id ) ; ?>" onchange="<?php _e ( $loghorn_onchange_fn ) ; ?>">
 <?php
 					foreach ( $loghorn_listbox_options as $loghorn_listbox_key => $a_loghorn_listbox ) {
@@ -494,7 +554,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					}
 ?>
 					</select>
-					</fieldset>
 				</form>
 				<input type="text" class="loghorn_list_selected_textbox" id="<?php _e( $loghorn_textbox_id ) ; ?>" name="<?php _e( $loghorn_listbox_parms["option_name"] ) ; ?>" value="<?php _e( $loghorn_listbox_parms["value"] ) ; ?>" >
 			</div>

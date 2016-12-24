@@ -1,12 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	jQuery(document).ready(function($){
-		// The below items could be put in a CSS file.
-		$(".ui-slider-handle").css("width", 36);
-		$(".ui-slider-handle").css("text-align", "center");
-		$(".ui-slider-handle").css("font-size", 10);
-		$(".ui-slider-handle").css("border-color", "gray");
-		$(".ui-slider").css("width", 600);
-		$(".ui-slider").css("height", 6);
 		// Make  the slider text-box invisible.
 		$(".loghorn_slider_textbox").hide();
 		// Make the input field for list box selected item invisible.
@@ -15,7 +8,7 @@
 		/////////////////////////////////////////////////   Login Form: Width:  ////////////////////////////////////////////////////////////////
 		var form_width_slider = $("#loghorn_form_width_slider");
 		var form_width_handle = $( "#loghorn_form_width_handle" );
-		form_slider_value = document.getElementById("loghorn_form_width_inp").value;
+		form_slider_value = $("#loghorn_form_width_inp").attr("value");
 		form_width_slider.slider({
 			min:220, max:800, value:form_slider_value, animate: "fast",
 			create: function() {
@@ -23,13 +16,13 @@
 			},
 			slide: function( event, ui ) {
 				form_width_handle.text( ui.value+"px" );
-				document.getElementById("loghorn_form_width_inp").value=ui.value;
+				$("#loghorn_form_width_inp").val(ui.value);
 			}
 		});
 		/////////////////////////////////////////////////   Login Form: Padding:
 		var form_pad_slider = $("#loghorn_form_pad_slider");
 		var form_pad_handle = $( "#loghorn_form_pad_handle" );
-		form_slider_value = document.getElementById("loghorn_form_pad_inp").value;
+		form_slider_value = $("#loghorn_form_pad_inp").attr("value");
 		form_pad_slider.slider({
 			min:0, max:10, value:form_slider_value, animate: "fast",
 			create: function() {
@@ -37,133 +30,148 @@
 			},
 			slide: function( event, ui ) {
 				form_pad_handle.text( ui.value+"px" );
-				document.getElementById("loghorn_form_pad_inp").value=ui.value;
+				$("#loghorn_form_pad_inp").val(ui.value);
 			}
 		});
 		/////////////////////////////////////////////////   Login Form: Margin:
 		var form_mrgn_slider = $("#loghorn_form_mrgn_slider");
 		var form_mrgn_handle = $( "#loghorn_form_mrgn_handle" );
-		form_slider_value = document.getElementById("loghorn_form_mrgn_inp").value;
+		form_slider_value = $("#loghorn_form_mrgn_inp").attr("value");
 		form_mrgn_slider.slider({
-			min:0, max:10, value:form_slider_value,
+			min:0, max:10, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_mrgn_handle.text( $( this ).slider( "value" )+"px" );
 			},
 			slide: function( event, ui ) {
 				form_mrgn_handle.text( ui.value+"px" );
-				document.getElementById("loghorn_form_mrgn_inp").value=ui.value;
+				$("#loghorn_form_mrgn_inp").val(ui.value);
 			}
 		});
 		/////////////////////////////////////////////////   Login Form: Color Alpha displacement slider:
 		var form_colr_alpha_slider = $("#loghorn_form_colr_alpha_slider");
 		var form_colr_alpha_handle = $( "#loghorn_form_colr_alpha_handle" );
-		form_slider_value = document.getElementById("loghorn_form_colr_alpha_inp").value;
+		form_slider_value = $("#loghorn_form_colr_alpha_inp").attr("value");
 		form_colr_alpha_slider.slider({
-			min:0, max:100, value:form_slider_value,
+			min:0, max:100, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_colr_alpha_handle.text( $( this ).slider( "value" )+"%" );
 			},
 			slide: function( event, ui ) {
 				form_colr_alpha_handle.text( ui.value+"%" );
-				document.getElementById("loghorn_form_colr_alpha_inp").value=ui.value;
+				$("#loghorn_form_colr_alpha_inp").val(ui.value);
 			}
 		});
 		/////////////////////////////////////////////////   Login Form: Shadow - Horizontal displacement slider:
 		var form_shadow_hor_slider = $("#loghorn_form_shadow_hor_slider");
 		var form_shadow_hor_handle = $( "#loghorn_form_shadow_hor_handle" );
-		form_slider_value = document.getElementById("loghorn_form_shadow_hor_inp").value;
+		form_slider_value = $("#loghorn_form_shadow_hor_inp").attr("value");
 		form_shadow_hor_slider.slider({
-			min:0, max:30, value:form_slider_value,
+			min:0, max:30, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_shadow_hor_handle.text( $( this ).slider( "value" )+"px" );
 			},
 			slide: function( event, ui ) {
 				form_shadow_hor_handle.text( ui.value+"px" );
-				document.getElementById("loghorn_form_shadow_hor_inp").value=ui.value;
+				$("#loghorn_form_shadow_hor_inp").val(ui.value);
 			}
 		});
 		/////////////////////////////////////////////////   Login Form: Shadow - Vertical displacement slider:
 		var form_shadow_ver_slider = $("#loghorn_form_shadow_ver_slider");
 		var form_shadow_ver_handle = $( "#loghorn_form_shadow_ver_handle" );
-		form_slider_value = document.getElementById("loghorn_form_shadow_ver_inp").value;
+		form_slider_value = $("#loghorn_form_shadow_ver_inp").attr("value");
 		form_shadow_ver_slider.slider({
-			min:0, max:30, value:form_slider_value,
+			min:0, max:30, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_shadow_ver_handle.text( $( this ).slider( "value" )+"px" );
 			},
 			slide: function( event, ui ) {
 				form_shadow_ver_handle.text( ui.value+"px" );
-				document.getElementById("loghorn_form_shadow_ver_inp").value=ui.value;
+				$("#loghorn_form_shadow_ver_inp").val(ui.value);
 			}
 		});
 		/////////////////////////////////////////////////   Login Form: Shadow - Blur slider:
 		var form_shadow_blur_slider = $("#loghorn_form_shadow_blur_slider");
 		var form_shadow_blur_handle = $( "#loghorn_form_shadow_blur_handle" );
-		form_slider_value = document.getElementById("loghorn_form_shadow_blur_inp").value;
+		form_slider_value = $("#loghorn_form_shadow_blur_inp").attr("value");
 		form_shadow_blur_slider.slider({
-			min:0, max:30, value:form_slider_value,
+			min:0, max:30, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_shadow_blur_handle.text( $( this ).slider( "value" )+"px" );
 			},
 			slide: function( event, ui ) {
 				form_shadow_blur_handle.text( ui.value+"px" );
-				document.getElementById("loghorn_form_shadow_blur_inp").value=ui.value;
+				$("#loghorn_form_shadow_blur_inp").val(ui.value);
 			}
 		});
 		/////////////////////////////////////////////////   Login Form: Shadow - Alpha Channel slider:
 		var form_shadow_alpha_slider = $("#loghorn_form_shadow_alpha_slider");
 		var form_shadow_alpha_handle = $( "#loghorn_form_shadow_alpha_handle" );
-		form_slider_value = document.getElementById("loghorn_form_shadow_alpha_inp").value;
+		form_slider_value = $("#loghorn_form_shadow_alpha_inp").attr("value");
 		form_shadow_alpha_slider.slider({
-			min:0, max:100, value:form_slider_value,
+			min:0, max:100, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_shadow_alpha_handle.text( $( this ).slider( "value" )+"%" );
 			},
 			slide: function( event, ui ) {
 				form_shadow_alpha_handle.text( ui.value+"%" );
-				document.getElementById("loghorn_form_shadow_alpha_inp").value=ui.value;
+				$("#loghorn_form_shadow_alpha_inp").val(ui.value);
 			}
 		});
 		/////////////////////////////////////////////////   Login Form: Border - Thickness slider:
 		var form_border_thick_slider = $("#loghorn_form_border_thick_slider");
 		var form_border_thick_handle = $( "#loghorn_form_border_thick_handle" );
-		form_slider_value = document.getElementById("loghorn_form_border_thick_inp").value;
+		form_slider_value = $("#loghorn_form_border_thick_inp").attr("value");
 		form_border_thick_slider.slider({
-			min:0, max:10, value:form_slider_value,
+			min:0, max:10, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_border_thick_handle.text( $( this ).slider( "value" )+"px" );
 			},
 			slide: function( event, ui ) {
 				form_border_thick_handle.text( ui.value+"px" );
-				document.getElementById("loghorn_form_border_thick_inp").value=ui.value;
+				$("#loghorn_form_border_thick_inp").val(ui.value);
 			}
 		});
 		/////////////////////////////////////////////////   Login Form: Border - Alpha Channel slider:
 		var form_border_alpha_slider = $("#loghorn_form_border_alpha_slider");
 		var form_border_alpha_handle = $( "#loghorn_form_border_alpha_handle" );
-		form_slider_value = document.getElementById("loghorn_form_border_alpha_inp").value;
+		form_slider_value = $("#loghorn_form_border_alpha_inp").attr("value");
 		form_border_alpha_slider.slider({
-			min:0, max:100, value:form_slider_value,
+			min:0, max:100, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_border_alpha_handle.text( $( this ).slider( "value" )+"%" );
 			},
 			slide: function( event, ui ) {
 				form_border_alpha_handle.text( ui.value+"%" );
-				document.getElementById("loghorn_form_border_alpha_inp").value=ui.value;
+				$("#loghorn_form_border_alpha_inp").val(ui.value);
 			}
 		});
 		/////////////////////////////////////////////////   Login Form: Border - Radius slider:
 		var form_border_radius_slider = $("#loghorn_form_border_radius_slider");
 		var form_border_radius_handle = $( "#loghorn_form_border_radius_handle" );
-		form_slider_value = document.getElementById("loghorn_form_border_radius_inp").value;
+		form_slider_value = $("#loghorn_form_border_radius_inp").attr("value");
 		form_border_radius_slider.slider({
-			min:0, max:50, value:form_slider_value,
+			min:0, max:50, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_border_radius_handle.text( $( this ).slider( "value" )+"px" );
 			},
 			slide: function( event, ui ) {
 				form_border_radius_handle.text( ui.value+"px" );
-				document.getElementById("loghorn_form_border_radius_inp").value=ui.value;
+				$("#loghorn_form_border_radius_inp").val(ui.value);
+			}
+		});
+		//
+		/////////////////////////////////////////////////   Login Form: Label - Font Size slider:
+		var form_label_size_slider = $("#loghorn_form_label_size_slider");
+		var form_label_size_handle = $( "#loghorn_form_label_size_handle" );
+		form_slider_value = $("#loghorn_form_label_size_inp").attr("value");
+		form_label_size_slider.slider({
+			min:1, max:30, value:form_slider_value, animate: "fast",
+			create: function() {
+				form_label_size_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				form_label_size_handle.text( ui.value+"px" );
+				$("#loghorn_form_label_size_inp").val(ui.value);
 			}
 		});
 		//
@@ -205,7 +213,7 @@
 					// Set the HTML attributes 
 					$( '#logo-image-preview' ).attr( 'src', attachment.url );
 					$( '#logo_image_src' ).attr( 'href', attachment.url );
-					$( '#image_attachment_id' ).val( attachment.id );
+					$( '#logo_image_attachment_id' ).val( attachment.id );
 					// Restore the main post ID
 					wp.media.model.settings.post.id = wp_media_post_id;
 				});
@@ -253,7 +261,12 @@
 				wp.media.model.settings.post.id = wp_media_post_id;
 			});
 		});
-	///////////////////////////////////////  List item	
+	///////////////////////////////////////  List items ///////////////////////////////////////////////////////////////////////
+	// Form Border style
 	function loghorn_form_border_style_onchange()	{
-		document.getElementById("loghorn_form_border_style_textbox").value= document.getElementById("loghorn_form_border_style_listbox").value;
+		document.getElementById( "loghorn_form_border_style_textbox" ).value = document.getElementById("loghorn_form_border_style_listbox").value;
+	}
+	// Form Label Font
+	function loghorn_form_label_font_onchange()	{
+		document.getElementById( "loghorn_form_label_font_textbox"   ).value = document.getElementById("loghorn_form_label_font_listbox"  ).value;
 	}
