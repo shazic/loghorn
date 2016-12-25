@@ -110,6 +110,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			add_settings_section('loghorn_input'			, 'Input Fields Settings', 		array ( $this, 'loghorn_input_settings' 	), 'loghorn_settings_sections');
 				add_settings_field('loghorn_input_text'		, 	'Text'					, 		array ( $this, 'loghorn_input_text_settings' 	), 		'loghorn_settings_sections', 'loghorn_input');
+				add_settings_field('loghorn_input_textbox'	, 	'Textbox'				, 		array ( $this, 'loghorn_input_textbox_settings'	), 		'loghorn_settings_sections', 'loghorn_input');
+				add_settings_field('loghorn_input_border'	, 	'Textbox Border'		, 		array ( $this, 'loghorn_input_border_settings' 	), 		'loghorn_settings_sections', 'loghorn_input');
+				add_settings_field('loghorn_checkbox'		, 	'Checkbox'				, 		array ( $this, 'loghorn_checkbox_settings' 		), 		'loghorn_settings_sections', 'loghorn_input');
 		
 		}
 		
@@ -246,7 +249,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_alpha_value
 															, "label"		=> "Opacity: "
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 		}
 		
 		function loghorn_form_shadow_settings ()	{
@@ -315,7 +318,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_shadow_alpha_value
 															, "label"		=> "Opacity: "
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 		}
 		
 		
@@ -367,7 +370,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_border_alpha_value
 															, "label"		=> "Opacity: "
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 			
 			// Display slider for selecting Form Border Radius Channel value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][radius]"
@@ -423,14 +426,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 			
 			// Display listbox for selecting Font style for the Form Label:
-			global $loghorn_fonts_global ;									// Options for border styles. Defined in initialize-loghorn.php.
+			global $loghorn_fonts_global ;									// Options for fonts. Defined in initialize-loghorn.php.
 			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_LBL][font]"
 															,"option_id"	=> "loghorn_form_label_font"
 															,"label"		=> "Font:"
 															,"value"		=> $loghorn_form_label_font_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_fonts_global, $loghorn_show_listbox_parms ) ;
-			
 			
 		}
 		
@@ -452,9 +454,174 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				$loghorn_input_text_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
 			}
 			
+			// Display Color Picker for Input box Text:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_FONT][hex]"
+															, "option_id"	=> "input_text"
+															, "value"		=> $loghorn_input_text_color_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display slider for selecting Text Font Size value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_FONT][size]"
+															, "option_id"	=> "loghorn_input_text_size"
+															, "value"		=> $loghorn_input_text_size_value
+															, "label"		=> "Font Size: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display listbox for selecting Font style for the Input Text:
+			global $loghorn_fonts_global ;									// Options for fonts. Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_FONT][font]"
+															,"option_id"	=> "loghorn_input_text_font"
+															,"label"		=> "Font:"
+															,"value"		=> $loghorn_input_text_font_value
+														);
+			$this->loghorn_show_listbox ( $loghorn_fonts_global, $loghorn_show_listbox_parms ) ;
 			
 		}
 		
+		function loghorn_input_textbox_settings()	{
+			
+			// Fetch textbox color and alpha channel values from options table, if present.
+			$loghorn_textbox_color_value = self::$loghorn_options['LOGHORN_SETTINGS_INP_BG']['hex'] ;
+			$loghorn_textbox_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_INP_BG']['alpha'] ;
+			
+			// If this is the first time, settings was not present in options table. 
+			if ( !$loghorn_textbox_color_value )	{
+				$loghorn_textbox_color_value = LOGHORN_DEFAULT_FORM_COLR;		// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_textbox_alpha_value )	{
+				$loghorn_textbox_alpha_value = LOGHORN_DEFAULT_ALPHA;			// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			
+			// Display Color Picker for the textbox:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_BG][hex]"
+															, "option_id"	=> "textbox"
+															, "value"		=> $loghorn_textbox_color_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+
+			// Display slider for Textbox Color Alpha Channel:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_BG][alpha]"
+															, "option_id"	=> "loghorn_textbox_colr_alpha"
+															, "value"		=> $loghorn_textbox_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+		}
+		function loghorn_input_border_settings()	{
+			
+			// Fetch values of inputbox border elements from options table, if present.
+			$loghorn_input_border_thickness_value   = self::$loghorn_options['LOGHORN_SETTINGS_INP_BORDR']['thick'] ;
+			$loghorn_input_border_style_value   	= self::$loghorn_options['LOGHORN_SETTINGS_INP_BORDR']['style'] ;
+			$loghorn_input_border_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_INP_BORDR']['hex'] ;
+			$loghorn_input_border_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_INP_BORDR']['alpha'] ;
+			$loghorn_input_border_radius_value  	= self::$loghorn_options['LOGHORN_SETTINGS_INP_BORDR']['radius'] ;
+			
+			// By default, no borders.
+			if ( !$loghorn_input_border_thickness_value )	{
+				$loghorn_input_border_thickness_value = 0;						// Move default value.
+			}
+			if ( !$loghorn_input_border_style_value )	{
+				$loghorn_input_border_style_value = 0;							// Move default value.
+			}
+			if ( !$loghorn_input_border_color_value )	{
+				$loghorn_input_border_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
+			}
+			if ( !$loghorn_input_border_alpha_value )	{
+				$loghorn_input_border_alpha_value = 0;							// Move default value.
+			}
+			if ( !$loghorn_input_border_radius_value )	{
+				$loghorn_input_border_radius_value = 0;							// Move default value.
+			}
+			
+			// Display Color Picker for Inputbox Border:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_BORDR][hex]"
+															, "option_id"	=> "input_border"
+															, "value"		=> $loghorn_input_border_color_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display slider for selecting Inputbox Border Thickness value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_BORDR][thick]"
+															, "option_id"	=> "loghorn_input_border_thick"
+															, "value"		=> $loghorn_input_border_thickness_value
+															, "label"		=> "Thickness: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for selecting Inputbox Border Alpha Channel value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_BORDR][alpha]"
+															, "option_id"	=> "loghorn_input_border_alpha"
+															, "value"		=> $loghorn_input_border_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for selecting Inputbox Border Radius Channel value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_BORDR][radius]"
+															, "option_id"	=> "loghorn_input_border_radius"
+															, "value"		=> $loghorn_input_border_radius_value
+															, "label"		=> "Corner Radius: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display listbox for selecting Border style for the Inputbox:
+			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_BORDR][style]"
+															,"option_id"	=> "loghorn_input_border_style"
+															,"label"		=> "Border Type:"
+															,"value"		=> $loghorn_input_border_style_value
+														);
+			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
+			
+		}
+		
+		function loghorn_checkbox_settings()	{
+			
+			// Fetch checkbox-width from options table, if present.
+			$loghorn_checkbox_width_value  = self::$loghorn_options['LOGHORN_SETTINGS_CB']['width'] ;
+			$loghorn_checkbox_height_value = self::$loghorn_options['LOGHORN_SETTINGS_CB']['height'] ;
+			$loghorn_checkbox_radius_value = self::$loghorn_options['LOGHORN_SETTINGS_CB']['radius'] ;
+			
+			// If this is the first time, settings was not present in options table. 
+			if ( !$loghorn_checkbox_width_value )	{
+				$loghorn_checkbox_width_value = 12;								// Move default value.
+			}
+			if ( !$loghorn_checkbox_height_value )	{
+				$loghorn_checkbox_height_value = 12;							// Move default value.
+			}
+			if ( !$loghorn_checkbox_radius_value )	{
+				$loghorn_checkbox_radius_value = 0;								// Move default value.
+			}
+			
+			// Display slider for Checkbox Width:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_CB][width]"
+															, "option_id"	=> "loghorn_checkbox_width"
+															, "value"		=> $loghorn_checkbox_width_value
+															, "label"		=> "Width: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for Checkbox Height:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_CB][height]"
+															, "option_id"	=> "loghorn_checkbox_height"
+															, "value"		=> $loghorn_checkbox_height_value
+															, "label"		=> "Height: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for Checkbox Radius:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_CB][radius]"
+															, "option_id"	=> "loghorn_checkbox_radius"
+															, "value"		=> $loghorn_checkbox_radius_value
+															, "label"		=> "Radius: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+		}
 		function loghorn_load_custom_script( $hook ) {
 			
 			// Load only on ?page=mypluginname
@@ -471,6 +638,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// WordPress Iris-based Color Picker:
 			wp_enqueue_style( 'wp-color-picker' );
+			// color-picker with alpha (this extends the wp-color-picker to include alpha channel:
+			wp_enqueue_style( 'loghorn-cp-stylesheet' 	 , LOGHORN_ADMIN_CSS_URL.'alpha-color-picker.css', array( 'wp-color-picker' )) ;
 			
 			// JQuery UI CSS for slider:
 			wp_register_style('loghorn-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
@@ -482,7 +651,14 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			// Plugin Menu's stylesheet:
 			wp_enqueue_style( 'loghorn-admin-stylesheet' , LOGHORN_ADMIN_CSS_URL.'loghorn-admin-css.css' ) ;
 			
+			
 			/************************************************* Enqueue Scripts *************************************************************/
+			
+			// color-picker with alpha (this script by BraadMartin extends the wp-color-picker to include alpha channel:
+			wp_enqueue_script( 'loghorn-color-picker-alpha', LOGHORN_ADMIN_JS_URL.'alpha-color-picker.js', array( 'wp-color-picker' ), false, true );
+			
+			// loghorn js for using the Color Picker:
+			wp_enqueue_script( 'loghorn-iris-cp', LOGHORN_ADMIN_JS_URL.'loghorn-admin-color-picker.js', array( 'loghorn-color-picker-alpha' ), false, true );
 			
 			// JQuery UI Core and for ui slider:
 			wp_enqueue_script('jquery-ui-slider');
@@ -490,8 +666,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			// Plugin Menu's JavaScript:
 			wp_enqueue_script( 'loghorn-admin-javascript' , LOGHORN_ADMIN_JS_URL.'loghorn-admin-js.js' ) ;
 			
-			// js for WP Color Picker:
-			wp_enqueue_script( 'loghorn-iris-cp', LOGHORN_ADMIN_JS_URL.'loghorn-admin-color-picker.js', array( 'wp-color-picker' ), false, true );
 		}
 
 		/*

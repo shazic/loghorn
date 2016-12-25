@@ -159,7 +159,6 @@
 				$("#loghorn_form_border_radius_inp").val(ui.value);
 			}
 		});
-		//
 		/////////////////////////////////////////////////   Login Form: Label - Font Size slider:
 		var form_label_size_slider = $("#loghorn_form_label_size_slider");
 		var form_label_size_handle = $( "#loghorn_form_label_size_handle" );
@@ -172,6 +171,118 @@
 			slide: function( event, ui ) {
 				form_label_size_handle.text( ui.value+"px" );
 				$("#loghorn_form_label_size_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Input Text: Font Size slider:
+		var input_text_size_slider = $("#loghorn_input_text_size_slider");
+		var input_text_size_handle = $( "#loghorn_input_text_size_handle" );
+		form_slider_value = $("#loghorn_input_text_size_inp").attr("value");
+		input_text_size_slider.slider({
+			min:1, max:30, value:form_slider_value, animate: "fast",
+			create: function() {
+				input_text_size_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				input_text_size_handle.text( ui.value+"px" );
+				$("#loghorn_input_text_size_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Textbox: Color Alpha displacement slider:
+		var textbox_colr_alpha_slider = $("#loghorn_textbox_colr_alpha_slider");
+		var textbox_colr_alpha_handle = $("#loghorn_textbox_colr_alpha_handle");
+		form_slider_value = $("#loghorn_textbox_colr_alpha_inp").attr("value");
+		textbox_colr_alpha_slider.slider({
+			min:0, max:100, value:form_slider_value, animate: "fast",
+			create: function() {
+				textbox_colr_alpha_handle.text( $( this ).slider("value") + "%" );
+			},
+			slide: function( event, ui ) {
+				textbox_colr_alpha_handle.text( ui.value+"%" );
+				$("#loghorn_textbox_colr_alpha_inp").val( ui.value );
+			}
+		});
+		/////////////////////////////////////////////////   Inputbox: Border - Thickness slider:
+		var input_border_thick_slider = $("#loghorn_input_border_thick_slider");
+		var input_border_thick_handle = $( "#loghorn_input_border_thick_handle" );
+		form_slider_value = $("#loghorn_input_border_thick_inp").attr("value");
+		input_border_thick_slider.slider({
+			min:0, max:10, value:form_slider_value, animate: "fast",
+			create: function() {
+				input_border_thick_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				input_border_thick_handle.text( ui.value+"px" );
+				$("#loghorn_input_border_thick_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Inputbox: Border - Alpha Channel slider:
+		var input_border_alpha_slider = $("#loghorn_input_border_alpha_slider");
+		var input_border_alpha_handle = $( "#loghorn_input_border_alpha_handle" );
+		form_slider_value = $("#loghorn_input_border_alpha_inp").attr("value");
+		input_border_alpha_slider.slider({
+			min:0, max:100, value:form_slider_value, animate: "fast",
+			create: function() {
+				input_border_alpha_handle.text( $( this ).slider( "value" )+"%" );
+			},
+			slide: function( event, ui ) {
+				input_border_alpha_handle.text( ui.value+"%" );
+				$("#loghorn_input_border_alpha_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Inputbox: Border - Radius slider:
+		var input_border_radius_slider = $("#loghorn_input_border_radius_slider");
+		var input_border_radius_handle = $( "#loghorn_input_border_radius_handle" );
+		form_slider_value = $("#loghorn_input_border_radius_inp").attr("value");
+		input_border_radius_slider.slider({
+			min:0, max:50, value:form_slider_value, animate: "fast",
+			create: function() {
+				input_border_radius_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				input_border_radius_handle.text( ui.value+"px" );
+				$("#loghorn_input_border_radius_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Checkbox: Width slider:
+		var checkbox_width_slider = $( "#loghorn_checkbox_width_slider" );
+		var checkbox_width_handle = $( "#loghorn_checkbox_width_handle" );
+		form_slider_value = $("#loghorn_checkbox_width_inp").attr("value");
+		checkbox_width_slider.slider({
+			min:10, max:30, value:form_slider_value, animate: "fast",
+			create: function() {
+				checkbox_width_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				checkbox_width_handle.text( ui.value+"px" );
+				$("#loghorn_checkbox_width_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Checkbox: Height slider:
+		var checkbox_height_slider = $( "#loghorn_checkbox_height_slider" );
+		var checkbox_height_handle = $( "#loghorn_checkbox_height_handle" );
+		form_slider_value = $("#loghorn_checkbox_height_inp").attr("value");
+		checkbox_height_slider.slider({
+			min:10, max:30, value:form_slider_value, animate: "fast",
+			create: function() {
+				checkbox_height_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				checkbox_height_handle.text( ui.value+"px" );
+				$("#loghorn_checkbox_height_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Checkbox: Radius slider:
+		var checkbox_radius_slider = $( "#loghorn_checkbox_radius_slider" );
+		var checkbox_radius_handle = $( "#loghorn_checkbox_radius_handle" );
+		form_slider_value = $("#loghorn_checkbox_radius_inp").attr("value");
+		checkbox_radius_slider.slider({
+			min:0, max:20, value:form_slider_value, animate: "fast",
+			create: function() {
+				checkbox_radius_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				checkbox_radius_handle.text( ui.value+"px" );
+				$("#loghorn_checkbox_radius_inp").val(ui.value);
 			}
 		});
 		//
@@ -269,4 +380,12 @@
 	// Form Label Font
 	function loghorn_form_label_font_onchange()	{
 		document.getElementById( "loghorn_form_label_font_textbox"   ).value = document.getElementById("loghorn_form_label_font_listbox"  ).value;
+	}
+	// Input Text Font
+	function loghorn_input_text_font_onchange()	{
+		document.getElementById( "loghorn_input_text_font_textbox"   ).value = document.getElementById("loghorn_input_text_font_listbox"  ).value;
+	}
+	// Inputbox Border style
+	function loghorn_input_border_style_onchange()	{
+		document.getElementById( "loghorn_input_border_style_textbox" ).value = document.getElementById("loghorn_input_border_style_listbox").value;
 	}
