@@ -103,6 +103,20 @@
 				$("#loghorn_form_shadow_blur_inp").val(ui.value);
 			}
 		});
+		/////////////////////////////////////////////////   Login Form: Shadow - Spread slider:
+		var form_shadow_spread_slider = $("#loghorn_form_shadow_spread_slider");
+		var form_shadow_spread_handle = $( "#loghorn_form_shadow_spread_handle" );
+		form_slider_value = $("#loghorn_form_shadow_spread_inp").attr("value");
+		form_shadow_spread_slider.slider({
+			min:0, max:30, value:form_slider_value, animate: "fast",
+			create: function() {
+				form_shadow_spread_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				form_shadow_spread_handle.text( ui.value+"px" );
+				$("#loghorn_form_shadow_spread_inp").val(ui.value);
+			}
+		});
 		/////////////////////////////////////////////////   Login Form: Shadow - Alpha Channel slider:
 		var form_shadow_alpha_slider = $("#loghorn_form_shadow_alpha_slider");
 		var form_shadow_alpha_handle = $( "#loghorn_form_shadow_alpha_handle" );
@@ -285,6 +299,62 @@
 				$("#loghorn_checkbox_radius_inp").val(ui.value);
 			}
 		});
+		/////////////////////////////////////////////////   Input Text: Font Size slider:
+		var submit_text_size_slider = $("#loghorn_submit_text_size_slider");
+		var submit_text_size_handle = $("#loghorn_submit_text_size_handle");
+		form_slider_value = $("#loghorn_submit_text_size_inp").attr("value");
+		submit_text_size_slider.slider({
+			min:1, max:30, value:form_slider_value, animate: "fast",
+			create: function() {
+				submit_text_size_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				submit_text_size_handle.text( ui.value+"px" );
+				$("#loghorn_submit_text_size_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Submit Button Text: Shadow - Horizontal displacement slider:
+		var submit_text_shadow_hor_slider = $("#loghorn_submit_text_shadow_hor_slider");
+		var submit_text_shadow_hor_handle = $( "#loghorn_submit_text_shadow_hor_handle" );
+		form_slider_value = $("#loghorn_submit_text_shadow_hor_inp").attr("value");
+		submit_text_shadow_hor_slider.slider({
+			min:0, max:30, value:form_slider_value, animate: "fast",
+			create: function() {
+				submit_text_shadow_hor_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				submit_text_shadow_hor_handle.text( ui.value+"px" );
+				$("#loghorn_submit_text_shadow_hor_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Submit Button Text: Shadow - Vertical displacement slider:
+		var submit_text_shadow_ver_slider = $("#loghorn_submit_text_shadow_ver_slider");
+		var submit_text_shadow_ver_handle = $( "#loghorn_submit_text_shadow_ver_handle" );
+		form_slider_value = $("#loghorn_submit_text_shadow_ver_inp").attr("value");
+		submit_text_shadow_ver_slider.slider({
+			min:0, max:30, value:form_slider_value, animate: "fast",
+			create: function() {
+				submit_text_shadow_ver_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				submit_text_shadow_ver_handle.text( ui.value+"px" );
+				$("#loghorn_submit_text_shadow_ver_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Submit Button Text: Shadow - Blur slider:
+		var submit_text_shadow_blur_slider = $("#loghorn_submit_text_shadow_blur_slider");
+		var submit_text_shadow_blur_handle = $( "#loghorn_submit_text_shadow_blur_handle" );
+		form_slider_value = $("#loghorn_submit_text_shadow_blur_inp").attr("value");
+		submit_text_shadow_blur_slider.slider({
+			min:0, max:30, value:form_slider_value, animate: "fast",
+			create: function() {
+				submit_text_shadow_blur_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				submit_text_shadow_blur_handle.text( ui.value+"px" );
+				$("#loghorn_submit_text_shadow_blur_inp").val(ui.value);
+			}
+		});
 		//
 	} );
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -388,4 +458,8 @@
 	// Inputbox Border style
 	function loghorn_input_border_style_onchange()	{
 		document.getElementById( "loghorn_input_border_style_textbox" ).value = document.getElementById("loghorn_input_border_style_listbox").value;
+	}
+	// Submit Button Text Font
+	function loghorn_submit_text_font_onchange()	{
+		document.getElementById( "loghorn_submit_text_font_textbox"   ).value = document.getElementById("loghorn_submit_text_font_listbox"  ).value;
 	}

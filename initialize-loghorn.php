@@ -256,7 +256,7 @@
 		define ( 'LOGHORN_SETTINGS_SUBMIT_WIDTH' , 20 ) ;
 	}
 	// Set 'Log In' Submit Button Text Color Option label:
-	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_TXT_COLR' )  )  {
+	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_TXT_COLR' )  )  {	// << changed to LOGHORN_SETTINGS_SUBMIT_TXT
 		define ( 'LOGHORN_SETTINGS_SUBMIT_TXT_COLR' , 21 ) ;
 	}
 	if  ( ! defined ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW' )  )  {
@@ -379,19 +379,19 @@
 		define ( 'LOGHORN_SETTINGS_MSG_B_BRDR' , 51 ) ;
 	}
 	// Set Error Message Box Left Border Style Option label:
-	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_L_BRDR' )  )  {
+	if  ( ! defined ( 'LOGHORN_SETTINGS_ERR_L_BRDR' )  )  {
 		define ( 'LOGHORN_SETTINGS_ERR_L_BRDR' , 52 ) ;
 	}
 	// Set Error Message Box Right Border Style Option label:
-	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_R_BRDR' )  )  {
+	if  ( ! defined ( 'LOGHORN_SETTINGS_ERR_R_BRDR' )  )  {
 		define ( 'LOGHORN_SETTINGS_ERR_R_BRDR' , 53 ) ;
 	}
 	// Set Error Message Box Top Border Style Option label:
-	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_T_BRDR' )  )  {
+	if  ( ! defined ( 'LOGHORN_SETTINGS_ERR_T_BRDR' )  )  {
 		define ( 'LOGHORN_SETTINGS_ERR_T_BRDR' , 54 ) ;
 	}
 	// Set Error Message Box Bottom Border Style Option label:
-	if  ( ! defined ( 'LOGHORN_SETTINGS_MSG_B_BRDR' )  )  {
+	if  ( ! defined ( 'LOGHORN_SETTINGS_ERR_B_BRDR' )  )  {
 		define ( 'LOGHORN_SETTINGS_ERR_B_BRDR' , 55 ) ;
 	}
 
@@ -426,9 +426,25 @@
 													,"outset"
 													,"hidden"
 											);
-			$loghorn_fonts_global 		  = array (	 "Arial"
-													,"Times New Roman"
-													,"Courier New"
+			$loghorn_fonts_global 		  = array (	 "American Typewriter"
+													,"Arial"
+													, "Arial Black"
+													, "Baskerville"
+													, "Brush Script"
+													, "Capitals"
+													, "Charcoal"
+													, "Comic Sans MS"
+													, "Copperplate"
+													, "Courier New"
+													, "Gadget"
+													, "Gill Sans"
+													, "Hoefler Text Ornaments"
+													, "Impact"
+													, "Papyrus"
+													, "Sand"
+													, "Techno"
+													, "Times New Roman"
+													, "Verdana"
 											);
     
 ?>
