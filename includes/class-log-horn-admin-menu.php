@@ -117,29 +117,36 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			add_settings_section('loghorn_submit'			, 'Submit Button Settings',		array ( $this, 'loghorn_submit_button_settings' ), 'loghorn_settings_sections');	
 				add_settings_field('loghorn_submit_text'	, 	'Button Text'			, 		array ( $this, 'loghorn_submit_text_settings'	), 		'loghorn_settings_sections', 'loghorn_submit');
 				add_settings_field('loghorn_submit_txt_shdw', 	'Button Text Shadow'	, 		array ( $this, 'loghorn_submit_text_shdw_settings'	), 	'loghorn_settings_sections', 'loghorn_submit');
+				add_settings_field('loghorn_submit_bg'		, 	'Button Color'			, 		array ( $this, 'loghorn_submit_bg_settings'		), 		'loghorn_settings_sections', 'loghorn_submit');
+				add_settings_field('loghorn_submit_border'	, 	'Button Border'			, 		array ( $this, 'loghorn_submit_border_settings'	), 		'loghorn_settings_sections', 'loghorn_submit');
 		
 		}
 		
 		
 		function loghorn_validate_input()	{
 			
+			
 			 
 		}
 		
 		function loghorn_image_settings (){
 			
+			_e ( "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ) ;
 		}
 		
 		function loghorn_form_settings (){
 			
+			_e ( "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ) ;
 		}
 		
 		function loghorn_input_settings()	{
 			
+			_e ( "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ) ;
 		}
 		
 		function loghorn_submit_button_settings()	{
 			
+			_e ( "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ) ;
 		}
 		
 		function loghorn_show_logo_settings ()	{
@@ -705,14 +712,14 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_submit_text_shdw_settings()	{
 			
-			// Fetch values of form shadow elements from options table, if present.
+			// Fetch values of button's text shadow from options table, if present.
 			$loghorn_submit_text_shadow_hor_value   = self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_TXT_SHDW']['hor'] ;
 			$loghorn_submit_text_shadow_ver_value   = self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_TXT_SHDW']['ver'] ;
 			$loghorn_submit_text_shadow_blur_value  = self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_TXT_SHDW']['blur'] ;
 			$loghorn_submit_text_shadow_colr_value  = self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_TXT_SHDW']['hex'] ;
 			$loghorn_submit_text_shadow_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_TXT_SHDW']['alpha'] ;
-			
-			
+			$loghorn_submit_text_shadow_hvr_colr_value
+													= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_HOVR']['hex'] ;
 			// If this is the first time, settings was not present in options table.
 			// By default, there would be no shadows. 
 			if ( !$loghorn_submit_text_shadow_hor_value )	{
@@ -730,11 +737,24 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_submit_text_shadow_alpha_value )	{
 				$loghorn_submit_text_shadow_alpha_value = 0;						// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-			
-			// Display Color Picker for Form Shadow:
+			// On Hover:
+			if ( !$loghorn_submit_text_shadow_hvr_colr_value )	{
+				$loghorn_submit_text_shadow_hvr_colr_value = LOGHORN_DEFAULT_FORM_COLR;// Move default value.
+			}
+			// Display Color Picker for Button Text Shadow:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_TXT_SHDW][hex]"
 															, "option_id"	=> "submit_text_shadow"
 															, "value"		=> $loghorn_submit_text_shadow_colr_value
+															, "label"		=> "Normal:"
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display Color Picker for Submit Button Text Shadow on mouse hover:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_HOVR][hex]"
+															, "option_id"	=> "submit_text_shadow_hvr"
+															, "value"		=> $loghorn_submit_text_shadow_hvr_colr_value
+															, "label"		=> "On Hover:"
 														);
 			
 			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
@@ -763,7 +783,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 			
-			// Display slider for selecting Form Shadow Alpha Channel value:
+			// Display slider for selecting Button Text Alpha Channel value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_TXT_SHDW][alpha]"
 															, "option_id"	=> "loghorn_submit_text_shadow_alpha"
 															, "value"		=> $loghorn_submit_text_shadow_alpha_value
@@ -771,6 +791,56 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 		}
+		
+		function loghorn_submit_bg_settings()	{
+			
+			// Fetch values of Button Color from options table, if present.
+			$loghorn_submit_bg_colr_value  			= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BG_COLR']['hex'] ;
+			$loghorn_submit_bg_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BG_COLR']['alpha'] ;
+			
+			$loghorn_submit_bg_hvr_colr_value  		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR']['hex'] ;
+			$loghorn_submit_bg_hvr_alpha_value  	= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR']['alpha'] ;
+			
+			if ( !$loghorn_submit_bg_colr_value )	{
+				$loghorn_submit_bg_colr_value = LOGHORN_DEFAULT_FORM_COLR;		// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_submit_bg_alpha_value )	{
+				$loghorn_submit_bg_alpha_value = 1;								// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			
+			if ( !$loghorn_submit_bg_hvr_colr_value )	{
+				$loghorn_submit_bg_hvr_colr_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_submit_bg_hvr_alpha_value )	{
+				$loghorn_submit_bg_hvr_alpha_value = 1;							// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			
+			// Display Color Picker for Button Color:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_BG_COLR][hex]"
+															, "option_id"	=> "submit_bg_colr"
+															, "value"		=> $loghorn_submit_bg_colr_value
+															, "label"		=> "Normal:"
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display Color Picker for Submit Button Color on mouse hover:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR][hex]"
+															, "option_id"	=> "submit_bg_hvr"
+															, "value"		=> $loghorn_submit_bg_hvr_colr_value
+															, "label"		=> "On Hover:"
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			
+		}
+		
+		
+		function loghorn_submit_border_settings()	{
+			
+		}
+		
 		
 		function loghorn_load_custom_script( $hook ) {
 			
