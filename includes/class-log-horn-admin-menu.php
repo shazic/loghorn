@@ -82,9 +82,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			<h2> <?php _e ( "Log Horn Options" ) ; ?> </h2>
 			<form method="post" action=<?php _e ( '"'.get_site_url().'/wp-admin/options.php"' ) ;  ?> >
-<?php 			settings_fields( 'loghorn_settings_group' ); 
+<?php 			
+				submit_button();			// Submit button at the top
+				settings_fields( 'loghorn_settings_group' ); 
 				do_settings_sections( 'loghorn_settings_sections' ); 
-				submit_button(); 
+				submit_button(); 			// Submit button at the bottom
 ?>
 			</form>
 <?php 		
@@ -95,36 +97,41 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			register_setting( 'loghorn_settings_group' , 'loghorn_settings2' , 'loghorn_validate_input' ); 
 			
-			add_settings_section('loghorn_images'			, 'Image Settings'		, 		array ( $this, 'loghorn_image_settings' ), 'loghorn_settings_sections');
-				add_settings_field('loghorn_logo_filename'	, 	'Logo File'				, 		array ( $this, 'loghorn_show_logo_settings' 	), 		'loghorn_settings_sections', 'loghorn_images');
-				add_settings_field('loghorn_bg_filename'	,	'Background'			, 		array ( $this, 'loghorn_show_bg_settings' 		), 		'loghorn_settings_sections', 'loghorn_images');
+			add_settings_section('loghorn_images'				, 'Image Settings'		, 		array ( $this, 'loghorn_image_settings' ), 'loghorn_settings_sections');
+				add_settings_field('loghorn_logo_option'		, 	'Disable Logo?'			, 		array ( $this, 'loghorn_disable_logo_option' 		), 		'loghorn_settings_sections', 'loghorn_images');
+				add_settings_field('loghorn_logo_filename'		, 	'Logo File'				, 		array ( $this, 'loghorn_show_logo_settings' 		), 		'loghorn_settings_sections', 'loghorn_images');
+				add_settings_field('loghorn_bg_filename'		,	'Background'			, 		array ( $this, 'loghorn_show_bg_settings' 			), 		'loghorn_settings_sections', 'loghorn_images');
 			
-			add_settings_section('loghorn_form'				, 'Login Form Settings'	, 		array ( $this, 'loghorn_form_settings' 	), 'loghorn_settings_sections');
-				add_settings_field('loghorn_form_width'		, 	'Form Width'			,		array ( $this, 'loghorn_form_width_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
-				add_settings_field('loghorn_form_padding'	, 	'Form Padding'			, 		array ( $this, 'loghorn_form_padding_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
-				add_settings_field('loghorn_form_margin'	, 	'Form Margin'			, 		array ( $this, 'loghorn_form_margin_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
-				add_settings_field('loghorn_form_color'		, 	'Form Background Color'	, 		array ( $this, 'loghorn_form_color_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
-				add_settings_field('loghorn_form_shadow'	, 	'Form Shadow'			, 		array ( $this, 'loghorn_form_shadow_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
-				add_settings_field('loghorn_form_border'	, 	'Form Border'			, 		array ( $this, 'loghorn_form_border_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
-				add_settings_field('loghorn_form_label'		, 	'Form Label'			, 		array ( $this, 'loghorn_form_label_settings' 	), 		'loghorn_settings_sections', 'loghorn_form');
+			add_settings_section('loghorn_form'					, 'Login Form Settings'	, 		array ( $this, 'loghorn_form_settings' 	), 'loghorn_settings_sections');
+				add_settings_field('loghorn_form_width'			, 	'Form Width'			,		array ( $this, 'loghorn_form_width_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_padding'		, 	'Form Padding'			, 		array ( $this, 'loghorn_form_padding_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_margin'		, 	'Form Margin'			, 		array ( $this, 'loghorn_form_margin_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_color'			, 	'Form Background Color'	, 		array ( $this, 'loghorn_form_color_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_shadow'		, 	'Form Shadow'			, 		array ( $this, 'loghorn_form_shadow_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_border'		, 	'Form Border'			, 		array ( $this, 'loghorn_form_border_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
+				add_settings_field('loghorn_form_label'			, 	'Form Label'			, 		array ( $this, 'loghorn_form_label_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
 			
-			add_settings_section('loghorn_input'			, 'Input Fields Settings', 		array ( $this, 'loghorn_input_settings' 	), 'loghorn_settings_sections');
-				add_settings_field('loghorn_input_text'		, 	'Text'					, 		array ( $this, 'loghorn_input_text_settings' 	), 		'loghorn_settings_sections', 'loghorn_input');
-				add_settings_field('loghorn_input_textbox'	, 	'Textbox'				, 		array ( $this, 'loghorn_input_textbox_settings'	), 		'loghorn_settings_sections', 'loghorn_input');
-				add_settings_field('loghorn_input_border'	, 	'Textbox Border'		, 		array ( $this, 'loghorn_input_border_settings' 	), 		'loghorn_settings_sections', 'loghorn_input');
-				add_settings_field('loghorn_checkbox'		, 	'Checkbox'				, 		array ( $this, 'loghorn_checkbox_settings' 		), 		'loghorn_settings_sections', 'loghorn_input');
+			add_settings_section('loghorn_input'				, 'Input Fields Settings', 		array ( $this, 'loghorn_input_settings' 	), 'loghorn_settings_sections');
+				add_settings_field('loghorn_input_text'			, 	'Text'					, 		array ( $this, 'loghorn_input_text_settings' 		), 		'loghorn_settings_sections', 'loghorn_input');
+				add_settings_field('loghorn_input_textbox'		, 	'Textbox'				, 		array ( $this, 'loghorn_input_textbox_settings'		), 		'loghorn_settings_sections', 'loghorn_input');
+				add_settings_field('loghorn_input_border'		, 	'Textbox Border'		, 		array ( $this, 'loghorn_input_border_settings' 		), 		'loghorn_settings_sections', 'loghorn_input');
+				add_settings_field('loghorn_checkbox'			, 	'Checkbox'				, 		array ( $this, 'loghorn_checkbox_settings' 			), 		'loghorn_settings_sections', 'loghorn_input');
 			
-			add_settings_section('loghorn_submit'			, 'Submit Button Settings',		array ( $this, 'loghorn_submit_button_settings' ), 'loghorn_settings_sections');	
-				add_settings_field('loghorn_submit_text'	, 	'Button Text'			, 		array ( $this, 'loghorn_submit_text_settings'	), 		'loghorn_settings_sections', 'loghorn_submit');
-				add_settings_field('loghorn_submit_txt_shdw', 	'Button Text Shadow'	, 		array ( $this, 'loghorn_submit_text_shdw_settings'	), 	'loghorn_settings_sections', 'loghorn_submit');
-				add_settings_field('loghorn_submit_bg'		, 	'Button Color'			, 		array ( $this, 'loghorn_submit_bg_settings'		), 		'loghorn_settings_sections', 'loghorn_submit');
-				add_settings_field('loghorn_submit_border'	, 	'Button Border'			, 		array ( $this, 'loghorn_submit_border_settings'	), 		'loghorn_settings_sections', 'loghorn_submit');
+			add_settings_section('loghorn_submit'				, 'Submit Button Settings',		array ( $this, 'loghorn_submit_button_settings' ), 'loghorn_settings_sections');	
+				add_settings_field('loghorn_submit_text'		, 	'Button Text'			, 		array ( $this, 'loghorn_submit_text_settings'		), 		'loghorn_settings_sections', 'loghorn_submit');
+				add_settings_field('loghorn_submit_txt_shdw'	, 	'Button Text Shadow'	, 		array ( $this, 'loghorn_submit_text_shdw_settings'	), 	'loghorn_settings_sections', 'loghorn_submit');
+				add_settings_field('loghorn_submit_bg'			, 	'Button Color'			, 		array ( $this, 'loghorn_submit_bg_settings'			), 		'loghorn_settings_sections', 'loghorn_submit');
+				add_settings_field('loghorn_submit_border'		, 	'Button Border'			, 		array ( $this, 'loghorn_submit_border_settings'		), 		'loghorn_settings_sections', 'loghorn_submit');
 			
-			add_settings_section('loghorn_msg'				, 'Message Box Settings',		array ( $this, 'loghorn_msg_button_settings' )	, 'loghorn_settings_sections');	
-				add_settings_field('loghorn_msg_text'		, 	'Message Text'			, 		array ( $this, 'loghorn_msg_text_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
-				add_settings_field('loghorn_msg_txt_shdw'	, 	'Message Text Shadow'	, 		array ( $this, 'loghorn_msg_text_shdw_settings'	), 		'loghorn_settings_sections', 'loghorn_msg');
-				add_settings_field('loghorn_msg_bg'			, 	'Message Box Color'		, 		array ( $this, 'loghorn_msg_bg_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
-				add_settings_field('loghorn_msg_border'		, 	'Message Box Border'	, 		array ( $this, 'loghorn_msg_border_settings'	), 		'loghorn_settings_sections', 'loghorn_msg');
+			add_settings_section('loghorn_msg'					, 'Message Box Settings',		array ( $this, 'loghorn_msg_button_settings' )	, 'loghorn_settings_sections');	
+				add_settings_field('loghorn_msg_text'			, 	'Message Text'			, 		array ( $this, 'loghorn_msg_text_settings'			), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_msg_txt_shdw'		, 	'Message Text Shadow'	, 		array ( $this, 'loghorn_msg_text_shdw_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_msg_bg'				, 	'Message Box Color'		, 		array ( $this, 'loghorn_msg_bg_settings'			), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_msg_border_radius'	, 	'Message Border Radius'	, 		array ( $this, 'loghorn_msg_border_radius_settings'	), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_msg_border_l'		, 	'Message Border (left)'	, 		array ( $this, 'loghorn_msg_border_l_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_msg_border_t'		, 	'Message Border (top)'	, 		array ( $this, 'loghorn_msg_border_t_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_msg_border_r'		, 	'Message Border (right)', 		array ( $this, 'loghorn_msg_border_r_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_msg_border_b'		, 	'Message Border (bottom)', 		array ( $this, 'loghorn_msg_border_b_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
 			
 		}
 		
@@ -161,16 +168,39 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 		}
 		
+		
+		function loghorn_disable_logo_option()	{
+			
+			// Options table store whether to display the logo or not. Get the image source information:
+			$loghorn_disable_logo_option = self::$loghorn_options['LOGHORN_SETTINGS_LOGO']['disable'] ;
+			
+			// If this is the first time, settings was not present in options table. 
+			if ( !isset( $loghorn_disable_logo_option ) )	{
+				$loghorn_disable_logo_option = 1;			// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			
+			// Display listbox for selecting Yes/No:
+			global $loghorn_yes_no ;							// Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_LOGO][disable]"
+															,"option_id"	=> "loghorn_disable_logo_option"
+															,"label"		=> "Selecting 'Yes' would hide the logo:"
+															,"value"		=> $loghorn_disable_logo_option
+														);
+			$this->loghorn_show_listbox ( $loghorn_yes_no, $loghorn_show_listbox_parms ) ;
+			
+		}
+		
+		
 		function loghorn_show_logo_settings ()	{
 			
 			// Options table store the logo's image id. Get the image source information:
-			$loghorn_logo_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_LOGO']) ;
+			$loghorn_logo_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_LOGO']['image']) ;
 			
 			// Display Logo Image:
-			$loghorn_logo_image_parameters		= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_LOGO]"
+			$loghorn_logo_image_parameters		= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_LOGO][image]"
 															, "option_id"	=> "logo"
 															, "button_text"	=> "Select logo image"
-															, "value"		=> self::$loghorn_options['LOGHORN_SETTINGS_LOGO']
+															, "value"		=> self::$loghorn_options['LOGHORN_SETTINGS_LOGO']['image']
 															, "width"		=> "80"
 															, "height"		=> "80"
 															, "desc"		=> "Preview"
@@ -1008,7 +1038,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				$loghorn_msg_text_shadow_alpha_value = 0;						// Move default value (all defaults defined in initialize-loghorn.php)
 			}
 			
-			// Display Color Picker for Button Text Shadow:
+			// Display Color Picker for Message Box Shadow:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT_SHDW][hex]"
 															, "option_id"	=> "msg_text_shadow"
 															, "value"		=> $loghorn_msg_text_shadow_colr_value
@@ -1040,7 +1070,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 			
-			// Display slider for selecting Button Text Alpha Channel value:
+			// Display slider for selecting Alpha Channel value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT_SHDW][alpha]"
 															, "option_id"	=> "loghorn_msg_text_shadow_alpha"
 															, "value"		=> $loghorn_msg_text_shadow_alpha_value
@@ -1051,10 +1081,280 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_msg_bg_settings()	{
 			
+			// Fetch values of message background from options table, if present.
+			$loghorn_msg_bg_shadow_colr_value  = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BG_SHDW']['hex'] ;
+			$loghorn_msg_bg_shadow_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BG_SHDW']['alpha'] ;
+			
+			// If this is the first time, settings was not present in options table.
+			if ( !$loghorn_msg_bg_shadow_colr_value )	{
+				$loghorn_msg_bg_shadow_colr_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_msg_bg_shadow_alpha_value )	{
+				$loghorn_msg_bg_shadow_alpha_value = 0;							// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			
+			// Display Color Picker for Message Background:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BG_SHDW][hex]"
+															, "option_id"	=> "msg_bg_shadow"
+															, "value"		=> $loghorn_msg_bg_shadow_colr_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display slider for selecting Alpha Channel value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BG_SHDW][alpha]"
+															, "option_id"	=> "loghorn_msg_bg_shadow_alpha"
+															, "value"		=> $loghorn_msg_bg_shadow_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+		}
+		
+		
+		function loghorn_msg_border_radius_settings()	{
+			
+			$loghorn_msg_border_radius_value  	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR']['radius'] ;
+			
+			if ( !$loghorn_msg_border_radius_value )	{
+				$loghorn_msg_border_radius_value = 0;							// Move default value.
+			}
+			
+			// Display slider for selecting Form Border Radius Channel value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR][radius]"
+															, "option_id"	=> "loghorn_msg_border_radius"
+															, "value"		=> $loghorn_msg_border_radius_value
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
 			
 		}
 		
-		function loghorn_msg_border_settings()	{
+		
+		function loghorn_msg_border_l_settings()	{
+			
+			// Fetch values of msg border elements from options table, if present.
+			$loghorn_msg_border_l_thickness_value   = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_L']['thick'] ;
+			$loghorn_msg_border_l_style_value   	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_L']['style'] ;
+			$loghorn_msg_border_l_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_L']['hex'] ;
+			$loghorn_msg_border_l_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_L']['alpha'] ;
+			
+			// By default, no borders.
+			if ( !$loghorn_msg_border_l_thickness_value )	{
+				$loghorn_msg_border_l_thickness_value = 0;						// Move default value.
+			}
+			if ( !$loghorn_msg_border_l_style_value )	{
+				$loghorn_msg_border_l_style_value = 0;							// Move default value.
+			}
+			if ( !$loghorn_msg_border_l_color_value )	{
+				$loghorn_msg_border_l_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
+			}
+			if ( !$loghorn_msg_border_l_alpha_value )	{
+				$loghorn_msg_border_l_alpha_value = 0;							// Move default value.
+			}
+			
+			// Display Color Picker for Form Border:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_L][hex]"
+															, "option_id"	=> "msg_border_l"
+															, "value"		=> $loghorn_msg_border_l_color_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display slider for selecting Form Border Thickness value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_L][thick]"
+															, "option_id"	=> "loghorn_msg_border_l_thick"
+															, "value"		=> $loghorn_msg_border_l_thickness_value
+															, "label"		=> "Thickness: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for selecting Form Border Alpha Channel value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_L][alpha]"
+															, "option_id"	=> "loghorn_msg_border_l_alpha"
+															, "value"		=> $loghorn_msg_border_l_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display listbox for selecting Border style for the Form:
+			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_L][style]"
+															,"option_id"	=> "loghorn_msg_border_l_style"
+															,"label"		=> "Border Type:"
+															,"value"		=> $loghorn_msg_border_l_style_value
+														);
+			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
+		}
+		
+		
+		function loghorn_msg_border_t_settings()	{
+			
+			// Fetch values of msg border elements from options table, if present.
+			$loghorn_msg_border_t_thickness_value   = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_T']['thick'] ;
+			$loghorn_msg_border_t_style_value   	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_T']['style'] ;
+			$loghorn_msg_border_t_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_T']['hex'] ;
+			$loghorn_msg_border_t_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_T']['alpha'] ;
+			
+			// By default, no borders.
+			if ( !$loghorn_msg_border_t_thickness_value )	{
+				$loghorn_msg_border_t_thickness_value = 0;						// Move default value.
+			}
+			if ( !$loghorn_msg_border_t_style_value )	{
+				$loghorn_msg_border_t_style_value = 0;							// Move default value.
+			}
+			if ( !$loghorn_msg_border_t_color_value )	{
+				$loghorn_msg_border_t_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
+			}
+			if ( !$loghorn_msg_border_t_alpha_value )	{
+				$loghorn_msg_border_t_alpha_value = 0;							// Move default value.
+			}
+			
+			// Display Color Picker for Form Border:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_T][hex]"
+															, "option_id"	=> "msg_border_t"
+															, "value"		=> $loghorn_msg_border_t_color_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display slider for selecting Form Border Thickness value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_T][thick]"
+															, "option_id"	=> "loghorn_msg_border_t_thick"
+															, "value"		=> $loghorn_msg_border_t_thickness_value
+															, "label"		=> "Thickness: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for selecting Form Border Alpha Channel value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_T][alpha]"
+															, "option_id"	=> "loghorn_msg_border_t_alpha"
+															, "value"		=> $loghorn_msg_border_t_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display listbox for selecting Border style for the Form:
+			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_T][style]"
+															,"option_id"	=> "loghorn_msg_border_t_style"
+															,"label"		=> "Border Type:"
+															,"value"		=> $loghorn_msg_border_t_style_value
+														);
+			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
+			
+		}
+		
+		
+		function loghorn_msg_border_r_settings()	{
+			
+			// Fetch values of msg border elements from options table, if present.
+			$loghorn_msg_border_r_thickness_value   = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_R']['thick'] ;
+			$loghorn_msg_border_r_style_value   	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_R']['style'] ;
+			$loghorn_msg_border_r_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_R']['hex'] ;
+			$loghorn_msg_border_r_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_R']['alpha'] ;
+			
+			// By default, no borders.
+			if ( !$loghorn_msg_border_r_thickness_value )	{
+				$loghorn_msg_border_r_thickness_value = 0;						// Move default value.
+			}
+			if ( !$loghorn_msg_border_r_style_value )	{
+				$loghorn_msg_border_r_style_value = 0;							// Move default value.
+			}
+			if ( !$loghorn_msg_border_r_color_value )	{
+				$loghorn_msg_border_r_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
+			}
+			if ( !$loghorn_msg_border_r_alpha_value )	{
+				$loghorn_msg_border_r_alpha_value = 0;							// Move default value.
+			}
+			
+			// Display Color Picker for Form Border:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_R][hex]"
+															, "option_id"	=> "msg_border_r"
+															, "value"		=> $loghorn_msg_border_r_color_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display slider for selecting Form Border Thickness value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_R][thick]"
+															, "option_id"	=> "loghorn_msg_border_r_thick"
+															, "value"		=> $loghorn_msg_border_r_thickness_value
+															, "label"		=> "Thickness: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for selecting Form Border Alpha Channel value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_R][alpha]"
+															, "option_id"	=> "loghorn_msg_border_r_alpha"
+															, "value"		=> $loghorn_msg_border_r_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display listbox for selecting Border style for the Form:
+			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_R][style]"
+															,"option_id"	=> "loghorn_msg_border_r_style"
+															,"label"		=> "Border Type:"
+															,"value"		=> $loghorn_msg_border_r_style_value
+														);
+			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
+			
+		}
+		
+		function loghorn_msg_border_b_settings()	{
+			
+			// Fetch values of msg border elements from options table, if present.
+			$loghorn_msg_border_b_thickness_value   = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_B']['thick'] ;
+			$loghorn_msg_border_b_style_value   	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_B']['style'] ;
+			$loghorn_msg_border_b_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_B']['hex'] ;
+			$loghorn_msg_border_b_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_B']['alpha'] ;
+			
+			// By default, no borders.
+			if ( !$loghorn_msg_border_b_thickness_value )	{
+				$loghorn_msg_border_b_thickness_value = 0;						// Move default value.
+			}
+			if ( !$loghorn_msg_border_b_style_value )	{
+				$loghorn_msg_border_b_style_value = 0;							// Move default value.
+			}
+			if ( !$loghorn_msg_border_b_color_value )	{
+				$loghorn_msg_border_b_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
+			}
+			if ( !$loghorn_msg_border_b_alpha_value )	{
+				$loghorn_msg_border_b_alpha_value = 0;							// Move default value.
+			}
+			
+			// Display Color Picker for Form Border:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_B][hex]"
+															, "option_id"	=> "msg_border_b"
+															, "value"		=> $loghorn_msg_border_b_color_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display slider for selecting Form Border Thickness value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_B][thick]"
+															, "option_id"	=> "loghorn_msg_border_b_thick"
+															, "value"		=> $loghorn_msg_border_b_thickness_value
+															, "label"		=> "Thickness: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for selecting Form Border Alpha Channel value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_B][alpha]"
+															, "option_id"	=> "loghorn_msg_border_b_alpha"
+															, "value"		=> $loghorn_msg_border_b_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display listbox for selecting Border style for the Form:
+			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_B][style]"
+															,"option_id"	=> "loghorn_msg_border_b_style"
+															,"label"		=> "Border Type:"
+															,"value"		=> $loghorn_msg_border_b_style_value
+														);
+			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
 			
 		}
 		
@@ -1123,19 +1423,21 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_img_division_id	= $loghorn_image_parameters["option_id"]."_div" ;
 			$loghorn_img_preview_id		= $loghorn_image_parameters["option_id"]."-image-preview" ;
 ?>
-			<input id="<?php _e( $loghorn_img_button_id ); ?>" type="button" class="button" value="<?php _e( $loghorn_image_parameters["button_text"] ); ?>" />
-			<i class="fa fa-upload" aria-hidden="true"></i>
-			<input type='hidden' name="<?php _e( $loghorn_image_parameters["option_name"] ); ?>" id="<?php _e( $loghorn_img_attachment_id ); ?>" value="<?php _e ( $loghorn_image_parameters["value"] ) ; ?>">
-			<br>		
-			<div id="<?php _e( $loghorn_img_division_id ); ?>" class="img1">
-				<!--a id="bg_image_src" target="_blank" href='<?php _e ( $loghorn_image_source [0] ) ; ?>' -->
+			<div class="loghorn_custom_options">
+				<input id="<?php _e( $loghorn_img_button_id ); ?>" type="button" class="button" value="<?php _e( $loghorn_image_parameters["button_text"] ); ?>" />
+				<i class="fa fa-upload" aria-hidden="true"></i>
+				<input type='hidden' name="<?php _e( $loghorn_image_parameters["option_name"] ); ?>" id="<?php _e( $loghorn_img_attachment_id ); ?>" value="<?php _e ( $loghorn_image_parameters["value"] ) ; ?>">
+				<br>		
+				<div id="<?php _e( $loghorn_img_division_id ); ?>" class="img1">
+					<!--a id="bg_image_src" target="_blank" href='<?php _e ( $loghorn_image_source [0] ) ; ?>' -->
+						
+						<img id="<?php _e( $loghorn_img_preview_id ); ?>" src="<?php _e ( $loghorn_image_source [0] ) ; ?>" width="<?php _e( $loghorn_image_parameters["width"] ); ?>" height="<?php _e( $loghorn_image_parameters["height"] ); ?>"  > 
 					
-					<img id="<?php _e( $loghorn_img_preview_id ); ?>" src="<?php _e ( $loghorn_image_source [0] ) ; ?>" width="<?php _e( $loghorn_image_parameters["width"] ); ?>" height="<?php _e( $loghorn_image_parameters["height"] ); ?>"  > 
-					
-				<!--/a-->
-				<div class="desc"> <?php _e ( $loghorn_image_parameters["desc"] ) ; ?> </div>
+					<!--/a-->
+					<div class="desc"> <?php _e ( $loghorn_image_parameters["desc"] ) ; ?> </div>
+				</div>
+				<br>
 			</div>
-			<br>
 <?php		
 		}
 		
@@ -1147,9 +1449,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			$loghorn_txtbox_id = "loghorn_".$loghorn_color_picker_parms["option_id"]."_color" ;
 ?>	
-			<span class="loghorn_menu_label"> <?php _e ( $loghorn_color_picker_parms["label"] ) ; ?> </span>
-			<input type="text" value=<?php _e ( $loghorn_color_picker_parms["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?> " name="<?php _e ( $loghorn_color_picker_parms["option_name"]) ; ?>" />
-			<br>
+			<div class="loghorn_custom_options">
+				<span class="loghorn_menu_label"> <?php _e ( $loghorn_color_picker_parms["label"] ) ; ?> </span>
+				<input type="text" value=<?php _e ( $loghorn_color_picker_parms["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?> " name="<?php _e ( $loghorn_color_picker_parms["option_name"]) ; ?>" />
+				<br>
+			</div>
 <?php
 		}
 		
@@ -1163,12 +1467,14 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_slider_id = $loghorn_jquery_slider_parms["option_id"]."_slider" ;
 			$loghorn_handle_id = $loghorn_jquery_slider_parms["option_id"]."_handle" ;
 ?>			
-			<span class="loghorn_menu_label"> <?php _e ( $loghorn_jquery_slider_parms["label"] ) ; ?> </span>
-			<input type="text" class="loghorn_slider_textbox" name="<?php _e ( $loghorn_jquery_slider_parms["option_name"] ) ; ?>" id="<?php _e ( $loghorn_txtbox_id ) ; ?>" value="<?php _e ( $loghorn_jquery_slider_parms["value"] ) ; ?>">
-			<div id="<?php _e ( $loghorn_slider_id ) ; ?>" class="ui-slider">
-				<div id="<?php _e ( $loghorn_handle_id ) ; ?>" class="ui-slider-handle" ></div>
+			<div class="loghorn_custom_options">
+				<span class="loghorn_menu_label"> <?php _e ( $loghorn_jquery_slider_parms["label"] ) ; ?> </span>
+				<input type="text" class="loghorn_slider_textbox" name="<?php _e ( $loghorn_jquery_slider_parms["option_name"] ) ; ?>" id="<?php _e ( $loghorn_txtbox_id ) ; ?>" value="<?php _e ( $loghorn_jquery_slider_parms["value"] ) ; ?>">
+				<div id="<?php _e ( $loghorn_slider_id ) ; ?>" class="ui-slider">
+					<div id="<?php _e ( $loghorn_handle_id ) ; ?>" class="ui-slider-handle" ></div>
+				</div>
+				<br>
 			</div>
-			<br>
 <?php	
 		}
 		
@@ -1178,6 +1484,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_listbox_id		= $loghorn_listbox_parms["option_id"]."_listbox" ;
 			$loghorn_onchange_fn	= $loghorn_listbox_parms["option_id"]."_onchange()" ;
 ?>			
+			<div class="loghorn_custom_options">
 			<div class="loghorn_list">
 				<form action="#">
 					<span class="loghorn_menu_label"> <?php _e ( $loghorn_listbox_parms["label"] ) ; ?> </span>
@@ -1199,6 +1506,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					</select>
 				</form>
 				<input type="text" class="loghorn_list_selected_textbox" id="<?php _e( $loghorn_textbox_id ) ; ?>" name="<?php _e( $loghorn_listbox_parms["option_name"] ) ; ?>" value="<?php _e( $loghorn_listbox_parms["value"] ) ; ?>" >
+			</div>
 			</div>
 <?php
 			

@@ -355,7 +355,7 @@
 				$("#loghorn_submit_text_shadow_blur_inp").val(ui.value);
 			}
 		});
-		/////////////////////////////////////////////////   Login Form: Border - Thickness slider:
+		/////////////////////////////////////////////////   Submit Button: Border - Thickness slider:
 		var submit_border_thick_slider = $("#loghorn_submit_border_thick_slider");
 		var submit_border_thick_handle = $( "#loghorn_submit_border_thick_handle" );
 		form_slider_value = $("#loghorn_submit_border_thick_inp").attr("value");
@@ -369,7 +369,7 @@
 				$("#loghorn_submit_border_thick_inp").val(ui.value);
 			}
 		});
-		/////////////////////////////////////////////////   Login Form: Border - Alpha Channel slider:
+		/////////////////////////////////////////////////   Submit Button: Border - Alpha Channel slider:
 		var submit_border_alpha_slider = $("#loghorn_submit_border_alpha_slider");
 		var submit_border_alpha_handle = $( "#loghorn_submit_border_alpha_handle" );
 		form_slider_value = $("#loghorn_submit_border_alpha_inp").attr("value");
@@ -383,7 +383,7 @@
 				$("#loghorn_submit_border_alpha_inp").val(ui.value);
 			}
 		});
-		/////////////////////////////////////////////////   Login Form: Border - Radius slider:
+		/////////////////////////////////////////////////   Submit Button: Border - Radius slider:
 		var submit_border_radius_slider = $("#loghorn_submit_border_radius_slider");
 		var submit_border_radius_handle = $( "#loghorn_submit_border_radius_handle" );
 		form_slider_value = $("#loghorn_submit_border_radius_inp").attr("value");
@@ -451,6 +451,132 @@
 			slide: function( event, ui ) {
 				msg_text_shadow_blur_handle.text( ui.value+"px" );
 				$("#loghorn_msg_text_shadow_blur_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Message Box: Border - Radius slider:
+		var msg_border_radius_slider = $("#loghorn_msg_border_radius_slider");
+		var msg_border_radius_handle = $( "#loghorn_msg_border_radius_handle" );
+		form_slider_value = $("#loghorn_msg_border_radius_inp").attr("value");
+		msg_border_radius_slider.slider({
+			min:0, max:50, value:form_slider_value, animate: "fast",
+			create: function() {
+				msg_border_radius_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				msg_border_radius_handle.text( ui.value+"px" );
+				$("#loghorn_msg_border_radius_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Message Box: Border Left - Thickness slider:
+		var msg_border_l_thick_slider = $("#loghorn_msg_border_l_thick_slider");
+		var msg_border_l_thick_handle = $( "#loghorn_msg_border_l_thick_handle" );
+		form_slider_value = $("#loghorn_msg_border_l_thick_inp").attr("value");
+		msg_border_l_thick_slider.slider({
+			min:0, max:10, value:form_slider_value, animate: "fast",
+			create: function() {
+				msg_border_l_thick_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				msg_border_l_thick_handle.text( ui.value+"px" );
+				$("#loghorn_msg_border_l_thick_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Message Box: Border Left - Alpha Channel slider:
+		var msg_border_l_alpha_slider = $("#loghorn_msg_border_l_alpha_slider");
+		var msg_border_l_alpha_handle = $( "#loghorn_msg_border_l_alpha_handle" );
+		form_slider_value = $("#loghorn_msg_border_l_alpha_inp").attr("value");
+		msg_border_l_alpha_slider.slider({
+			min:0, max:100, value:form_slider_value, animate: "fast",
+			create: function() {
+				msg_border_l_alpha_handle.text( $( this ).slider( "value" )+"%" );
+			},
+			slide: function( event, ui ) {
+				msg_border_l_alpha_handle.text( ui.value+"%" );
+				$("#loghorn_msg_border_l_alpha_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Message Box: Border Top - Thickness slider:
+		var msg_border_t_thick_slider = $("#loghorn_msg_border_t_thick_slider");
+		var msg_border_t_thick_handle = $( "#loghorn_msg_border_t_thick_handle" );
+		form_slider_value = $("#loghorn_msg_border_t_thick_inp").attr("value");
+		msg_border_t_thick_slider.slider({
+			min:0, max:10, value:form_slider_value, animate: "fast",
+			create: function() {
+				msg_border_t_thick_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				msg_border_t_thick_handle.text( ui.value+"px" );
+				$("#loghorn_msg_border_t_thick_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Message Box: Border Top - Alpha Channel slider:
+		var msg_border_t_alpha_slider = $("#loghorn_msg_border_t_alpha_slider");
+		var msg_border_t_alpha_handle = $( "#loghorn_msg_border_t_alpha_handle" );
+		form_slider_value = $("#loghorn_msg_border_t_alpha_inp").attr("value");
+		msg_border_t_alpha_slider.slider({
+			min:0, max:100, value:form_slider_value, animate: "fast",
+			create: function() {
+				msg_border_t_alpha_handle.text( $( this ).slider( "value" )+"%" );
+			},
+			slide: function( event, ui ) {
+				msg_border_t_alpha_handle.text( ui.value+"%" );
+				$("#loghorn_msg_border_t_alpha_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Message Box: Border Right - Thickness slider:
+		var msg_border_r_thick_slider = $("#loghorn_msg_border_r_thick_slider");
+		var msg_border_r_thick_handle = $( "#loghorn_msg_border_r_thick_handle" );
+		form_slider_value = $("#loghorn_msg_border_r_thick_inp").attr("value");
+		msg_border_r_thick_slider.slider({
+			min:0, max:10, value:form_slider_value, animate: "fast",
+			create: function() {
+				msg_border_r_thick_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				msg_border_r_thick_handle.text( ui.value+"px" );
+				$("#loghorn_msg_border_r_thick_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Message Box: Border Right - Alpha Channel slider:
+		var msg_border_r_alpha_slider = $("#loghorn_msg_border_r_alpha_slider");
+		var msg_border_r_alpha_handle = $( "#loghorn_msg_border_r_alpha_handle" );
+		form_slider_value = $("#loghorn_msg_border_r_alpha_inp").attr("value");
+		msg_border_r_alpha_slider.slider({
+			min:0, max:100, value:form_slider_value, animate: "fast",
+			create: function() {
+				msg_border_r_alpha_handle.text( $( this ).slider( "value" )+"%" );
+			},
+			slide: function( event, ui ) {
+				msg_border_r_alpha_handle.text( ui.value+"%" );
+				$("#loghorn_msg_border_r_alpha_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Message Box: Border Bottom - Thickness slider:
+		var msg_border_b_thick_slider = $("#loghorn_msg_border_b_thick_slider");
+		var msg_border_b_thick_handle = $( "#loghorn_msg_border_b_thick_handle" );
+		form_slider_value = $("#loghorn_msg_border_b_thick_inp").attr("value");
+		msg_border_b_thick_slider.slider({
+			min:0, max:10, value:form_slider_value, animate: "fast",
+			create: function() {
+				msg_border_b_thick_handle.text( $( this ).slider( "value" )+"px" );
+			},
+			slide: function( event, ui ) {
+				msg_border_b_thick_handle.text( ui.value+"px" );
+				$("#loghorn_msg_border_b_thick_inp").val(ui.value);
+			}
+		});
+		/////////////////////////////////////////////////   Message Box: Border Bottom - Alpha Channel slider:
+		var msg_border_b_alpha_slider = $("#loghorn_msg_border_b_alpha_slider");
+		var msg_border_b_alpha_handle = $( "#loghorn_msg_border_b_alpha_handle" );
+		form_slider_value = $("#loghorn_msg_border_b_alpha_inp").attr("value");
+		msg_border_b_alpha_slider.slider({
+			min:0, max:100, value:form_slider_value, animate: "fast",
+			create: function() {
+				msg_border_b_alpha_handle.text( $( this ).slider( "value" )+"%" );
+			},
+			slide: function( event, ui ) {
+				msg_border_b_alpha_handle.text( ui.value+"%" );
+				$("#loghorn_msg_border_b_alpha_inp").val(ui.value);
 			}
 		});
 		//
@@ -541,6 +667,10 @@
 			});
 		});
 	///////////////////////////////////////  List items ///////////////////////////////////////////////////////////////////////
+	// Disable Logo option
+	function loghorn_disable_logo_option_onchange()	{
+		document.getElementById( "loghorn_disable_logo_option_textbox" ).value = document.getElementById("loghorn_disable_logo_option_listbox").value;
+	}
 	// Form Border style
 	function loghorn_form_border_style_onchange()	{
 		document.getElementById( "loghorn_form_border_style_textbox" ).value = document.getElementById("loghorn_form_border_style_listbox").value;
@@ -568,5 +698,21 @@
 	// Message Box Text Font
 	function loghorn_msg_text_font_onchange()	{
 		document.getElementById( "loghorn_msg_text_font_textbox"   ).value = document.getElementById("loghorn_msg_text_font_listbox"  ).value;
+	}
+	// Message Box Left Border style
+	function loghorn_msg_border_l_style_onchange()	{
+		document.getElementById( "loghorn_msg_border_l_style_textbox" ).value = document.getElementById("loghorn_msg_border_l_style_listbox").value;
+	}
+	// Message Box Top Border style
+	function loghorn_msg_border_t_style_onchange()	{
+		document.getElementById( "loghorn_msg_border_t_style_textbox" ).value = document.getElementById("loghorn_msg_border_t_style_listbox").value;
+	}
+	// Message Box Right Border style
+	function loghorn_msg_border_r_style_onchange()	{
+		document.getElementById( "loghorn_msg_border_r_style_textbox" ).value = document.getElementById("loghorn_msg_border_r_style_listbox").value;
+	}
+	// Message Box Bottom Border style
+	function loghorn_msg_border_b_style_onchange()	{
+		document.getElementById( "loghorn_msg_border_b_style_textbox" ).value = document.getElementById("loghorn_msg_border_b_style_listbox").value;
 	}
 	

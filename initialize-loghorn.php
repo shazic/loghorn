@@ -411,10 +411,15 @@
 	
 	/**************************************   GLOBALS   *****************************************/
 	
-	global 	  $loghorn_border_styles_global 
+	global 	  $loghorn_yes_no
+			, $loghorn_border_styles_global 
 			, $loghorn_fonts_global
 			;
 			
+			$loghorn_yes_no				  = array (
+													 "Yes"
+													,"No"
+											);
 			$loghorn_border_styles_global = array (	 "none"
 													,"solid"
 													,"dotted"
