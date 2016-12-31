@@ -119,7 +119,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_settings_field('loghorn_submit_txt_shdw', 	'Button Text Shadow'	, 		array ( $this, 'loghorn_submit_text_shdw_settings'	), 	'loghorn_settings_sections', 'loghorn_submit');
 				add_settings_field('loghorn_submit_bg'		, 	'Button Color'			, 		array ( $this, 'loghorn_submit_bg_settings'		), 		'loghorn_settings_sections', 'loghorn_submit');
 				add_settings_field('loghorn_submit_border'	, 	'Button Border'			, 		array ( $this, 'loghorn_submit_border_settings'	), 		'loghorn_settings_sections', 'loghorn_submit');
-		
+			
+			add_settings_section('loghorn_msg'				, 'Message Box Settings',		array ( $this, 'loghorn_msg_button_settings' )	, 'loghorn_settings_sections');	
+				add_settings_field('loghorn_msg_text'		, 	'Message Text'			, 		array ( $this, 'loghorn_msg_text_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_msg_txt_shdw'	, 	'Message Text Shadow'	, 		array ( $this, 'loghorn_msg_text_shdw_settings'	), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_msg_bg'			, 	'Message Box Color'		, 		array ( $this, 'loghorn_msg_bg_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_msg_border'		, 	'Message Box Border'	, 		array ( $this, 'loghorn_msg_border_settings'	), 		'loghorn_settings_sections', 'loghorn_msg');
+			
 		}
 		
 		
@@ -131,22 +137,28 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_image_settings (){
 			
-			_e ( "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ) ;
+			_e ( "---------------" ) ;
 		}
 		
 		function loghorn_form_settings (){
 			
-			_e ( "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ) ;
+			_e ( "---------------" ) ;
 		}
 		
 		function loghorn_input_settings()	{
 			
-			_e ( "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ) ;
+			_e ( "---------------" ) ;
 		}
 		
 		function loghorn_submit_button_settings()	{
 			
-			_e ( "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ) ;
+			_e ( "---------------" ) ;
+		}
+		
+		function loghorn_msg_button_settings()	{
+			
+			_e ( "---------------" ) ;
+			
 		}
 		
 		function loghorn_show_logo_settings ()	{
@@ -839,8 +851,212 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_submit_border_settings()	{
 			
+			// Fetch values of button border elements from options table, if present.
+			$loghorn_submit_border_thickness_value   	= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR']['thick'] ;
+			$loghorn_submit_border_style_value   		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR']['style'] ;
+			$loghorn_submit_border_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR']['hex'] ;
+			$loghorn_submit_border_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR']['alpha'] ;
+			$loghorn_submit_border_radius_value  		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR']['radius'] ;
+			
+			$loghorn_submit_border_hvr_color_value  	= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR_HOVR']['hex'] ;
+			
+			// By default, no borders.
+			if ( !$loghorn_submit_border_thickness_value )	{
+				$loghorn_submit_border_thickness_value = 0;						// Move default value.
+			}
+			if ( !$loghorn_submit_border_style_value )	{
+				$loghorn_submit_border_style_value = 0;							// Move default value.
+			}
+			if ( !$loghorn_submit_border_color_value )	{
+				$loghorn_submit_border_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
+			}
+			if ( !$loghorn_submit_border_alpha_value )	{
+				$loghorn_submit_border_alpha_value = 0;							// Move default value.
+			}
+			if ( !$loghorn_submit_border_radius_value )	{
+				$loghorn_submit_border_radius_value = 0;						// Move default value.
+			}
+			
+			if ( !$loghorn_submit_border_hvr_color_value )	{
+				$loghorn_submit_border_hvr_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
+			}
+			
+			// Display Color Picker for button Border:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_BORDR][hex]"
+															, "option_id"	=> "submit_border"
+															, "value"		=> $loghorn_submit_border_color_value
+															, "label"		=> "Normal:"
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display Color Picker for button Border on mouse-hover:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_BORDR_HOVR][hex]"
+															, "option_id"	=> "submit_border_hvr"
+															, "value"		=> $loghorn_submit_border_hvr_color_value
+															, "label"		=> "On Hover:"
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display slider for selecting button Border Thickness value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_BORDR][thick]"
+															, "option_id"	=> "loghorn_submit_border_thick"
+															, "value"		=> $loghorn_submit_border_thickness_value
+															, "label"		=> "Thickness: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for selecting button Border Alpha Channel value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_BORDR][alpha]"
+															, "option_id"	=> "loghorn_submit_border_alpha"
+															, "value"		=> $loghorn_submit_border_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for selecting button Border Radius Channel value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_BORDR][radius]"
+															, "option_id"	=> "loghorn_submit_border_radius"
+															, "value"		=> $loghorn_submit_border_radius_value
+															, "label"		=> "Corner Radius: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display listbox for selecting Border style for the button:
+			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_BORDR][style]"
+															,"option_id"	=> "loghorn_submit_border_style"
+															,"label"		=> "Border Type:"
+															,"value"		=> $loghorn_submit_border_style_value
+														);
+			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
+			
 		}
 		
+		function loghorn_msg_text_settings()	{
+			
+			// Fetch values of message box text settings from options table, if present.
+			$loghorn_msg_text_font_value   		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT']['font'] ;
+			$loghorn_msg_text_size_value   		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT']['size'] ;
+			$loghorn_msg_text_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT']['hex'] ;
+			
+			// Set defaults, if not present.
+			if ( !$loghorn_msg_text_font_value )	{
+				$loghorn_msg_text_font_value = 0;							// Move default value.
+			}
+			if ( !$loghorn_msg_text_size_value )	{
+				$loghorn_msg_text_size_value = 10;							// Move default value.
+			}
+			if ( !$loghorn_msg_text_color_value )	{
+				$loghorn_msg_text_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
+			}
+			
+			// Display Color Picker for Message Text:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT][hex]"
+															, "option_id"	=> "msg_text"
+															, "value"		=> $loghorn_msg_text_color_value
+															, "label"		=> "Normal:"
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display slider for selecting Text Font Size value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT][size]"
+															, "option_id"	=> "loghorn_msg_text_size"
+															, "value"		=> $loghorn_msg_text_size_value
+															, "label"		=> "Font Size: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display listbox for selecting Font style for the Message Box:
+			global $loghorn_fonts_global ;									// Options for fonts. Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			= array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT][font]"
+															,"option_id"	=> "loghorn_msg_text_font"
+															,"label"		=> "Font:"
+															,"value"		=> $loghorn_msg_text_font_value
+														);
+			$this->loghorn_show_listbox ( $loghorn_fonts_global, $loghorn_show_listbox_parms ) ;
+			
+		}
+		
+		function loghorn_msg_text_shdw_settings()	{
+			
+			// Fetch values of message text shadow from options table, if present.
+			$loghorn_msg_text_shadow_hor_value   = self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT_SHDW']['hor'] ;
+			$loghorn_msg_text_shadow_ver_value   = self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT_SHDW']['ver'] ;
+			$loghorn_msg_text_shadow_blur_value  = self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT_SHDW']['blur'] ;
+			$loghorn_msg_text_shadow_colr_value  = self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT_SHDW']['hex'] ;
+			$loghorn_msg_text_shadow_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT_SHDW']['alpha'] ;
+			$loghorn_msg_text_shadow_hvr_colr_value
+													= self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT_SHDW_HOVR']['hex'] ;
+			// If this is the first time, settings was not present in options table.
+			// By default, there would be no shadows. 
+			if ( !$loghorn_msg_text_shadow_hor_value )	{
+				$loghorn_msg_text_shadow_hor_value = 0;							// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_msg_text_shadow_ver_value )	{
+				$loghorn_msg_text_shadow_ver_value = 0;							// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_msg_text_shadow_blur_value )	{
+				$loghorn_msg_text_shadow_blur_value = 0;							// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_msg_text_shadow_colr_value )	{
+				$loghorn_msg_text_shadow_colr_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_msg_text_shadow_alpha_value )	{
+				$loghorn_msg_text_shadow_alpha_value = 0;						// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			
+			// Display Color Picker for Button Text Shadow:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT_SHDW][hex]"
+															, "option_id"	=> "msg_text_shadow"
+															, "value"		=> $loghorn_msg_text_shadow_colr_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			
+			// Display slider for selecting Horizontal Displacement value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT_SHDW][hor]"
+															, "option_id"	=> "loghorn_msg_text_shadow_hor"
+															, "value"		=> $loghorn_msg_text_shadow_hor_value
+															, "label"		=> "Horizontal Displacement: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for selecting Vertical Displacement value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT_SHDW][ver]"
+															, "option_id"	=> "loghorn_msg_text_shadow_ver"
+															, "value"		=> $loghorn_msg_text_shadow_ver_value
+															, "label"		=> "Vertical Displacement: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for selecting Blur Effect value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT_SHDW][blur]"
+															, "option_id"	=> "loghorn_msg_text_shadow_blur"
+															, "value"		=> $loghorn_msg_text_shadow_blur_value
+															, "label"		=> "Blur Effect: "
+														);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			
+			// Display slider for selecting Button Text Alpha Channel value:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT_SHDW][alpha]"
+															, "option_id"	=> "loghorn_msg_text_shadow_alpha"
+															, "value"		=> $loghorn_msg_text_shadow_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+		}
+		
+		function loghorn_msg_bg_settings()	{
+			
+			
+		}
+		
+		function loghorn_msg_border_settings()	{
+			
+		}
 		
 		function loghorn_load_custom_script( $hook ) {
 			
