@@ -580,139 +580,137 @@
 			}
 		});
 		//
-	} );
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Media frame to select and upload media files. Code template from Mike Jolley 
-	jQuery( document ).ready( function( $ ) {
-			// Uploading files
-			var file_frame_logo;
-			var file_frame_background;
-			var wp_media_post_id = wp.media.model.settings.post.id; // Store the old id
-			var set_to_post_id = null ;// Set this
-			// Clicking on the Logo Selector Button:
-			jQuery('#logo_upload_image_button').on('click', function( event ){
-				event.preventDefault();
-				// If the media frame already exists, reopen it.
-				if ( file_frame_logo ) {
-					// Set the post ID to what we want
-					file_frame_logo.uploader.uploader.param( 'post_id', set_to_post_id );
-					// Open frame
-					file_frame_logo.open();
-					return;
-				} else {
-					// Set the wp.media post id so the uploader grabs the ID we want when initialised
-					wp.media.model.settings.post.id = set_to_post_id;
-				}
-				// Create the media frame.
-				file_frame_logo = wp.media.frames.file_frame_logo = wp.media({
-					title: 'Select an image to use as the logo',
-					button: {
-						text: 'Use this image',
-					},
-					multiple: false	// We set multiple to false so only get one image from the uploader
-				});
-				// When an image is selected, run a callback.
-				file_frame_logo.on( 'select', function() {
-					// We set multiple to false so only get one image from the uploader
-					attachment = file_frame_logo.state().get('selection').first().toJSON();
-					// Set the HTML attributes 
-					$( '#logo-image-preview' ).attr( 'src', attachment.url );
-					$( '#logo_image_src' ).attr( 'href', attachment.url );
-					$( '#logo_image_attachment_id' ).val( attachment.id );
-					// Restore the main post ID
-					wp.media.model.settings.post.id = wp_media_post_id;
-				});
-					// Finally, open the modal
-					file_frame_logo.open();
+		// Uploading files
+		var file_frame_logo;
+		var file_frame_background;
+		var wp_media_post_id = wp.media.model.settings.post.id; // Store the old id
+		var set_to_post_id = null ;// Set this
+		// Clicking on the Logo Selector Button:
+		jQuery('#logo_upload_image_button').on('click', function( event ){
+			event.preventDefault();
+			// If the media frame already exists, reopen it.
+			if ( file_frame_logo ) {
+				// Set the post ID to what we want
+				file_frame_logo.uploader.uploader.param( 'post_id', set_to_post_id );
+				// Open frame
+				file_frame_logo.open();
+				return;
+			} else {
+				// Set the wp.media post id so the uploader grabs the ID we want when initialised
+				wp.media.model.settings.post.id = set_to_post_id;
+			}
+			// Create the media frame.
+			file_frame_logo = wp.media.frames.file_frame_logo = wp.media({
+				title: 'Select an image to use as the logo',
+				button: {
+					text: 'Use this image',
+				},
+				multiple: false	// We set multiple to false so only get one image from the uploader
 			});
-			// Clicking on the Background Selector Button:
-			jQuery('#bg_upload_image_button').on('click', function( event ){
-				event.preventDefault();
-				// If the media frame already exists, reopen it.
-				if ( file_frame_background ) {
-					// Set the post ID to what we want
-				file_frame_background.uploader.uploader.param( 'post_id', set_to_post_id );
-					// Open frame
-				file_frame_background.open();
-					return;
-				} else {
-					// Set the wp.media post id so the uploader grabs the ID we want when initialised
-					wp.media.model.settings.post.id = set_to_post_id;
-				}
-				// Create the media frame.
-				file_frame_background = wp.media.frames.file_frame_background = wp.media({
-					title: 'Select an image to use as the background',
-					button: {
-						text: 'Use this image',
-					},
-					multiple: false	// We set multiple to false so only get one image from the uploader
-				});
-				// When an image is selected, run a callback.
-				file_frame_background.on( 'select', function() {
-					// We set multiple to false so only get one image from the uploader
-					attachment = file_frame_background.state().get('selection').first().toJSON();
-					// Set the HTML attributes 
-					$( '#bg-image-preview' ).attr( 'src', attachment.url );
-					$( '#bg_image_src' ).attr( 'href', attachment.url );
-					$( '#bg_image_attachment_id' ).val( attachment.id );
-					// Restore the main post ID
-					wp.media.model.settings.post.id = wp_media_post_id;
-				});
-					// Finally, open the modal
-					file_frame_background.open();
-			});
-			// Restore the main ID when the add media button is pressed
-			jQuery( 'a.add_media' ).on( 'click', function() {
+			// When an image is selected, run a callback.
+			file_frame_logo.on( 'select', function() {
+				// We set multiple to false so only get one image from the uploader
+				attachment = file_frame_logo.state().get('selection').first().toJSON();
+				// Set the HTML attributes 
+				$( '#logo-image-preview' ).attr( 'src', attachment.url );
+				$( '#logo_image_src' ).attr( 'href', attachment.url );
+				$( '#logo_image_attachment_id' ).val( attachment.id );
+				// Restore the main post ID
 				wp.media.model.settings.post.id = wp_media_post_id;
 			});
+				// Finally, open the modal
+				file_frame_logo.open();
 		});
+		// Clicking on the Background Selector Button:
+		jQuery('#bg_upload_image_button').on('click', function( event ){
+			event.preventDefault();
+			// If the media frame already exists, reopen it.
+			if ( file_frame_background ) {
+				// Set the post ID to what we want
+			file_frame_background.uploader.uploader.param( 'post_id', set_to_post_id );
+				// Open frame
+			file_frame_background.open();
+				return;
+			} else {
+				// Set the wp.media post id so the uploader grabs the ID we want when initialised
+				wp.media.model.settings.post.id = set_to_post_id;
+			}
+			// Create the media frame.
+			file_frame_background = wp.media.frames.file_frame_background = wp.media({
+				title: 'Select an image to use as the background',
+				button: {
+					text: 'Use this image',
+				},
+				multiple: false	// We set multiple to false so only get one image from the uploader
+			});
+			// When an image is selected, run a callback.
+			file_frame_background.on( 'select', function() {
+				// We set multiple to false so only get one image from the uploader
+				attachment = file_frame_background.state().get('selection').first().toJSON();
+				// Set the HTML attributes 
+				$( '#bg-image-preview' ).attr( 'src', attachment.url );
+				$( '#bg_image_src' ).attr( 'href', attachment.url );
+				$( '#bg_image_attachment_id' ).val( attachment.id );
+				// Restore the main post ID
+				wp.media.model.settings.post.id = wp_media_post_id;
+			});
+				// Finally, open the modal
+				file_frame_background.open();
+		});
+		// Restore the main ID when the add media button is pressed
+		jQuery( 'a.add_media' ).on( 'click', function() {
+			wp.media.model.settings.post.id = wp_media_post_id;
+		});
+	});
 	///////////////////////////////////////  List items ///////////////////////////////////////////////////////////////////////
 	// Disable Logo option
 	function loghorn_disable_logo_option_onchange()	{
-		document.getElementById( "loghorn_disable_logo_option_textbox" ).value = document.getElementById("loghorn_disable_logo_option_listbox").value;
+		document.getElementById( "loghorn_disable_logo_option_textbox" 	).value = document.getElementById("loghorn_disable_logo_option_listbox").value;
 	}
 	// Form Border style
 	function loghorn_form_border_style_onchange()	{
-		document.getElementById( "loghorn_form_border_style_textbox" ).value = document.getElementById("loghorn_form_border_style_listbox").value;
+		document.getElementById( "loghorn_form_border_style_textbox" 	).value = document.getElementById("loghorn_form_border_style_listbox").value;
 	}
 	// Form Label Font
 	function loghorn_form_label_font_onchange()	{
-		document.getElementById( "loghorn_form_label_font_textbox"   ).value = document.getElementById("loghorn_form_label_font_listbox"  ).value;
+		document.getElementById( "loghorn_form_label_font_textbox"   	).value = document.getElementById("loghorn_form_label_font_listbox"  ).value;
 	}
 	// Input Text Font
-	function loghorn_input_text_font_onchange()	{
-		document.getElementById( "loghorn_input_text_font_textbox"   ).value = document.getElementById("loghorn_input_text_font_listbox"  ).value;
+	function loghorn_input_text_font_onchange()		{
+		document.getElementById( "loghorn_input_text_font_textbox"   	).value = document.getElementById("loghorn_input_text_font_listbox"  ).value;
 	}
 	// Inputbox Border style
 	function loghorn_input_border_style_onchange()	{
-		document.getElementById( "loghorn_input_border_style_textbox" ).value = document.getElementById("loghorn_input_border_style_listbox").value;
+		document.getElementById( "loghorn_input_border_style_textbox" 	).value = document.getElementById("loghorn_input_border_style_listbox").value;
 	}
 	// Submit Button Text Font
 	function loghorn_submit_text_font_onchange()	{
-		document.getElementById( "loghorn_submit_text_font_textbox"   ).value = document.getElementById("loghorn_submit_text_font_listbox"  ).value;
+		document.getElementById( "loghorn_submit_text_font_textbox"   	).value = document.getElementById("loghorn_submit_text_font_listbox"  ).value;
 	}
 	// Submit Button Border style
 	function loghorn_submit_border_style_onchange()	{
-		document.getElementById( "loghorn_submit_border_style_textbox" ).value = document.getElementById("loghorn_submit_border_style_listbox").value;
+		document.getElementById( "loghorn_submit_border_style_textbox" 	).value = document.getElementById("loghorn_submit_border_style_listbox").value;
 	}
 	// Message Box Text Font
-	function loghorn_msg_text_font_onchange()	{
-		document.getElementById( "loghorn_msg_text_font_textbox"   ).value = document.getElementById("loghorn_msg_text_font_listbox"  ).value;
+	function loghorn_msg_text_font_onchange()		{
+		document.getElementById( "loghorn_msg_text_font_textbox"   		).value = document.getElementById("loghorn_msg_text_font_listbox"  ).value;
 	}
 	// Message Box Left Border style
 	function loghorn_msg_border_l_style_onchange()	{
-		document.getElementById( "loghorn_msg_border_l_style_textbox" ).value = document.getElementById("loghorn_msg_border_l_style_listbox").value;
+		document.getElementById( "loghorn_msg_border_l_style_textbox" 	).value = document.getElementById("loghorn_msg_border_l_style_listbox").value;
 	}
 	// Message Box Top Border style
 	function loghorn_msg_border_t_style_onchange()	{
-		document.getElementById( "loghorn_msg_border_t_style_textbox" ).value = document.getElementById("loghorn_msg_border_t_style_listbox").value;
+		document.getElementById( "loghorn_msg_border_t_style_textbox" 	).value = document.getElementById("loghorn_msg_border_t_style_listbox").value;
 	}
 	// Message Box Right Border style
 	function loghorn_msg_border_r_style_onchange()	{
-		document.getElementById( "loghorn_msg_border_r_style_textbox" ).value = document.getElementById("loghorn_msg_border_r_style_listbox").value;
+		document.getElementById( "loghorn_msg_border_r_style_textbox" 	).value = document.getElementById("loghorn_msg_border_r_style_listbox").value;
 	}
 	// Message Box Bottom Border style
 	function loghorn_msg_border_b_style_onchange()	{
-		document.getElementById( "loghorn_msg_border_b_style_textbox" ).value = document.getElementById("loghorn_msg_border_b_style_listbox").value;
+		document.getElementById( "loghorn_msg_border_b_style_textbox" 	).value = document.getElementById("loghorn_msg_border_b_style_listbox").value;
 	}
 	

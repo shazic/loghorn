@@ -144,27 +144,27 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_image_settings (){
 			
-			_e ( "---------------" ) ;
+			$this->loghorn_underline() ;
 		}
 		
 		function loghorn_form_settings (){
 			
-			_e ( "---------------" ) ;
+			$this->loghorn_underline() ;
 		}
 		
 		function loghorn_input_settings()	{
 			
-			_e ( "---------------" ) ;
+			$this->loghorn_underline() ;
 		}
 		
 		function loghorn_submit_button_settings()	{
 			
-			_e ( "---------------" ) ;
+			$this->loghorn_underline() ;
 		}
 		
 		function loghorn_msg_button_settings()	{
 			
-			_e ( "---------------" ) ;
+			$this->loghorn_underline() ;
 			
 		}
 		
@@ -194,7 +194,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_show_logo_settings ()	{
 			
 			// Options table store the logo's image id. Get the image source information:
-			$loghorn_logo_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_LOGO']['image']) ;
+			$loghorn_logo_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_LOGO']['image'], 'original' ) ;
 			
 			// Display Logo Image:
 			$loghorn_logo_image_parameters		= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_LOGO][image]"
@@ -211,12 +211,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_show_bg_settings ()	{
 			
 			// Options table store the background image id. Get the image source information:
-			$loghorn_bg_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_BG']) ;
+			$loghorn_bg_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_BG'], 'original' ) ;
 			
 			// Display background image:
 			$loghorn_bg_image_parameters		= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_BG]"
 															, "option_id"	=> "bg"
-															, "button_text"	=> "Background image"
+															, "button_text"	=> "Select Background image"
 															, "value"		=> self::$loghorn_options['LOGHORN_SETTINGS_BG']
 															, "width"		=> "160"
 															, "height"		=> "100"
@@ -1429,11 +1429,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				<input type='hidden' name="<?php _e( $loghorn_image_parameters["option_name"] ); ?>" id="<?php _e( $loghorn_img_attachment_id ); ?>" value="<?php _e ( $loghorn_image_parameters["value"] ) ; ?>">
 				<br>		
 				<div id="<?php _e( $loghorn_img_division_id ); ?>" class="img1">
-					<!--a id="bg_image_src" target="_blank" href='<?php _e ( $loghorn_image_source [0] ) ; ?>' -->
+					<a id="bg_image_src" target="_blank" href='<?php _e ( $loghorn_image_source [0] ) ; ?>' >
 						
 						<img id="<?php _e( $loghorn_img_preview_id ); ?>" src="<?php _e ( $loghorn_image_source [0] ) ; ?>" width="<?php _e( $loghorn_image_parameters["width"] ); ?>" height="<?php _e( $loghorn_image_parameters["height"] ); ?>"  > 
 					
-					<!--/a-->
+					</a>
 					<div class="desc"> <?php _e ( $loghorn_image_parameters["desc"] ) ; ?> </div>
 				</div>
 				<br>
@@ -1452,7 +1452,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			<div class="loghorn_custom_options">
 				<span class="loghorn_menu_label"> <?php _e ( $loghorn_color_picker_parms["label"] ) ; ?> </span>
 				<input type="text" value=<?php _e ( $loghorn_color_picker_parms["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?> " name="<?php _e ( $loghorn_color_picker_parms["option_name"]) ; ?>" />
-				<br>
 			</div>
 <?php
 		}
@@ -1473,7 +1472,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				<div id="<?php _e ( $loghorn_slider_id ) ; ?>" class="ui-slider">
 					<div id="<?php _e ( $loghorn_handle_id ) ; ?>" class="ui-slider-handle" ></div>
 				</div>
-				<br>
 			</div>
 <?php	
 		}
@@ -1511,6 +1509,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 <?php
 			
 		}
+		
+		function loghorn_underline()	{
+?>
+		<div class="loghorn_underline"></div>
+<?php
+		}
+		
 	} //class Log_Horn_Admin_Menu ends here.
 	
 	/**
