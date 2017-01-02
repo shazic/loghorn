@@ -77,32 +77,48 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				wp_die( _e ( 'You do not have sufficient permissions to access this page.' ) );
 			}
 			
-			_e ( '<div class="wrap">' ) ; 
+			//_e ( '<div class="wrap" id="loghorn_options_menu" hidden=true>' ) ; 
+			_e ( '<div class="wrap" id="loghorn_options_menu">' ) ; 
 ?>
 			
 			<h2> <?php _e ( "Log Horn Options" ) ; ?> </h2>
 			<form method="post" action=<?php _e ( '"'.get_site_url().'/wp-admin/options.php"' ) ;  ?> >
+<?php		submit_button();			// Submit button at the top
+?>				
+			<div id="loghorn_tabs">
+				<ul>
+					<li><a href="#tabs-1">Image Settings</a></li>
+					<li><a href="#tabs-2">Form Settings</a></li>
+					<li><a href="#tabs-3">Input Fields</a></li>
+					<li><a href="#tabs-4">Submit Button</a></li>
+					<li><a href="#tabs-5">Messages</a></li>
+				</ul>
 <?php 			
-				submit_button();			// Submit button at the top
 				settings_fields( 'loghorn_settings_group' ); 
 				do_settings_sections( 'loghorn_settings_sections' ); 
-				submit_button(); 			// Submit button at the bottom
+
+				//close the div for the final tab:	?>
+				</div>
+<?php		// close div for "#loghorn_tabs" :		?>
+			</div>			
+<?php			
+			submit_button(); 			// Submit button at the bottom, so that user don't have to scroll up just to save settings.
 ?>
 			</form>
 <?php 		
-			_e ( '</div>' ) ;
+			_e ( '</div>' ) ; 			// end of class "wrap"
 		}
 		
 		function loghorn_plugin_settings()	{
 			
 			register_setting( 'loghorn_settings_group' , 'loghorn_settings2' , 'loghorn_validate_input' ); 
 			
-			add_settings_section('loghorn_images'				, 'Image Settings'		, 		array ( $this, 'loghorn_image_settings' ), 'loghorn_settings_sections');
+			add_settings_section('loghorn_images'				, ''		, 		array ( $this, 'loghorn_image_settings' ), 'loghorn_settings_sections');
 				add_settings_field('loghorn_logo_option'		, 	'Disable Logo?'			, 		array ( $this, 'loghorn_disable_logo_option' 		), 		'loghorn_settings_sections', 'loghorn_images');
 				add_settings_field('loghorn_logo_filename'		, 	'Logo File'				, 		array ( $this, 'loghorn_show_logo_settings' 		), 		'loghorn_settings_sections', 'loghorn_images');
 				add_settings_field('loghorn_bg_filename'		,	'Background'			, 		array ( $this, 'loghorn_show_bg_settings' 			), 		'loghorn_settings_sections', 'loghorn_images');
 			
-			add_settings_section('loghorn_form'					, 'Login Form Settings'	, 		array ( $this, 'loghorn_form_settings' 	), 'loghorn_settings_sections');
+			add_settings_section('loghorn_form'					, ''	, 		array ( $this, 'loghorn_form_settings' 	), 'loghorn_settings_sections');
 				add_settings_field('loghorn_form_width'			, 	'Form Width'			,		array ( $this, 'loghorn_form_width_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
 				add_settings_field('loghorn_form_padding'		, 	'Form Padding'			, 		array ( $this, 'loghorn_form_padding_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
 				add_settings_field('loghorn_form_margin'		, 	'Form Margin'			, 		array ( $this, 'loghorn_form_margin_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
@@ -111,19 +127,19 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_settings_field('loghorn_form_border'		, 	'Form Border'			, 		array ( $this, 'loghorn_form_border_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
 				add_settings_field('loghorn_form_label'			, 	'Form Label'			, 		array ( $this, 'loghorn_form_label_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
 			
-			add_settings_section('loghorn_input'				, 'Input Fields Settings', 		array ( $this, 'loghorn_input_settings' 	), 'loghorn_settings_sections');
+			add_settings_section('loghorn_input'				, '', 		array ( $this, 'loghorn_input_settings' 	), 'loghorn_settings_sections');
 				add_settings_field('loghorn_input_text'			, 	'Text'					, 		array ( $this, 'loghorn_input_text_settings' 		), 		'loghorn_settings_sections', 'loghorn_input');
 				add_settings_field('loghorn_input_textbox'		, 	'Textbox'				, 		array ( $this, 'loghorn_input_textbox_settings'		), 		'loghorn_settings_sections', 'loghorn_input');
 				add_settings_field('loghorn_input_border'		, 	'Textbox Border'		, 		array ( $this, 'loghorn_input_border_settings' 		), 		'loghorn_settings_sections', 'loghorn_input');
 				add_settings_field('loghorn_checkbox'			, 	'Checkbox'				, 		array ( $this, 'loghorn_checkbox_settings' 			), 		'loghorn_settings_sections', 'loghorn_input');
 			
-			add_settings_section('loghorn_submit'				, 'Submit Button Settings',		array ( $this, 'loghorn_submit_button_settings' ), 'loghorn_settings_sections');	
+			add_settings_section('loghorn_submit'				, '',		array ( $this, 'loghorn_submit_button_settings' ), 'loghorn_settings_sections');	
 				add_settings_field('loghorn_submit_text'		, 	'Button Text'			, 		array ( $this, 'loghorn_submit_text_settings'		), 		'loghorn_settings_sections', 'loghorn_submit');
 				add_settings_field('loghorn_submit_txt_shdw'	, 	'Button Text Shadow'	, 		array ( $this, 'loghorn_submit_text_shdw_settings'	), 	'loghorn_settings_sections', 'loghorn_submit');
 				add_settings_field('loghorn_submit_bg'			, 	'Button Color'			, 		array ( $this, 'loghorn_submit_bg_settings'			), 		'loghorn_settings_sections', 'loghorn_submit');
 				add_settings_field('loghorn_submit_border'		, 	'Button Border'			, 		array ( $this, 'loghorn_submit_border_settings'		), 		'loghorn_settings_sections', 'loghorn_submit');
 			
-			add_settings_section('loghorn_msg'					, 'Message Box Settings',		array ( $this, 'loghorn_msg_button_settings' )	, 'loghorn_settings_sections');	
+			add_settings_section('loghorn_msg'					, '',		array ( $this, 'loghorn_msg_button_settings' )	, 'loghorn_settings_sections');	
 				add_settings_field('loghorn_msg_text'			, 	'Message Text'			, 		array ( $this, 'loghorn_msg_text_settings'			), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_msg_txt_shdw'		, 	'Message Text Shadow'	, 		array ( $this, 'loghorn_msg_text_shdw_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_msg_bg'				, 	'Message Box Color'		, 		array ( $this, 'loghorn_msg_bg_settings'			), 		'loghorn_settings_sections', 'loghorn_msg');
@@ -143,28 +159,45 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		}
 		
 		function loghorn_image_settings (){
-			
-			$this->loghorn_underline() ;
+?>
+			<div id="tabs-1">
+<?php
 		}
 		
 		function loghorn_form_settings (){
-			
-			$this->loghorn_underline() ;
+		
+		// close the division of the previous tab and start the division for the next one.
+?>
+			</div>
+			<div id="tabs-2">
+<?php
 		}
 		
 		function loghorn_input_settings()	{
 			
-			$this->loghorn_underline() ;
+		// close the division of the previous tab and start the division for the next one.
+?>
+			</div>
+			<div id="tabs-3">
+<?php
 		}
 		
 		function loghorn_submit_button_settings()	{
 			
-			$this->loghorn_underline() ;
+		// close the division of the previous tab and start the division for the next one.
+?>
+			</div>
+			<div id="tabs-4">
+<?php
 		}
 		
 		function loghorn_msg_button_settings()	{
 			
-			$this->loghorn_underline() ;
+		// close the division of the previous tab and start the division for the next one.
+?>
+			</div>
+			<div id="tabs-5">
+<?php
 			
 		}
 		
@@ -502,7 +535,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"value"		=> $loghorn_form_label_font_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_fonts_global, $loghorn_show_listbox_parms ) ;
-			
 		}
 		
 		function loghorn_input_text_settings()	{
@@ -961,7 +993,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"value"		=> $loghorn_submit_border_style_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
-			
 		}
 		
 		function loghorn_msg_text_settings()	{
@@ -1355,7 +1386,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"value"		=> $loghorn_msg_border_b_style_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
-			
 		}
 		
 		function loghorn_load_custom_script( $hook ) {
@@ -1365,7 +1395,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				return false;
 			}
 			
-			$current_color = get_user_option( 'admin_color' ); // This can be used to load stylesheet based on current profile color.
+			//$current_color = get_user_option( 'admin_color' ); // This can be used to load stylesheet based on current profile color.
 			
 			// Wordpress media library
 			wp_enqueue_media();
@@ -1378,11 +1408,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			wp_enqueue_style( 'loghorn-cp-stylesheet' 	 , LOGHORN_ADMIN_CSS_URL.'alpha-color-picker.css', array( 'wp-color-picker' )) ;
 			
 			// JQuery UI CSS for slider:
-			wp_register_style('loghorn-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
+			//wp_register_style('loghorn-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
+			wp_register_style('loghorn-jquery-ui', 'https://code.jquery.com/ui/1.12.1/themes/overcast/jquery-ui.css');
 			wp_enqueue_style( 'loghorn-jquery-ui' );   
 			
 			// Font-Awesome CDN:
-			wp_enqueue_style( 'loghorn-fa' , 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
+			//wp_enqueue_style( 'loghorn-fa' , 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
 			
 			// Plugin Menu's stylesheet:
 			wp_enqueue_style( 'loghorn-admin-stylesheet' , LOGHORN_ADMIN_CSS_URL.'loghorn-admin-css.css' ) ;
@@ -1390,14 +1421,16 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			/************************************************* Enqueue Scripts *************************************************************/
 			
-			// color-picker with alpha (this script by BraadMartin extends the wp-color-picker to include alpha channel:
+			// JQuery UI Core for ui-tabs and ui-slider:
+			wp_enqueue_script('jquery-ui-tabs');
+			wp_enqueue_script( 'loghorn-admin-tabs-javascript' , LOGHORN_ADMIN_JS_URL.'loghorn-admin-tab-js.js' ) ;
+			wp_enqueue_script('jquery-ui-slider');
+			
+			// color-picker with alpha (this script by BraadMartin extends the wp-color-picker to include alpha channel):
 			wp_enqueue_script( 'loghorn-color-picker-alpha', LOGHORN_ADMIN_JS_URL.'alpha-color-picker.js', array( 'wp-color-picker' ), false, true );
 			
 			// loghorn js for using the Color Picker:
 			wp_enqueue_script( 'loghorn-iris-cp', LOGHORN_ADMIN_JS_URL.'loghorn-admin-color-picker.js', array( 'loghorn-color-picker-alpha' ), false, true );
-			
-			// JQuery UI Core and for ui slider:
-			wp_enqueue_script('jquery-ui-slider');
 			
 			// Plugin Menu's JavaScript:
 			wp_enqueue_script( 'loghorn-admin-javascript' , LOGHORN_ADMIN_JS_URL.'loghorn-admin-js.js' ) ;

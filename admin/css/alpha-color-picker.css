@@ -47,6 +47,7 @@
 	margin: 0 auto;
 	width: 88%;
 	width: calc( 100% - 28px );
+	border: none !important;
 }
 
 .alpha-color-picker-container .ui-slider-handle,

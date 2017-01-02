@@ -1,5 +1,7 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	jQuery(document).ready(function($){
+		// Show the options tabs:
+		// $("#loghorn_tabs").tabs();
 		// Make  the slider text-box invisible.
 		$(".loghorn_slider_textbox").hide();
 		// Make the input field for list box selected item invisible.
@@ -713,4 +715,3 @@
 	function loghorn_msg_border_b_style_onchange()	{
 		document.getElementById( "loghorn_msg_border_b_style_textbox" 	).value = document.getElementById("loghorn_msg_border_b_style_listbox").value;
 	}
-	
