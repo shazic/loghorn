@@ -1,13 +1,16 @@
+//	Let's add a class that can be used to hide unrefined tabs till document is ready:
 	jQuery('html').addClass('loghorn_initial');
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	jQuery(document).ready(function($){
-		// Show the options tabs:
-		// $("#loghorn_tabs").tabs();
+		// Create tabs: 
+		$("#loghorn_tabs").tabs();
 		// Make  the slider text-box invisible.
 		$(".loghorn_slider_textbox").hide();
 		// Make the input field for list box selected item invisible.
 		$(".loghorn_list_selected_textbox").hide();
+		// Now, show the options tabs:
 		$("#loghorn_tabs").show();
+		//$( document ).tooltip();
 		var form_slider_value = 0;
 		/////////////////////////////////////////////////   Login Form: Width:  ////////////////////////////////////////////////////////////////
 		var form_width_slider = $("#loghorn_form_width_slider");

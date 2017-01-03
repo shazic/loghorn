@@ -1413,7 +1413,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			wp_enqueue_style( 'loghorn-jquery-ui' );   
 			
 			// Font-Awesome CDN:
-			//wp_enqueue_style( 'loghorn-fa' , 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
+			wp_enqueue_style( 'loghorn-fa' , 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
 			
 			// Plugin Menu's stylesheet:
 			wp_enqueue_style( 'loghorn-admin-stylesheet' , LOGHORN_ADMIN_CSS_URL.'loghorn-admin-css.css' ) ;
@@ -1422,13 +1422,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			/************************************************* Enqueue Scripts *************************************************************/
 			
 			// JQuery UI Core for ui-tabs and ui-slider:
+			wp_enqueue_script('jquery-ui');
 			wp_enqueue_script('jquery-ui-tabs');
-			wp_enqueue_script( 'loghorn-admin-tabs-javascript' , LOGHORN_ADMIN_JS_URL.'loghorn-admin-tab-js.js' ) ;
 			wp_enqueue_script('jquery-ui-slider');
 			
 			// color-picker with alpha (this script by BraadMartin extends the wp-color-picker to include alpha channel):
 			wp_enqueue_script( 'loghorn-color-picker-alpha', LOGHORN_ADMIN_JS_URL.'alpha-color-picker.js', array( 'wp-color-picker' ), false, true );
-			
 			// loghorn js for using the Color Picker:
 			wp_enqueue_script( 'loghorn-iris-cp', LOGHORN_ADMIN_JS_URL.'loghorn-admin-color-picker.js', array( 'loghorn-color-picker-alpha' ), false, true );
 			
@@ -1458,7 +1457,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 ?>
 			<div class="loghorn_custom_options">
 				<input id="<?php _e( $loghorn_img_button_id ); ?>" type="button" class="button" value="<?php _e( $loghorn_image_parameters["button_text"] ); ?>" />
-				<i class="fa fa-upload" aria-hidden="true"></i>
 				<input type='hidden' name="<?php _e( $loghorn_image_parameters["option_name"] ); ?>" id="<?php _e( $loghorn_img_attachment_id ); ?>" value="<?php _e ( $loghorn_image_parameters["value"] ) ; ?>">
 				<br>		
 				<div id="<?php _e( $loghorn_img_division_id ); ?>" class="img1">
@@ -1469,9 +1467,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					</a>
 					<div class="desc"> <?php _e ( $loghorn_image_parameters["desc"] ) ; ?> </div>
 				</div>
-				<br>
 			</div>
 <?php		
+			$this->loghorn_tooltip_symbol("A new tooltip");
 		}
 		
 		/*
@@ -1487,6 +1485,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				<input type="text" value=<?php _e ( $loghorn_color_picker_parms["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?> " name="<?php _e ( $loghorn_color_picker_parms["option_name"]) ; ?>" />
 			</div>
 <?php
+			$this->loghorn_tooltip_symbol("A new tooltip");
 		}
 		
 		/*
@@ -1507,6 +1506,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				</div>
 			</div>
 <?php	
+			$this->loghorn_tooltip_symbol("A new tooltip");
 		}
 		
 		function loghorn_show_listbox( $loghorn_listbox_options, $loghorn_listbox_parms )	{
@@ -1540,8 +1540,19 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			</div>
 			</div>
 <?php
-			
+			$this->loghorn_tooltip_symbol("A new tooltip");
 		}
+		
+		function loghorn_tooltip_symbol( $loghorn_tooltip )	{
+			
+?>
+			<div class="helptool">
+					<i class="fa fa-question-circle fa-lg" aria-hidden="true" title="<?php _e ( $loghorn_tooltip ) ; ?>"></i>
+			</div>
+			
+<?php		
+		}
+			
 		
 		function loghorn_underline()	{
 ?>
