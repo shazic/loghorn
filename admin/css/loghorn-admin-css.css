@@ -1,3 +1,6 @@
+	.loghorn_initial #loghorn_tabs	{
+		display:none;
+	}
 	/*****************************************************************************************************************************************/
 	/* IMAGES                                                                                                                                *
 	/*****************************************************************************************************************************************/
@@ -72,8 +75,9 @@
 	/*****************************************************************************************************************************************/
 	.loghorn_custom_options	{
 		width: 530px ;
-		background-image: url('images/white.jpg'); 
-		background-size: cover;
+		/*background-image: url('images/white.jpg'); 
+		background-size: cover;*/
+		background-color: #f2f2f2;
 		padding: 6px ;
 		margin: 1px ;
 		border: 1px solid #afafaf ;
