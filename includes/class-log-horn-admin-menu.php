@@ -93,6 +93,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					<li><a href="#tabs-4">Submit Button</a></li>
 					<li><a href="#tabs-5">Messages</a></li>
 				</ul>
+			<div class="loghorn_fixed" id="loghorn_preview_button">
+				<span>Preview</span> 
+			</div>
+			<div class="loghorn_preview_dialog" id="loghorn_preview_division">
+				<span>Preview</span> 
+			</div>
 <?php 			
 				settings_fields( 'loghorn_settings_group' ); 
 				do_settings_sections( 'loghorn_settings_sections' ); 
@@ -1422,7 +1428,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			/************************************************* Enqueue Scripts *************************************************************/
 			
 			// JQuery UI Core for ui-tabs and ui-slider:
-			wp_enqueue_script('jquery-ui');
+			wp_enqueue_script('jquery-ui-tooltip');
+			wp_enqueue_script('jquery-ui-dialog');
+			wp_enqueue_script('jquery-ui-core');
 			wp_enqueue_script('jquery-ui-tabs');
 			wp_enqueue_script('jquery-ui-slider');
 			

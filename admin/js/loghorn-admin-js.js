@@ -1,16 +1,42 @@
-//	Let's add a class that can be used to hide unrefined tabs till document is ready:
+//	Let's add a class that can be used to hide the unrefined tabs till document is ready:
 	jQuery('html').addClass('loghorn_initial');
- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	jQuery(document).ready(function($){
 		// Create tabs: 
 		$("#loghorn_tabs").tabs();
-		// Make  the slider text-box invisible.
+		// Make  the slider text-boxes invisible.
 		$(".loghorn_slider_textbox").hide();
 		// Make the input field for list box selected item invisible.
 		$(".loghorn_list_selected_textbox").hide();
+		// Activate Tooltip
+		$(document).tooltip();
 		// Now, show the options tabs:
 		$("#loghorn_tabs").show();
-		//$( document ).tooltip();
+		// Create the dialog for preview, but don't display it yet.
+		$( "#loghorn_preview_division" ).dialog({
+			autoOpen: false,
+			closeOnEscape: true,
+			resizable:false,
+			show: {
+				effect: "slide",
+				duration: 1000
+			},
+			hide: {
+				effect: "slide",
+				duration: 1000
+			},
+			position: { 
+				my: "right bottom", 
+				at: "right bottom", 
+				of: document 
+			},
+			width: $(window).width()*.75 ,
+			height:$(window).height()*.75
+    	});
+		// If preview button is clicked, show the preview dialog:
+		$("#loghorn_preview_button").on( "click", function() {
+			$( "#loghorn_preview_division" ).dialog( "open" );
+		});
 		var form_slider_value = 0;
 		/////////////////////////////////////////////////   Login Form: Width:  ////////////////////////////////////////////////////////////////
 		var form_width_slider = $("#loghorn_form_width_slider");

@@ -5,18 +5,19 @@
 	 * logo should be previewed as 80x80 image on the admin page.
 	 */
 	#logo_div	{
-		width: 80px;
-		height: 80px;
+		width: 30%;
+		height:30%;
 		margin: 0 auto;
 		padding: 20px;
+		background-size: auto;
 	}
 	
 	/*
 	 * background should be previewed as 160x100 image on the admin page.
 	 */
 	#bg_div	{
-		width: 480px;
-		height: 300px;
+		width: 80%;
+		height: 100%;
 		margin: 0 auto;
 		padding: 20px;
 	}
@@ -33,7 +34,7 @@
 	div.img1 img {
 		width: 100%;
 		height: 100%;
-		/*background-size: contain;*/
+		background-size: auto;
 	}
 
 	div.desc {
@@ -47,7 +48,7 @@
 	/* SLIDERS                                                                                                                               *
 	/*****************************************************************************************************************************************/
 	.ui-slider	{
-		width: 500px ;
+		width: calc(100% - 30px) ;
 		height: 6px ;
 	}
 	
@@ -61,7 +62,7 @@
 	/* ALL CUSTOM FIELDS                                                                                                                     *
 	/*****************************************************************************************************************************************/
 	.loghorn_custom_options	{
-		width: 530px ;
+		width: 75% ;
 		background-color: #f2f2f2;
 		padding: 6px ;
 		margin: 1px ;
@@ -101,3 +102,23 @@
 		display:none;
 	}
 	
+	/*****************************************************************************************************************************************/
+	/* FIXED BUTTON FOR PREVIEW                                                                                                              *
+	/*****************************************************************************************************************************************/
+	.loghorn_fixed	{
+		position: fixed;
+		top: 100px;
+		right: 10px;
+		background-color: rgba(160,160,160,0.75);
+		padding: 10px;
+		cursor:pointer;
+	}
+	
+	.loghorn_fixed:hover	{
+		background-color: rgba(100,100,100,0.75);
+	}
+	
+	#loghorn_preview_division	{
+		border: 1px solid #fff;
+		background-color: #b6b6b6;
+	}
