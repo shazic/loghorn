@@ -1429,6 +1429,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// JQuery UI Core for ui-tabs and ui-slider:
 			wp_enqueue_script('jquery-ui-tooltip');
+			wp_enqueue_script('jquery-effects-slide');
 			wp_enqueue_script('jquery-ui-dialog');
 			wp_enqueue_script('jquery-ui-core');
 			wp_enqueue_script('jquery-ui-tabs');

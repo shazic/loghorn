@@ -19,19 +19,19 @@
 			resizable:false,
 			show: {
 				effect: "slide",
-				duration: 1000
+				duration: 500
 			},
 			hide: {
 				effect: "slide",
-				duration: 1000
+				duration: 500
 			},
 			position: { 
-				my: "right bottom", 
-				at: "right bottom", 
-				of: document 
+				my: "left bottom", 
+				at: "left bottom", 
+				of: "#loghorn_options_menu" 
 			},
-			width: $(window).width()*.75 ,
-			height:$(window).height()*.75
+			width: $("#loghorn_options_menu").width() ,
+			height:$(window).height()*.90
     	});
 		// If preview button is clicked, show the preview dialog:
 		$("#loghorn_preview_button").on( "click", function() {
