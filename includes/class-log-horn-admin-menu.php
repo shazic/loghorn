@@ -97,7 +97,10 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				<span>Preview</span> 
 			</div>
 			<div class="loghorn_preview_dialog" id="loghorn_preview_division">
-				<span>Preview</span> 
+				<div>
+<?php				$this->loghorn_login_form();
+?>				
+				</div> 
 			</div>
 <?php 			
 				settings_fields( 'loghorn_settings_group' ); 
@@ -1568,6 +1571,31 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		<div class="loghorn_underline"></div>
 <?php
 		}
+		
+		function loghorn_login_form()	{
+?>			
+			<div id="login">
+				<h1><a href="#"><?php bloginfo( 'name' ); ?></a></h1>
+				<div name="loginform" id="loginform">
+					<p>
+						<label for="user_login"><?php _e( 'Username or Email Address' ); ?><br />
+						<input type="text" name="log" id="user_login"<?php echo $aria_describedby_error; ?> class="input" value="<?php echo esc_attr( $user_login ); ?>" size="20" /></label>
+					</p>
+					<p>
+						<label for="user_pass"><?php _e( 'Password' ); ?><br />
+						<input type="password" name="pwd" id="user_pass"<?php echo $aria_describedby_error; ?> class="input" value="" size="20" /></label>
+					</p>
+					<p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever" <?php checked( $rememberme ); ?> /> <?php esc_html_e( 'Remember Me' ); ?></label></p>
+					<p class="submit">
+						<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e('Log In'); ?>" />
+					</p>
+				</div>
+				<p id="nav">
+					<a href="#login"><?php _e( 'Lost your password?' ); ?></a>
+				</p>
+			</div>
+<?php
+			}
 		
 	} //class Log_Horn_Admin_Menu ends here.
 	

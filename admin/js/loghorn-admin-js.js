@@ -17,6 +17,7 @@
 			autoOpen: false,
 			closeOnEscape: true,
 			resizable:false,
+			closeText: false,
 			show: {
 				effect: "slide",
 				duration: 500
@@ -26,12 +27,12 @@
 				duration: 500
 			},
 			position: { 
-				my: "left bottom", 
-				at: "left bottom", 
+				my: "left top", 
+				at: "left top+10", 
 				of: "#loghorn_options_menu" 
 			},
 			width: $("#loghorn_options_menu").width() ,
-			height:$(window).height()*.90
+			height:$(window).height()*.98
     	});
 		// If preview button is clicked, show the preview dialog:
 		$("#loghorn_preview_button").on( "click", function() {
