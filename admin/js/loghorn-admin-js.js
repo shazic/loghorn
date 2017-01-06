@@ -9,7 +9,7 @@
 		// Make the input field for list box selected item invisible.
 		$(".loghorn_list_selected_textbox").hide();
 		// Activate Tooltip
-		$(document).tooltip();
+		$(".helptool").tooltip();
 		// Now, show the options tabs:
 		$("#loghorn_tabs").show();
 		// Create the dialog for preview, but don't display it yet.
