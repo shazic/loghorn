@@ -89,9 +89,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				<ul>
 					<li><a href="#tabs-1">Image Settings</a></li>
 					<li><a href="#tabs-2">Form Settings</a></li>
-					<li><a href="#tabs-3">Input Fields</a></li>
-					<li><a href="#tabs-4">Submit Button</a></li>
-					<li><a href="#tabs-5">Messages</a></li>
+					<li><a href="#tabs-3">Textbox</a></li>
+					<li><a href="#tabs-4">Log In Button</a></li>
+					<li><a href="#tabs-5">Message Box</a></li>
 				</ul>
 			<div class="loghorn_fixed" id="loghorn_preview_button">
 				<span>Preview</span> 
