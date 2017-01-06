@@ -157,6 +157,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_settings_field('loghorn_msg_border_t'		, 	'Message Border (top)'	, 		array ( $this, 'loghorn_msg_border_t_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_msg_border_r'		, 	'Message Border (right)', 		array ( $this, 'loghorn_msg_border_r_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_msg_border_b'		, 	'Message Border (bottom)', 		array ( $this, 'loghorn_msg_border_b_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_print_r'		, 	'Print Settings', 		array ( $this, 'loghorn_printr'		), 		'loghorn_settings_sections', 'loghorn_msg');
 			
 		}
 		
@@ -253,13 +254,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_show_bg_settings ()	{
 			
 			// Options table store the background image id. Get the image source information:
-			$loghorn_bg_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_BG'], 'original' ) ;
+			$loghorn_bg_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_BG']['image'], 'original' ) ;
 			
 			// Display background image:
-			$loghorn_bg_image_parameters		= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_BG]"
+			$loghorn_bg_image_parameters		= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_BG][image]"
 															, "option_id"	=> "bg"
 															, "button_text"	=> "Select Background image"
-															, "value"		=> self::$loghorn_options['LOGHORN_SETTINGS_BG']
+															, "value"		=> self::$loghorn_options['LOGHORN_SETTINGS_BG']['image']
 															, "width"		=> "160"
 															, "height"		=> "100"
 															, "desc"		=> "Background Preview"
@@ -291,7 +292,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_form_padding_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_PAD'] ;
 			
 			// If this is the first time, settings was not present in options table. 
-			if ( !$loghorn_form_padding_value )	{
+			if ( !isset( $loghorn_form_padding_value ))	{
 				$loghorn_form_padding_value = 10 ; //LOGHORN_DEFAULT_PADDING;	// Move default value (all defaults defined in initialize-loghorn.php)
 			}
 			
@@ -309,7 +310,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_form_margin_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_MRGN'] ;
 			
 			// If this is the first time, settings was not present in options table. 
-			if ( !$loghorn_form_margin_value )	{
+			if ( !isset( $loghorn_form_margin_value ))	{
 				$loghorn_form_margin_value = 5 ; //LOGHORN_DEFAULT_FORM_MRGN;	// Move default value (all defaults defined in initialize-loghorn.php)
 			}
 			// Display slider for Form Margin:
@@ -1122,8 +1123,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_msg_bg_settings()	{
 			
 			// Fetch values of message background from options table, if present.
-			$loghorn_msg_bg_shadow_colr_value  = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BG_SHDW']['hex'] ;
-			$loghorn_msg_bg_shadow_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BG_SHDW']['alpha'] ;
+			$loghorn_msg_bg_shadow_colr_value  = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BG']['hex'] ;
+			$loghorn_msg_bg_shadow_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BG']['alpha'] ;
 			
 			// If this is the first time, settings was not present in options table.
 			if ( !$loghorn_msg_bg_shadow_colr_value )	{
@@ -1134,7 +1135,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			
 			// Display Color Picker for Message Background:
-			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BG_SHDW][hex]"
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BG][hex]"
 															, "option_id"	=> "msg_bg_shadow"
 															, "value"		=> $loghorn_msg_bg_shadow_colr_value
 														);
@@ -1142,7 +1143,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
 			
 			// Display slider for selecting Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BG_SHDW][alpha]"
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BG][alpha]"
 															, "option_id"	=> "loghorn_msg_bg_shadow_alpha"
 															, "value"		=> $loghorn_msg_bg_shadow_alpha_value
 															, "label"		=> "Opacity: "
@@ -1397,6 +1398,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
 		}
 		
+		function loghorn_printr()	{
+			print_r(self::$loghorn_options);
+		}
 		function loghorn_load_custom_script( $hook ) {
 			
 			// Load only on ?page=mypluginname
