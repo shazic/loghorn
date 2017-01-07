@@ -28,7 +28,7 @@
 			},
 			position: { 
 				my: "left top", 
-				at: "left top+10", 
+				at: "left top", 
 				of: "#loghorn_options_menu" 
 			},
 			width: $("#loghorn_options_menu").width() ,
