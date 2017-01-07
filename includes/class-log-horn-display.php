@@ -16,9 +16,7 @@ defined( 'ABSPATH' ) or die ;
  *	Plugin will not provide any functionality and quit silently, if the class 'Log_Horn_Display' is defined elsewhere.
  */	
 
-if  ( ! class_exists ( 'Log_Horn_Display' )  )  : 
-  
-	class Log_Horn_Display	{
+class Log_Horn_Display	{
 		
 		/**
 		 * Naming standard: All member and method names used in the plugin begin with the prefix '$loghorn_' 
@@ -29,9 +27,9 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		/**
 		 * Constructor: All initializations occur here.
 		 */
-		function Log_Horn_Display () 	{
+		function Log_Horn_Display ( $loghorn_settings_parm ) 	{
 			
-			$this->loghorn_get_settings();			// Fetch settings from wp_options table.
+			$this->loghorn_add_settings( $loghorn_settings_parm );			// Fetch settings from wp_options table.
 			
 			/**
 			 * Latch on to action hooks here.
@@ -43,10 +41,10 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 		/**
 		 * Get the settings from the options table.
 		 */
-		function loghorn_get_settings()	{
+		function loghorn_add_settings( $loghorn_settings_parm )	{
 			
 			self::$loghorn_settings = 
-			get_option('loghorn_settings2') ;
+			$loghorn_settings_parm ;
 			//explode (";" , get_option('loghorn_settings') ) 
 			/* Debug info
 			explode (";" , 
@@ -731,20 +729,5 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 			
 			return $loghorn_color ;
 		}
-	} //class Log_Horn_Display ends here.
-	
-	
-	/**
-	 * Instantiate an object of the class Log_Horn_Display to call the class constructor.
-	 */
-	function start_log_horn () 	{
-		$start_plugin_log_horn = new Log_Horn_Display;
-	}
-	
-	// Go ahead and trigger the plugin:
-	start_log_horn () ;
-	
-endif; 	// End of the 'if  ( class_exists ) ' block. 
-		// There is no 'else' defined - the plugin will quit quietly if the class is already defined elsewhere.
-  
+} //class Log_Horn_Display ends here.  
 ?>

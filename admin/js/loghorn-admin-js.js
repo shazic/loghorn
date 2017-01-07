@@ -2,6 +2,30 @@
 	jQuery('html').addClass('loghorn_initial');
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	jQuery(document).ready(function($){
+		function loghorn_set_preview_css()	{
+			var logo_url = $( '#logo-image-preview' ).attr( 'src');
+			logo_url = "url("+logo_url+")";
+			var bg_url = $( '#bg-image-preview' ).attr( 'src');
+			bg_url = "url("+bg_url+")";
+			var form_color = $("#loghorn_form_color").val();
+			
+			
+			var disp = bg_url;
+			$("#user_login").val(disp);
+			
+			// Logo:
+			$("#login-h1-a").css("background-image", logo_url); 
+			// Background:
+			$("#loghorn_preview_division").css("background-image", bg_url );
+			$("#loghorn_preview_division").css("background-repeat", "no-repeat");
+			$("#loghorn_preview_division").css("background-position", "center");
+			$("#loghorn_preview_division").css("background-size", "cover");
+			// Form:
+			$("#loginform").css("background-color", form_color); 
+			
+			
+		}
+	
 		// Create tabs: 
 		$("#loghorn_tabs").tabs();
 		// Make  the slider text-boxes invisible.
@@ -36,6 +60,7 @@
     	});
 		// If preview button is clicked, show the preview dialog:
 		$("#loghorn_preview_button").on( "click", function() {
+			loghorn_set_preview_css();
 			$( "#loghorn_preview_division" ).dialog( "open" );
 		});
 		var form_slider_value = 0;

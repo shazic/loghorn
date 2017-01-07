@@ -20,7 +20,8 @@
 	require_once __DIR__.DIRECTORY_SEPARATOR.'initialize-loghorn.php' ;
 	
 	// Display the custom login page (if set) irrespective of user authority (since user is not logged in yet)
-	require_once LOGHORN_INCLUDES_DIRNAME.'class-log-horn-display.php' ;	
+	//require_once LOGHORN_INCLUDES_DIRNAME.'class-log-horn-display.php' ;	
+	require_once LOGHORN_INCLUDES_DIRNAME.'loghorn-display-login.php';
 	
 	// Set up Admin Menu if the user has admin/network admin authority.
 	if ( is_admin() )  {

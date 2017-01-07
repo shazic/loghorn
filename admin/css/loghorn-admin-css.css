@@ -140,7 +140,7 @@
 		box-shadow: 0 1px 3px rgba(0,0,0,0.13);
 	}
 	
-	.loghorn_preview_dialog .button-primary {
+	.login .button-primary {
 		float: right;
 	}
 
@@ -154,16 +154,16 @@
 		transition-timing-function: ease-in-out;
 	}
 
-	.loghorn_preview_dialog a {
+	.login a {
 		outline: 0;
 	}
 
-	.loghorn_preview_dialog a:hover,
-	.loghorn_preview_dialog a:active {
+	.login a:hover,
+	.login a:active {
 		color: #00a0d2;
 	}
 
-	.loghorn_preview_dialog a:focus {
+	.login a:focus {
 		color: #124964;
 		-webkit-box-shadow:
 			0 0 0 1px #5b9dd9,
@@ -177,7 +177,7 @@
 		outline: #5b9dd9 solid 1px;
 	}
 
-	.loghorn_preview_dialog p {
+	.login p {
 		line-height: 1.5;
 	}
 	
@@ -186,7 +186,7 @@
 		margin: -10px 0 20px; /* May want to revisit this */
 	}
 	
-	.loghorn_preview_dialog * {
+	.login * {
 		margin: 0;
 		padding: 0;
 	}
@@ -208,7 +208,7 @@
 		margin-bottom: 20px;
 	}
 
-	.loghorn_preview_dialog .button-primary {
+	.login .button-primary {
 		float: right;
 	}
 	
@@ -221,21 +221,21 @@
 		padding: 0;
 	}
 
-	.loghorn_preview_dialog label {
+	.login label {
 		color: #72777c;
 		font-size: 14px;
 	}
 
-	.loghorn_preview_dialog .loginform .forgetmenot label {
+	.login .loginform .forgetmenot label {
 		font-size: 12px;
 		line-height: 19px;
 	}
 
-	.loghorn_preview_dialog h1 {
+	.login h1 {
 		text-align: center;
 	}
 
-	.loghorn_preview_dialog h1 a {
+	.login h1 a {
 		background-image: url(../../../../../wp-includes/images/w-logo-blue.png?ver=20131202);
 		/*background-image: none, url(../images/wordpress-logo.svg?ver=20131107);*/
 		-webkit-background-size: 84px;
@@ -263,13 +263,13 @@
 		margin: auto;
 	}
 
-	.loghorn_preview_dialog #nav,
-	.loghorn_preview_dialog #backtoblog {
+	.login #nav,
+	.login #backtoblog {
 		font-size: 13px;
 		padding: 0 24px 0;
 	}
 
-	.loghorn_preview_dialog #nav {
+	.login #nav {
 		margin: 24px 0 0 0;
 	}
 
@@ -277,41 +277,41 @@
 		margin: 16px 0;
 	}
 
-	.loghorn_preview_dialog #nav a,
-	.loghorn_preview_dialog #backtoblog a {
+	.login #nav a,
+	.login #backtoblog a {
 		text-decoration: none;
 		color: #555d66;
 	}
 
-	.loghorn_preview_dialog #nav a:hover,
-	.loghorn_preview_dialog #backtoblog a:hover,
-	.loghorn_preview_dialog h1 a:hover {
+	.login #nav a:hover,
+	.login #backtoblog a:hover,
+	.login h1 a:hover {
 		color: #00a0d2;
 	}
 
-	.loghorn_preview_dialog #nav a:focus,
-	.loghorn_preview_dialog #backtoblog a:focus,
-	.loghorn_preview_dialog h1 a:focus {
+	.login #nav a:focus,
+	.login #backtoblog a:focus,
+	.login h1 a:focus {
 		color: #124964;
 	}
 
-	.loghorn_preview_dialog .loginform .input,
-	.loghorn_preview_dialog input[type="text"],
-	.loghorn_preview_dialog input[type="password"]{
+	.login .loginform .input,
+	.login input[type="text"],
+	.login input[type="password"]{
 		font-size: 24px;
 		width: 100%;
 		padding: 3px;
 		margin: 2px 6px 16px 0;
 	}
 
-	.loghorn_preview_dialog .loginform .input,
-	.loghorn_preview_dialog input[type="text"],
-	.loghorn_preview_dialog .loginform input[type="checkbox"] {
+	.login .loginform .input,
+	.login input[type="text"],
+	.login .loginform input[type="checkbox"] {
 		background: #fbfbfb;
 	}
 
-	.ie7 .loghorn_preview_dialog .loginform .input,
-	.ie8 .loghorn_preview_dialog .loginform .input {
+	.ie7 .login .loginform .input,
+	.ie8 .login .loginform .input {
 		font-family: sans-serif;
 	}
 

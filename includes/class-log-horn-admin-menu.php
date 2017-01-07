@@ -16,6 +16,7 @@ defined( 'ABSPATH' ) or die ;
  *	Plugin will not provide any functionality and quit silently, if the class 'Log_Horn_Admin_Menu' is defined elsewhere.
  */	
 
+ require_once LOGHORN_INCLUDES_DIRNAME.'class-log-horn-display.php' ;	
 if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  : 
   
 	class Log_Horn_Admin_Menu	{
@@ -52,6 +53,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// Load Settings from the Options Table:
 			self::$loghorn_options = get_option ( 'loghorn_settings2' ) ;
+			
 			}
 		
 		/**
@@ -93,10 +95,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					<li><a href="#tabs-4">Log In Button</a></li>
 					<li><a href="#tabs-5">Message Box</a></li>
 				</ul>
-			<div class="loghorn_fixed" id="loghorn_preview_button">
-				<span>Preview</span> 
-			</div>
-			<div class="loghorn_preview_dialog" id="loghorn_preview_division">
+			<div class="login" id="loghorn_preview_division">
 				<div>
 <?php				$this->loghorn_login_form();
 ?>				
@@ -108,8 +107,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 
 				//close the div for the final tab:	?>
 				</div>
+			<div class="loghorn_fixed" id="loghorn_preview_button">
+				<span>Preview</span> 
+			</div>
+			
 <?php		// close div for "#loghorn_tabs" :		?>
-			</div>			
+			</div>	
 <?php			
 			submit_button(); 			// Submit button at the bottom, so that user don't have to scroll up just to save settings.
 ?>
@@ -163,7 +166,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		
 		function loghorn_validate_input()	{
-			
 			
 			 
 		}
@@ -1498,7 +1500,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 ?>	
 			<div class="loghorn_custom_options">
 				<span class="loghorn_menu_label"> <?php _e ( $loghorn_color_picker_parms["label"] ) ; ?> </span>
-				<input type="text" value=<?php _e ( $loghorn_color_picker_parms["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?> " name="<?php _e ( $loghorn_color_picker_parms["option_name"]) ; ?>" />
+				<input type="text" value=<?php _e ( $loghorn_color_picker_parms["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?>" name="<?php _e ( $loghorn_color_picker_parms["option_name"]) ; ?>" />
 			</div>
 <?php
 			$this->loghorn_tooltip_symbol("A new tooltip");
@@ -1579,7 +1581,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_login_form()	{
 ?>			
 			<div id="login">
-				<h1><a href="#"><?php bloginfo( 'name' ); ?></a></h1>
+				<h1 id="login-h1"><a id="login-h1-a" href="#"><?php bloginfo( 'name' ); ?></a></h1>
 				<div name="loginform" id="loginform">
 					<p>
 						<label for="user_login"><?php _e( 'Username or Email Address' ); ?><br />
