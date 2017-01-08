@@ -203,19 +203,15 @@
 	#loginform {
 		margin-top: 20px;
 		margin-left: 0;
+		margin-bottom: 20px;
 		padding: 26px 24px 46px;
 		font-weight: 400;
 		overflow: hidden;
 		background: #fff;
 		-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.13);
+		float: left;
 		box-shadow: 0 1px 3px rgba(0,0,0,0.13);
 }
-
-	#loginform	{
-		font-weight: 400;
-		float: left;
-		margin-bottom: 20px;
-	}
 
 	.login .button-primary {
 		float: right;
@@ -280,6 +276,7 @@
 
 	.login #nav {
 		margin: 24px 0 0 0;
+		clear: both;
 	}
 
 	#backtoblog {

@@ -87,7 +87,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			<form method="post" action=<?php _e ( '"'.get_site_url().'/wp-admin/options.php"' ) ;  ?> >
 <?php		submit_button();			// Submit button at the top
 ?>				
-			<div class="loghorn_spinner" id="loghorn_spinner"><!--span>Loading settings...</span-->
+			<div class="loghorn_spinner" id="loghorn_spinner"><!--span class="spinner"></span-->
 			</div>
 			<div id="loghorn_tabs">
 				<ul>
@@ -1599,7 +1599,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					</p>
 				</div>
 				<p id="nav">
-					<a href="#login"><?php _e( 'Lost your password?' ); ?></a>
+					<a href="#"><?php _e( 'Lost your password?' ); ?></a>
 				</p>
 			</div>
 <?php

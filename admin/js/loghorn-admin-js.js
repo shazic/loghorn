@@ -3,25 +3,133 @@
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	jQuery(document).ready(function($){
 		function loghorn_set_preview_css()	{
-			var logo_url = $( '#logo-image-preview' ).attr( 'src');
-			logo_url = "url("+logo_url+")";
-			var bg_url = $( '#bg-image-preview' ).attr( 'src');
-			bg_url = "url("+bg_url+")";
-			var form_color = $("#loghorn_form_color").val();
+			var border_types = [];
+			$("#loghorn_form_border_style_listbox option").each(function() { border_types.push($(this).text()) });
+			var font_types = [];
+			$("#loghorn_form_label_font_listbox option").each(function() { font_types.push($(this).text()) });
+			
+			var logo_url 		= $( '#logo-image-preview' ).attr( 'src');						// logo url
+			logo_url 			= "url("+logo_url+")";
+			var bg_url 			= $( '#bg-image-preview' ).attr( 'src');						// background url
+			bg_url 				= "url("+bg_url+")";
+			
+			var form_color 		= $("#loghorn_form_color").val();								// form color
+			var form_shdw 		= $("#loghorn_form_shadow_hor_inp").val()						// form shadow
+								+"px "
+								+$("#loghorn_form_shadow_ver_inp").val()
+								+"px "
+								+$("#loghorn_form_shadow_blur_inp").val()
+								+"px "
+								+$("#loghorn_form_shadow_spread_inp").val()
+								+"px "
+								+$("#loghorn_form_shadow_color").val();			
+			var form_brdr 		= $("#loghorn_form_border_thick_inp").val()						// form border
+								+"px "
+								+border_types[$("#loghorn_form_border_style_textbox").val()]
+								+" "
+								+$("#loghorn_form_border_color").val();
+			var form_radius 	= $("#loghorn_form_border_radius_inp").val()+"px";				// form border radius
+			var form_font 		= font_types[$("#loghorn_form_label_font_textbox").val()];		// form font family
+			var form_fsize 		= $("#loghorn_form_label_size_inp").val()						// form font size 
+								+"px";
+			var label_color 	= $("#loghorn_form_label_color").val();							// form label color
+			
+			var inp_radius 		= $("#loghorn_input_border_radius_inp").val()+"px";				// textbox border radius
+			var inp_font 		= font_types[$("#loghorn_input_text_font_textbox").val()];		// input text font family
+			var inp_fsize 		= $("#loghorn_input_text_size_inp").val()						// input text font size 
+								+"px";
+			var inp_bg 			= $("#loghorn_textbox_color").val();							// input text background color
+			var inp_colr 		= $("#loghorn_input_text_color").val();							// input text color
+			var inp_brdr 		= $("#loghorn_input_border_thick_inp").val()					// form border
+								+"px "
+								+border_types[$("#loghorn_input_border_style_textbox").val()]
+								+" "
+								+$("#loghorn_input_border_color").val();
+			var cb_width 		= $("#loghorn_checkbox_width_inp").val()+"px";					// checkbox width
+			var cb_height		= $("#loghorn_checkbox_height_inp").val()+"px";					// checkbox height
+			var cb_radius 		= $("#loghorn_checkbox_radius_inp").val()+"px";					// textbox border radius
+			
+			var butn_colr 		= $("#loghorn_submit_bg_colr_color").val();						// button bg color
+			var butn_fcolr 		= $("#loghorn_submit_text_color").val();						// button text color
+			var butn_font 		= font_types[$("#loghorn_submit_text_font_textbox").val()];		// button text font family
+			var butn_fsize 		= $("#loghorn_submit_text_size_inp").val()						// button text font size 
+								+"px";
+			var butn_brdr 		= $("#loghorn_submit_border_thick_inp").val()					// form border
+								+"px "
+								+border_types[$("#loghorn_submit_border_style_textbox").val()]
+								+" "
+								+$("#loghorn_submit_border_color").val();
+			var butn_radius 	= $("#loghorn_submit_border_radius_inp").val()+"px";			// textbox border radius
+			var butn_txt_shdw 	= $("#loghorn_submit_text_shadow_hor_inp").val()				// form shadow
+								+"px "
+								+$("#loghorn_submit_text_shadow_ver_inp").val()
+								+"px "
+								+$("#loghorn_submit_text_shadow_blur_inp").val()
+								+"px "
+								+$("#loghorn_submit_text_shadow_color").val();
+			var butn_brdr_hvr	= $("#loghorn_submit_border_thick_inp").val()					// form border
+								+"px "
+								+border_types[$("#loghorn_submit_border_style_textbox").val()]
+								+" "
+								+$("#loghorn_submit_border_hvr_color").val();
 			
 			
-			var disp = bg_url;
-			$("#user_login").val(disp);
+			$("#user_login").attr("placeholder", "Username or E-mail");
+			$("#user_pass").attr("placeholder", "Password");
 			
 			// Logo:
 			$("#login-h1-a").css("background-image", logo_url); 
 			// Background:
-			$("#loghorn_preview_division").css("background-image", bg_url );
-			$("#loghorn_preview_division").css("background-repeat", "no-repeat");
-			$("#loghorn_preview_division").css("background-position", "center");
-			$("#loghorn_preview_division").css("background-size", "cover");
+			$("#loghorn_preview_division").css(	{	"background-image": bg_url, 
+													"background-repeat": "no-repeat", 
+													"background-position": "center",
+													"background-size": "cover"
+												});
 			// Form:
-			$("#loginform").css("background-color", form_color); 
+			$("#loginform").css(				{	"background-color": form_color,
+													"box-shadow": form_shdw,
+													"border": form_brdr,
+													"border-radius": form_radius
+												});
+			// Put width, padding, margin here.
+			$("#loginform label").css(			{	"font-family": form_font,
+													"font-size": form_fsize,
+													"color": label_color
+												});
+			
+			// Textbox:
+			$(".login #user_login").css(		{	"border-radius": inp_radius,
+													"font-family": inp_font,
+													"font-size": inp_fsize,	// this causes 'Lost your password' to shift in preiew window, if inp_fsize > 17
+													"border": inp_brdr,
+													"background-color": inp_bg,
+													"color": inp_colr
+												});
+			$(".login #user_pass").css(			{	"border-radius": inp_radius,
+													"font-family": inp_font,
+													"font-size": inp_fsize,		
+													"border": inp_brdr,
+													"background-color": inp_bg,
+													"color": inp_colr
+												});
+			$(".login #rememberme").css(		{	"border": inp_brdr,
+													"background-color": inp_bg,
+													"color": inp_colr,
+													"width": cb_width,
+													"height": cb_height,
+													"border-radius": cb_radius
+												});
+			
+			// Login Button:
+			$(".login #wp-submit").css(			{	"border": butn_brdr,
+													"background-color": butn_colr,
+													"color": butn_fcolr,
+													//"width": butn_width,
+													"font-family": butn_font,
+													"font-size": butn_fsize,
+													"border-radius": butn_radius,
+													"text-shadow": butn_txt_shdw
+												});
 			
 			
 		}
@@ -64,6 +172,26 @@
 			loghorn_set_preview_css();
 			$( "#loghorn_preview_division" ).dialog( "open" );
 		});
+		
+		$("#wp-submit").hover(function(){
+											$(this).css(					
+												{	"border-color": $("#loghorn_submit_border_hvr_color").val(),	
+													"background-color": $("#loghorn_submit_bg_hvr_color").val(),
+													"color": $("#loghorn_submit_text_hvr_color").val(),
+													"text-shadow": $("#loghorn_submit_text_shadow_hvr_color").val()	// This doesn't work
+												}
+											);
+										},
+							  function(){
+											$(this).css(					
+												{	"border-color": $("#loghorn_submit_border_color").val(),
+													"background-color":$("#loghorn_submit_bg_colr_color").val(),
+													"color": $("#loghorn_submit_text_color").val(),
+													"text-shadow": $("#loghorn_submit_text_shadow_color").val()		
+												}
+											);
+										}
+		);
 		var form_slider_value = 0;
 		/////////////////////////////////////////////////   Login Form: Width:  ////////////////////////////////////////////////////////////////
 		var form_width_slider = $("#loghorn_form_width_slider");
