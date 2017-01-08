@@ -87,6 +87,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			<form method="post" action=<?php _e ( '"'.get_site_url().'/wp-admin/options.php"' ) ;  ?> >
 <?php		submit_button();			// Submit button at the top
 ?>				
+			<div class="loghorn_spinner" id="loghorn_spinner"><!--span>Loading settings...</span-->
+			</div>
 			<div id="loghorn_tabs">
 				<ul>
 					<li><a href="#tabs-1">Image Settings</a></li>

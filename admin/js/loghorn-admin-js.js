@@ -25,7 +25,6 @@
 			
 			
 		}
-	
 		// Create tabs: 
 		$("#loghorn_tabs").tabs();
 		// Make  the slider text-boxes invisible.
@@ -34,6 +33,8 @@
 		$(".loghorn_list_selected_textbox").hide();
 		// Activate Tooltip
 		$(".helptool").tooltip();
+		// Hide spinner:
+		$('.loghorn_spinner').hide();
 		// Now, show the options tabs:
 		$("#loghorn_tabs").show();
 		// Create the dialog for preview, but don't display it yet.
