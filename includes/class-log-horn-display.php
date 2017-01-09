@@ -69,9 +69,11 @@ class Log_Horn_Display	{
 <?php 		if ( ! $loghorn_css ) {	
 				  // If there isn't any static CSS stylesheet selected, fetch and use the user defined values: -->
 					// Logo
-					$loghorn_disable_logo		= self::$loghorn_settings ['LOGHORN_SETTINGS_LOGO']['disable']	;
+					$loghorn_disable_logo		= $this->loghorn_get_logo_option   		(  ) ;	// Logo to be disabled?
 					$loghorn_logo_file 			= $this->loghorn_get_login_logo 		(  ) ;	// URL of the image file to be used as the logo.
 					// Background
+					$loghorn_bg_use_img			= $this->loghorn_get_bg_option   		(  ) ;	// Background Option.
+					$loghorn_bg_color			= $this->loghorn_get_bg_color   		(  ) ;	// Background Color.
 					$loghorn_bg_file 			= $this->loghorn_get_login_bg   		(  ) ;	// URL of the image file to be used as the background.
 					// Login Form
 					$loghorn_form_wd 			= $this->loghorn_get_form_wd			(  ) ;	// form width in pixels.
@@ -120,6 +122,7 @@ class Log_Horn_Display	{
 					// Message Box:
 					$loghorn_msg_bg_colr		= $this->loghorn_get_msg_bg_color		(  ) ;  // Messages Background Color.
 					$loghorn_msg_lbl_colr		= $this->loghorn_get_msg_lbl_color		(  ) ;  // Messages text Color.
+					
 ?>
 					<style type="text/css" >
 						/** 
@@ -146,7 +149,15 @@ class Log_Horn_Display	{
 						 * background image goes here:
 						*/ 
 						body.login {
+<?php 					if ( $loghorn_bg_use_img )	{
+?>
 							background-image: url(<?php _e ( esc_url( $loghorn_bg_file ) ) ; ?>) ;
+<?php 					}
+						else	{
+?>
+							background-color: <?php _e ( $loghorn_bg_color ) ; ?> ;
+<?php 					}						
+?>
 							background-repeat: no-repeat;
 							background-attachment: fixed;
 							background-position: center;
@@ -329,12 +340,32 @@ class Log_Horn_Display	{
 			return $loghorn_current_script ;	
 		}
 	
+		/*
+		 * Do we need to disable the logo? Get the option selected by user.
+		 */
+		function loghorn_get_logo_option()	{
+			return self::$loghorn_settings ['LOGHORN_SETTINGS_LOGO']['disable']	;
+		}
 		/**
 		 * Get the name of the image that would replace the WordPress Login logo. 
 		 */
 		function loghorn_get_login_logo ( $loghorn_default_logo = LOGHORN_DEFAULT_LOGO_IMAGE ) 	{
 			
 			return $this->loghorn_get_image ( 'LOGHORN_SETTINGS_LOGO' , $loghorn_default_logo ) ;
+		}
+		
+		/*
+		 *
+		 */
+		function loghorn_get_bg_option ( $loghorn_default_bg_option = "Yes" )	{
+			return self::$loghorn_settings [ 'LOGHORN_SETTINGS_BG' ][ 'option' ] ;
+		}
+		
+		/*
+		 *
+		 */
+		function loghorn_get_bg_color ()	{
+			return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_BG_COLOR' , $loghorn_default_form_colr ) ;
 		}
 		
 		/**

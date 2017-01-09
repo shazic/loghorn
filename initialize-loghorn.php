@@ -169,7 +169,7 @@
 	}
 	/**********************************  SETTINGS OPTIONS   ***************************************
 	 * The below constants define the field/properties that can be customized through this plugin *
-	 **********************************************************************************************/
+	 **********************************************************************************************
 	
 	// Set the CSS Theme Option label:
     if  ( ! defined ( 'LOGHORN_SETTINGS_CSS_THEME' )  )  {
@@ -412,6 +412,7 @@
 	/**************************************   GLOBALS   *****************************************/
 	
 	global 	  $loghorn_yes_no
+			, $loghorn_bg_option_list
 			, $loghorn_border_styles_global 
 			, $loghorn_fonts_global
 			;
@@ -419,6 +420,11 @@
 			$loghorn_yes_no				  = array (
 													 "No"
 													,"Yes"
+											);
+			$loghorn_bg_option_list		  = array  (
+													  "Plain"
+													 ,"Image"
+											
 											);
 			$loghorn_border_styles_global = array (	 "none"
 													,"solid"

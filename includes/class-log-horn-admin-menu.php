@@ -130,6 +130,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			add_settings_section('loghorn_images'				, ''		, 		array ( $this, 'loghorn_image_settings' ), 'loghorn_settings_sections');
 				add_settings_field('loghorn_logo_option'		, 	'Disable Logo?'			, 		array ( $this, 'loghorn_disable_logo_option' 		), 		'loghorn_settings_sections', 'loghorn_images');
 				add_settings_field('loghorn_logo_filename'		, 	'Logo File'				, 		array ( $this, 'loghorn_show_logo_settings' 		), 		'loghorn_settings_sections', 'loghorn_images');
+				add_settings_field('loghorn_bg_options'			,	'Background Type'		, 		array ( $this, 'loghorn_show_bg_options' 			), 		'loghorn_settings_sections', 'loghorn_images');
+				add_settings_field('loghorn_bg_color'			,	'Background Color'		, 		array ( $this, 'loghorn_bg_color' 					), 		'loghorn_settings_sections', 'loghorn_images');
 				add_settings_field('loghorn_bg_filename'		,	'Background'			, 		array ( $this, 'loghorn_show_bg_settings' 			), 		'loghorn_settings_sections', 'loghorn_images');
 			
 			add_settings_section('loghorn_form'					, ''	, 		array ( $this, 'loghorn_form_settings' 	), 'loghorn_settings_sections');
@@ -255,6 +257,58 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$this->loghorn_show_image_settings ( $loghorn_logo_image_parameters , $loghorn_logo_image_src ) ;
 		}
 		
+		
+		function loghorn_show_bg_options()	{
+				
+			// Get the bg options from the database:
+			$loghorn_bg_option = self::$loghorn_options['LOGHORN_SETTINGS_BG']['option'] ;
+			
+			// If this is the first time, settings was not present in options table. 
+			if ( !isset( $loghorn_bg_option ) )	{
+				$loghorn_bg_option = 1;							// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			
+			// Display listbox for selecting Yes/No:
+			global $loghorn_yes_no ;					// Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_BG][option]"
+															,"option_id"	=> "loghorn_bg_option"
+															,"label"		=> "Display an image as the background?"
+															,"value"		=> $loghorn_bg_option
+														);
+			$this->loghorn_show_listbox ( $loghorn_yes_no, $loghorn_show_listbox_parms ) ;
+		}
+		
+		
+		function loghorn_bg_color()	{
+			
+			// Fetch form color and alpha channel values from options table, if present.
+			$loghorn_bg_color_value = self::$loghorn_options['LOGHORN_SETTINGS_BG_COLOR']['hex'] ;
+			$loghorn_bg_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_BG_COLOR']['alpha'] ;
+			
+			// If this is the first time, settings was not present in options table. 
+			if ( !isset( $loghorn_bg_color_value ) )	{
+				$loghorn_bg_color_value = LOGHORN_DEFAULT_FORM_COLR;			// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			if ( !$loghorn_bg_alpha_value )	{
+				$loghorn_bg_alpha_value = LOGHORN_DEFAULT_ALPHA;				// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			
+			// Display Color Picker for the Form:
+			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_BG_COLOR][hex]"
+															, "option_id"	=> "bg"
+															, "value"		=> $loghorn_bg_color_value
+														);
+			
+			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+
+			// Display slider for Form Color Alpha Channel:
+			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_BG_COLOR][alpha]"
+															, "option_id"	=> "loghorn_bg_alpha"
+															, "value"		=> $loghorn_bg_alpha_value
+															, "label"		=> "Opacity: "
+														);
+			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+		}
 		function loghorn_show_bg_settings ()	{
 			
 			// Options table store the background image id. Get the image source information:

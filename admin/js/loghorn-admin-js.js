@@ -16,15 +16,24 @@
 			
 			var disable_logo	= yes_no_option[$("#loghorn_disable_logo_option_textbox").val()];	// disable the logo?
 			
-			if ( "Yes" == disable_logo )	{
+			if ( disable_logo.indexOf("Yes") >= 0 )	{
 				var logo_url 	= "none";														// no logo.
 			}else	{
 				var logo_url 	= $( '#logo-image-preview' ).attr( 'src');						// get logo url
 			}
 			logo_url 			= "url("+logo_url+")";
-			var bg_url 			= $( '#bg-image-preview' ).attr( 'src');						// background url
+			
+			var use_img_bg		= yes_no_option[$("#loghorn_bg_option_textbox").val()];			// use a background image?
+			
+			if ( use_img_bg.indexOf("Yes") >= 0 )	{
+				var bg_url 		= $( '#bg-image-preview' ).attr( 'src');					// background url
+			}else	{
+				var bg_url 		= "none";														// no background image
+			}
+			
 			bg_url 				= "url("+bg_url+")";
 			
+			var bg_colr			= $("#loghorn_bg_color").val();
 			var form_color 		= $("#loghorn_form_color").val();								// form color
 			var form_shdw 		= $("#loghorn_form_shadow_hor_inp").val()						// form shadow
 								+"px "
@@ -85,7 +94,7 @@
 								+" "
 								+$("#loghorn_submit_border_hvr_color").val();
 			
-			$("#user_login").val(disable_logo);
+			$("#user_login").val(form_brdr);
 			$("#user_login").attr("placeholder", "Username or E-mail");
 			$("#user_pass").attr("placeholder", "Password");
 			
@@ -93,6 +102,7 @@
 			$("#login-h1-a").css("background-image", logo_url); 
 			// Background:
 			$("#loghorn_preview_division").css(	{	"background-image": bg_url, 
+													"background-color": bg_colr,
 													"background-repeat": "no-repeat", 
 													"background-position": "center",
 													"background-size": "cover"
@@ -112,7 +122,7 @@
 			// Textbox:
 			$(".login #user_login").css(		{	"border-radius": inp_radius,
 													"font-family": inp_font,
-													"font-size": inp_fsize,	// this causes 'Lost your password' to shift in preiew window, if inp_fsize > 17
+													"font-size": inp_fsize,	
 													"border": inp_brdr,
 													"background-color": inp_bg,
 													"color": inp_colr
@@ -868,6 +878,9 @@
 	// Disable Logo option
 	function loghorn_disable_logo_option_onchange()	{
 		document.getElementById( "loghorn_disable_logo_option_textbox" 	).value = document.getElementById("loghorn_disable_logo_option_listbox").value;
+	}
+	function loghorn_bg_option_onchange()	{
+		document.getElementById( "loghorn_bg_option_textbox" 	).value = document.getElementById("loghorn_bg_option_listbox").value;
 	}
 	// Form Border style
 	function loghorn_form_border_style_onchange()	{
