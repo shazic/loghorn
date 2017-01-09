@@ -69,6 +69,7 @@ class Log_Horn_Display	{
 <?php 		if ( ! $loghorn_css ) {	
 				  // If there isn't any static CSS stylesheet selected, fetch and use the user defined values: -->
 					// Logo
+					$loghorn_disable_logo		= self::$loghorn_settings ['LOGHORN_SETTINGS_LOGO']['disable']	;
 					$loghorn_logo_file 			= $this->loghorn_get_login_logo 		(  ) ;	// URL of the image file to be used as the logo.
 					// Background
 					$loghorn_bg_file 			= $this->loghorn_get_login_bg   		(  ) ;	// URL of the image file to be used as the background.
@@ -124,11 +125,23 @@ class Log_Horn_Display	{
 						/** 
 						 * user logo goes here:
 						 */
+<?php 					if ( !$loghorn_disable_logo )	{
+?>
 						#login h1 a, 
 						.login h1 a{
 							background-image: url(<?php _e ( esc_url( $loghorn_logo_file ) ) ; ?>);
 							padding-bottom: 30px;
 						}
+<?php 					}
+						else	{
+?>
+						#login h1 a, 
+						.login h1 a{
+							background-image: none;
+							padding-bottom: 30px;
+						}
+<?php 					}						
+?>
 						/** 
 						 * background image goes here:
 						*/ 

@@ -1,14 +1,26 @@
 //	Let's add a class that can be used to hide the unrefined tabs till document is ready:
 	jQuery('html').addClass('loghorn_initial');
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	jQuery(document).ready(function($){
 		function loghorn_set_preview_css()	{
+			// this function sets all the CSS for the preview dialog window.
+			
+			// define the various types of drop downs:
 			var border_types = [];
 			$("#loghorn_form_border_style_listbox option").each(function() { border_types.push($(this).text()) });
 			var font_types = [];
 			$("#loghorn_form_label_font_listbox option").each(function() { font_types.push($(this).text()) });
+			var yes_no_option = [];
+			$("#loghorn_disable_logo_option_listbox option").each(function() { yes_no_option.push($(this).text()) });
 			
-			var logo_url 		= $( '#logo-image-preview' ).attr( 'src');						// logo url
+			var disable_logo	= yes_no_option[$("#loghorn_disable_logo_option_textbox").val()];	// disable the logo?
+			
+			if ( "Yes" == disable_logo )	{
+				var logo_url 	= "none";														// no logo.
+			}else	{
+				var logo_url 	= $( '#logo-image-preview' ).attr( 'src');						// get logo url
+			}
 			logo_url 			= "url("+logo_url+")";
 			var bg_url 			= $( '#bg-image-preview' ).attr( 'src');						// background url
 			bg_url 				= "url("+bg_url+")";
@@ -73,7 +85,7 @@
 								+" "
 								+$("#loghorn_submit_border_hvr_color").val();
 			
-			
+			$("#user_login").val(disable_logo);
 			$("#user_login").attr("placeholder", "Username or E-mail");
 			$("#user_pass").attr("placeholder", "Password");
 			

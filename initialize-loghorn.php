@@ -417,8 +417,8 @@
 			;
 			
 			$loghorn_yes_no				  = array (
-													 "Yes"
-													,"No"
+													 "No"
+													,"Yes"
 											);
 			$loghorn_border_styles_global = array (	 "none"
 													,"solid"
