@@ -873,14 +873,50 @@
 		jQuery( 'a.add_media' ).on( 'click', function() {
 			wp.media.model.settings.post.id = wp_media_post_id;
 		});
+		///////////////////////////////////////  Special List items ///////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////  Logo Listbox OnChange
+		$("#loghorn_disable_logo_option_listbox").change(function(){
+			var current_selected_option = $("#loghorn_disable_logo_option_listbox").val();
+			$("#loghorn_disable_logo_option_textbox").val(current_selected_option);
+			if(current_selected_option == 0)	{		// 0 - No; 1 - Yes
+				$("#logo_div").show();
+				$('#logo_upload_image_button').prop('disabled', false);
+			}
+			else	{
+				$("#logo_div").hide();
+				$('#logo_upload_image_button').prop('disabled', true);
+			}
+		})
+		///////////////////////////////////////  BG Listbox OnChange
+		$("#loghorn_bg_option_listbox").change(function(){
+			var current_selected_option = $("#loghorn_bg_option_listbox").val();
+			$("#loghorn_bg_option_textbox").val(current_selected_option);
+			if(current_selected_option == 1)	{		// 0 - No; 1 - Yes
+				$("#bg_div").show();
+				$("#bg_upload_image_button").prop('disabled', false);
+				$("#loghorn_bg_color").attr("readonly", false);
+			}
+			else	{
+				$("#bg_div").hide();
+				$('#bg_upload_image_button').prop('disabled', true);
+				$("#loghorn_bg_color").attr("readonly", false);
+			}
+		})
 	});
 	///////////////////////////////////////  List items ///////////////////////////////////////////////////////////////////////
 	// Disable Logo option
+	
 	function loghorn_disable_logo_option_onchange()	{
-		document.getElementById( "loghorn_disable_logo_option_textbox" 	).value = document.getElementById("loghorn_disable_logo_option_listbox").value;
+		/*var current_selected_option = document.getElementById("loghorn_disable_logo_option_listbox").value;
+		document.getElementById( "loghorn_disable_logo_option_textbox" 	).value = current_selected_option ;
+		//if(current_selected_option == 0)
+			//document.getElementById("logo_image_attachment_id").style.display = "block";
+		//else
+			//document.getElementById("logo_image_attachment_id").style.display = "none";
+		$( '#bg-image-preview' ).attr( 'src', null );*/
 	}
 	function loghorn_bg_option_onchange()	{
-		document.getElementById( "loghorn_bg_option_textbox" 	).value = document.getElementById("loghorn_bg_option_listbox").value;
+		//document.getElementById( "loghorn_bg_option_textbox" 	).value = document.getElementById("loghorn_bg_option_listbox").value;
 	}
 	// Form Border style
 	function loghorn_form_border_style_onchange()	{

@@ -16,7 +16,6 @@ defined( 'ABSPATH' ) or die ;
  *	Plugin will not provide any functionality and quit silently, if the class 'Log_Horn_Admin_Menu' is defined elsewhere.
  */	
 
- require_once LOGHORN_INCLUDES_DIRNAME.'class-log-horn-display.php' ;	
 if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  : 
   
 	class Log_Horn_Admin_Menu	{
@@ -244,7 +243,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// Options table store the logo's image id. Get the image source information:
 			$loghorn_logo_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_LOGO']['image'], 'original' ) ;
+			$loghorn_disable_logo_option = self::$loghorn_options['LOGHORN_SETTINGS_LOGO']['disable'] ;
 			
+			$loghorn_hide_logo=false;
+			
+			if ( $loghorn_disable_logo_option )	{
+				$loghorn_hide_logo=true;
+			}
 			// Display Logo Image:
 			$loghorn_logo_image_parameters		= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_LOGO][image]"
 															, "option_id"	=> "logo"
@@ -253,6 +258,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "width"		=> "80"
 															, "height"		=> "80"
 															, "desc"		=> "Preview"
+															, "hidden"		=> $loghorn_hide_logo
 														);
 			$this->loghorn_show_image_settings ( $loghorn_logo_image_parameters , $loghorn_logo_image_src ) ;
 		}
@@ -285,6 +291,14 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_bg_color_value = self::$loghorn_options['LOGHORN_SETTINGS_BG_COLOR']['hex'] ;
 			$loghorn_bg_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_BG_COLOR']['alpha'] ;
 			
+			$loghorn_use_bg_image = self::$loghorn_options['LOGHORN_SETTINGS_BG']['option'] ;
+			
+			$loghorn_disable_iris=false;
+			
+			if ( $loghorn_use_bg_image )	{
+				$loghorn_disable_iris=true;
+			}
+			
 			// If this is the first time, settings was not present in options table. 
 			if ( !isset( $loghorn_bg_color_value ) )	{
 				$loghorn_bg_color_value = LOGHORN_DEFAULT_FORM_COLR;			// Move default value (all defaults defined in initialize-loghorn.php)
@@ -297,6 +311,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_BG_COLOR][hex]"
 															, "option_id"	=> "bg"
 															, "value"		=> $loghorn_bg_color_value
+															, "disable"		=> $loghorn_disable_iris
 														);
 			
 			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
@@ -313,7 +328,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// Options table store the background image id. Get the image source information:
 			$loghorn_bg_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_BG']['image'], 'original' ) ;
+			$loghorn_use_bg_image = self::$loghorn_options['LOGHORN_SETTINGS_BG']['option'] ;
 			
+			$loghorn_hide_bg=true;
+			
+			if ( $loghorn_use_bg_image )	{
+				$loghorn_hide_bg=false;
+			}
 			// Display background image:
 			$loghorn_bg_image_parameters		= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_BG][image]"
 															, "option_id"	=> "bg"
@@ -322,6 +343,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "width"		=> "160"
 															, "height"		=> "100"
 															, "desc"		=> "Background Preview"
+															, "hidden"		=> $loghorn_hide_bg
 														);
 			$this->loghorn_show_image_settings ( $loghorn_bg_image_parameters , $loghorn_bg_image_src ) ;
 		}
@@ -1492,11 +1514,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			/************************************************* Enqueue Scripts *************************************************************/
 			
-			// JQuery UI Core for ui-tabs and ui-slider:
+			// JQuery UI:
+			//wp_enqueue_script('jquery-ui-core');
 			wp_enqueue_script('jquery-ui-tooltip');
 			wp_enqueue_script('jquery-effects-slide');
 			wp_enqueue_script('jquery-ui-dialog');
-			wp_enqueue_script('jquery-ui-core');
 			wp_enqueue_script('jquery-ui-tabs');
 			wp_enqueue_script('jquery-ui-slider');
 			
@@ -1524,17 +1546,28 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_show_image_settings ( $loghorn_image_parameters , $loghorn_image_source)	{
 			
+			$loghorn_img_div_id			= $loghorn_image_parameters["option_id"]."_display" ;
 			$loghorn_img_button_id		= $loghorn_image_parameters["option_id"]."_upload_image_button" ;
 			$loghorn_img_attachment_id	= $loghorn_image_parameters["option_id"]."_image_attachment_id" ;
 			$loghorn_img_division_id	= $loghorn_image_parameters["option_id"]."_div" ;
+			$loghorn_img_src_id			= $loghorn_image_parameters["option_id"]."_image_src" ;
 			$loghorn_img_preview_id		= $loghorn_image_parameters["option_id"]."-image-preview" ;
+			
+			if ( $loghorn_image_parameters ["hidden"] )	{
+				$loghorn_display_div = " style='display: none;'";
+				$loghorn_button_disabled = " disabled=true";
+			}
+			else{
+				$loghorn_display_div = "";
+				$loghorn_button_disabled = "";
+			}
 ?>
-			<div class="loghorn_custom_options">
-				<input id="<?php _e( $loghorn_img_button_id ); ?>" type="button" class="button" value="<?php _e( $loghorn_image_parameters["button_text"] ); ?>" />
+			<div class="loghorn_custom_options" id="<?php _e( $loghorn_img_div_id ); ?>">
+				<input id="<?php _e( $loghorn_img_button_id ); ?>" type="button" class="button" value="<?php _e( $loghorn_image_parameters["button_text"] ); ?>" <?php _e ( $loghorn_button_disabled ) ; ?>/>
 				<input type='hidden' name="<?php _e( $loghorn_image_parameters["option_name"] ); ?>" id="<?php _e( $loghorn_img_attachment_id ); ?>" value="<?php _e ( $loghorn_image_parameters["value"] ) ; ?>">
 				<br>		
-				<div id="<?php _e( $loghorn_img_division_id ); ?>" class="img1">
-					<a id="bg_image_src" target="_blank" href='<?php _e ( $loghorn_image_source [0] ) ; ?>' >
+				<div id="<?php _e( $loghorn_img_division_id ); ?>" class="img1" <?php _e ( $loghorn_display_div ) ; ?>>
+					<a id="<?php _e ( $loghorn_img_src_id ) ; ?>" target="_blank" href='<?php _e ( $loghorn_image_source [0] ) ; ?>' >
 						
 						<img id="<?php _e( $loghorn_img_preview_id ); ?>" src="<?php _e ( $loghorn_image_source [0] ) ; ?>" width="<?php _e( $loghorn_image_parameters["width"] ); ?>" height="<?php _e( $loghorn_image_parameters["height"] ); ?>"  > 
 					
@@ -1553,10 +1586,16 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_color_picker( $loghorn_color_picker_parms)	{
 			
 			$loghorn_txtbox_id = "loghorn_".$loghorn_color_picker_parms["option_id"]."_color" ;
-?>	
+			if ( isset ( $loghorn_color_picker_parms["disable"] ) && ( $loghorn_color_picker_parms["disable"] ) )	{
+				$loghorn_enable_iris =" readonly"; 
+			}
+			else	{
+				$loghorn_enable_iris =""; 
+			}
+?><?php _e ( $loghorn_enable_iris ) ; ?>	
 			<div class="loghorn_custom_options">
 				<span class="loghorn_menu_label"> <?php _e ( $loghorn_color_picker_parms["label"] ) ; ?> </span>
-				<input type="text" value=<?php _e ( $loghorn_color_picker_parms["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?>" name="<?php _e ( $loghorn_color_picker_parms["option_name"]) ; ?>" />
+				<input type="text" value=<?php _e ( $loghorn_color_picker_parms["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?>" name="<?php _e ( $loghorn_color_picker_parms["option_name"]) ; ?>" <?php _e ( $loghorn_enable_iris ) ; ?>/>
 			</div>
 <?php
 			$this->loghorn_tooltip_symbol("A new tooltip");
@@ -1575,8 +1614,10 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			<div class="loghorn_custom_options">
 				<span class="loghorn_menu_label"> <?php _e ( $loghorn_jquery_slider_parms["label"] ) ; ?> </span>
 				<input type="text" class="loghorn_slider_textbox" name="<?php _e ( $loghorn_jquery_slider_parms["option_name"] ) ; ?>" id="<?php _e ( $loghorn_txtbox_id ) ; ?>" value="<?php _e ( $loghorn_jquery_slider_parms["value"] ) ; ?>">
-				<div id="<?php _e ( $loghorn_slider_id ) ; ?>" class="ui-slider">
-					<div id="<?php _e ( $loghorn_handle_id ) ; ?>" class="ui-slider-handle" ></div>
+				<div class="loghorn-slider-class">
+					<div id="<?php _e ( $loghorn_slider_id ) ; ?>" class="ui-slider">
+						<div id="<?php _e ( $loghorn_handle_id ) ; ?>" class="ui-slider-handle" ></div>
+					</div>
 				</div>
 			</div>
 <?php	
