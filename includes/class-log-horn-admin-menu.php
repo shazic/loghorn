@@ -96,7 +96,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					<li><a href="#tabs-4">Log In Button</a></li>
 					<li><a href="#tabs-5">Message Box</a></li>
 				</ul>
-			<div class="login" id="loghorn_preview_division">
+			<div class="login login-action-login wp-core-ui" id="loghorn_preview_division">
 				<div>
 <?php				$this->loghorn_login_form();
 ?>				
@@ -1592,7 +1592,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			else	{
 				$loghorn_enable_iris =""; 
 			}
-?><?php _e ( $loghorn_enable_iris ) ; ?>	
+?>	
 			<div class="loghorn_custom_options">
 				<span class="loghorn_menu_label"> <?php _e ( $loghorn_color_picker_parms["label"] ) ; ?> </span>
 				<input type="text" value=<?php _e ( $loghorn_color_picker_parms["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?>" name="<?php _e ( $loghorn_color_picker_parms["option_name"]) ; ?>" <?php _e ( $loghorn_enable_iris ) ; ?>/>

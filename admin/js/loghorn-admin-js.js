@@ -34,6 +34,9 @@
 			bg_url 				= "url("+bg_url+")";
 			
 			var bg_colr			= $("#loghorn_bg_color").val();
+			var form_width 		= $("#loghorn_form_width_inp").val()+"px";						// form width
+			var form_mrgn 		= $("#loghorn_form_mrgn_inp").val()+"px";						// form margin
+			var form_pad 		= $("#loghorn_form_pad_inp").val()+"px";						// form padding
 			var form_color 		= $("#loghorn_form_color").val();								// form color
 			var form_shdw 		= $("#loghorn_form_shadow_hor_inp").val()						// form shadow
 								+"px "
@@ -94,7 +97,7 @@
 								+" "
 								+$("#loghorn_submit_border_hvr_color").val();
 			
-			$("#user_login").val(form_brdr);
+			$("#user_login").val(form_pad);
 			$("#user_login").attr("placeholder", "Username or E-mail");
 			$("#user_pass").attr("placeholder", "Password");
 			
@@ -111,9 +114,11 @@
 			$("#loginform").css(				{	"background-color": form_color,
 													"box-shadow": form_shdw,
 													"border": form_brdr,
+													"width": form_width,
+													"margin": form_mrgn,
+													"padding": form_pad,
 													"border-radius": form_radius
 												});
-			// Put width, padding, margin here.
 			$("#loginform label").css(			{	"font-family": form_font,
 													"font-size": form_fsize,
 													"color": label_color
