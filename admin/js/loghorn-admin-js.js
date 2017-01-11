@@ -14,7 +14,7 @@
 			var yes_no_option = [];
 			$("#loghorn_disable_logo_option_listbox option").each(function() { yes_no_option.push($(this).text()) });
 			
-			var disable_logo	= yes_no_option[$("#loghorn_disable_logo_option_textbox").val()];	// disable the logo?
+			var disable_logo	= yes_no_option[$("#loghorn_disable_logo_option_listbox").val()];	// disable the logo? 
 			
 			if ( disable_logo.indexOf("Yes") >= 0 )	{
 				var logo_url 	= "none";														// no logo.
@@ -23,10 +23,10 @@
 			}
 			logo_url 			= "url("+logo_url+")";
 			
-			var use_img_bg		= yes_no_option[$("#loghorn_bg_option_textbox").val()];			// use a background image?
+			var use_img_bg		= yes_no_option[$("#loghorn_bg_option_listbox").val()];			// use a background image? 
 			
 			if ( use_img_bg.indexOf("Yes") >= 0 )	{
-				var bg_url 		= $( '#bg-image-preview' ).attr( 'src');					// background url
+				var bg_url 		= $( '#bg-image-preview' ).attr( 'src');						// background url
 			}else	{
 				var bg_url 		= "none";														// no background image
 			}
@@ -49,24 +49,24 @@
 								+$("#loghorn_form_shadow_color").val();			
 			var form_brdr 		= $("#loghorn_form_border_thick_inp").val()						// form border
 								+"px "
-								+border_types[$("#loghorn_form_border_style_textbox").val()]
+								+border_types[$("#loghorn_form_border_style_listbox").val()]	//							
 								+" "
 								+$("#loghorn_form_border_color").val();
 			var form_radius 	= $("#loghorn_form_border_radius_inp").val()+"px";				// form border radius
-			var form_font 		= font_types[$("#loghorn_form_label_font_textbox").val()];		// form font family
+			var form_font 		= font_types[$("#loghorn_form_label_font_listbox").val()];		// form font family			
 			var form_fsize 		= $("#loghorn_form_label_size_inp").val()						// form font size 
 								+"px";
 			var label_color 	= $("#loghorn_form_label_color").val();							// form label color
 			
 			var inp_radius 		= $("#loghorn_input_border_radius_inp").val()+"px";				// textbox border radius
-			var inp_font 		= font_types[$("#loghorn_input_text_font_textbox").val()];		// input text font family
+			var inp_font 		= font_types[$("#loghorn_input_text_font_listbox").val()];		// input text font family	
 			var inp_fsize 		= $("#loghorn_input_text_size_inp").val()						// input text font size 
 								+"px";
-			var inp_bg 			= $("#loghorn_textbox_color").val();							// input text background color
+			var inp_bg 			= $("#loghorn_textbox_color").val();							// input text background color	
 			var inp_colr 		= $("#loghorn_input_text_color").val();							// input text color
 			var inp_brdr 		= $("#loghorn_input_border_thick_inp").val()					// form border
 								+"px "
-								+border_types[$("#loghorn_input_border_style_textbox").val()]
+								+border_types[$("#loghorn_input_border_style_listbox").val()]		// 
 								+" "
 								+$("#loghorn_input_border_color").val();
 			var cb_width 		= $("#loghorn_checkbox_width_inp").val()+"px";					// checkbox width
@@ -75,12 +75,12 @@
 			
 			var butn_colr 		= $("#loghorn_submit_bg_colr_color").val();						// button bg color
 			var butn_fcolr 		= $("#loghorn_submit_text_color").val();						// button text color
-			var butn_font 		= font_types[$("#loghorn_submit_text_font_textbox").val()];		// button text font family
+			var butn_font 		= font_types[$("#loghorn_submit_text_font_listbox").val()];		// button text font family		
 			var butn_fsize 		= $("#loghorn_submit_text_size_inp").val()						// button text font size 
 								+"px";
 			var butn_brdr 		= $("#loghorn_submit_border_thick_inp").val()					// form border
 								+"px "
-								+border_types[$("#loghorn_submit_border_style_textbox").val()]
+								+border_types[$("#loghorn_submit_border_style_listbox").val()]	// 
 								+" "
 								+$("#loghorn_submit_border_color").val();
 			var butn_radius 	= $("#loghorn_submit_border_radius_inp").val()+"px";			// textbox border radius
@@ -93,7 +93,7 @@
 								+$("#loghorn_submit_text_shadow_color").val();
 			var butn_brdr_hvr	= $("#loghorn_submit_border_thick_inp").val()					// form border
 								+"px "
-								+border_types[$("#loghorn_submit_border_style_textbox").val()]
+								+border_types[$("#loghorn_submit_border_style_listbox").val()]		// 
 								+" "
 								+$("#loghorn_submit_border_hvr_color").val();
 			
@@ -164,16 +164,36 @@
 		$("#loghorn_tabs").tabs();
 		// Make  the slider text-boxes invisible.
 		$(".loghorn_slider_textbox").hide();
-		// Make the input field for list box selected item invisible.
-		$(".loghorn_list_selected_textbox").hide();
 		// Activate Tooltip
 		$(".helptool").tooltip();
+		//$(".loghorn_list_select").selectmenu();
 		// Hide spinner:
 		$('.loghorn_spinner').hide();
 		// color-picker:
 		$('.loghorn-color-cp').alphaColorPicker();
 		// Now, show the options tabs:
 		$("#loghorn_tabs").show();
+		// Show/hide logo upload option:
+		var disable_logo_option = $("#loghorn_disable_logo_option_listbox").val();
+		if(disable_logo_option == 0)	{		// 0 - No; 1 - Yes
+			$("#logo_div").show();
+			$('#logo_upload_image_button').prop('disabled', false);
+		}
+		else	{
+			$("#logo_div").hide();
+			$('#logo_upload_image_button').prop('disabled', true);
+		}
+		var use_bg_option = $("#loghorn_bg_option_listbox").val();
+		if(use_bg_option == 1)	{		// 0 - No; 1 - Yes
+			$("#bg_div").show();
+			$("#bg_upload_image_button").prop('disabled', false);
+			$("#loghorn_bg_color").attr("readonly", false);
+		}
+		else	{
+			$("#bg_div").hide();
+			$('#bg_upload_image_button').prop('disabled', true);
+			$("#loghorn_bg_color").attr("readonly", false);
+		}
 		// Create the dialog for preview, but don't display it yet.
 		$( "#loghorn_preview_division" ).dialog({
 			autoOpen: false,
@@ -884,7 +904,6 @@
 		///////////////////////////////////////  Logo Listbox OnChange
 		$("#loghorn_disable_logo_option_listbox").change(function(){
 			var current_selected_option = $("#loghorn_disable_logo_option_listbox").val();
-			$("#loghorn_disable_logo_option_textbox").val(current_selected_option);
 			if(current_selected_option == 0)	{		// 0 - No; 1 - Yes
 				$("#logo_div").show();
 				$('#logo_upload_image_button').prop('disabled', false);
@@ -897,7 +916,6 @@
 		///////////////////////////////////////  BG Listbox OnChange
 		$("#loghorn_bg_option_listbox").change(function(){
 			var current_selected_option = $("#loghorn_bg_option_listbox").val();
-			$("#loghorn_bg_option_textbox").val(current_selected_option);
 			if(current_selected_option == 1)	{		// 0 - No; 1 - Yes
 				$("#bg_div").show();
 				$("#bg_upload_image_button").prop('disabled', false);
@@ -910,62 +928,3 @@
 			}
 		})
 	});
-	///////////////////////////////////////  List items ///////////////////////////////////////////////////////////////////////
-	// Disable Logo option
-	
-	function loghorn_disable_logo_option_onchange()	{
-		/*var current_selected_option = document.getElementById("loghorn_disable_logo_option_listbox").value;
-		document.getElementById( "loghorn_disable_logo_option_textbox" 	).value = current_selected_option ;
-		//if(current_selected_option == 0)
-			//document.getElementById("logo_image_attachment_id").style.display = "block";
-		//else
-			//document.getElementById("logo_image_attachment_id").style.display = "none";
-		$( '#bg-image-preview' ).attr( 'src', null );*/
-	}
-	function loghorn_bg_option_onchange()	{
-		//document.getElementById( "loghorn_bg_option_textbox" 	).value = document.getElementById("loghorn_bg_option_listbox").value;
-	}
-	// Form Border style
-	function loghorn_form_border_style_onchange()	{
-		document.getElementById( "loghorn_form_border_style_textbox" 	).value = document.getElementById("loghorn_form_border_style_listbox").value;
-	}
-	// Form Label Font
-	function loghorn_form_label_font_onchange()	{
-		document.getElementById( "loghorn_form_label_font_textbox"   	).value = document.getElementById("loghorn_form_label_font_listbox"  ).value;
-	}
-	// Input Text Font
-	function loghorn_input_text_font_onchange()		{
-		document.getElementById( "loghorn_input_text_font_textbox"   	).value = document.getElementById("loghorn_input_text_font_listbox"  ).value;
-	}
-	// Inputbox Border style
-	function loghorn_input_border_style_onchange()	{
-		document.getElementById( "loghorn_input_border_style_textbox" 	).value = document.getElementById("loghorn_input_border_style_listbox").value;
-	}
-	// Submit Button Text Font
-	function loghorn_submit_text_font_onchange()	{
-		document.getElementById( "loghorn_submit_text_font_textbox"   	).value = document.getElementById("loghorn_submit_text_font_listbox"  ).value;
-	}
-	// Submit Button Border style
-	function loghorn_submit_border_style_onchange()	{
-		document.getElementById( "loghorn_submit_border_style_textbox" 	).value = document.getElementById("loghorn_submit_border_style_listbox").value;
-	}
-	// Message Box Text Font
-	function loghorn_msg_text_font_onchange()		{
-		document.getElementById( "loghorn_msg_text_font_textbox"   		).value = document.getElementById("loghorn_msg_text_font_listbox"  ).value;
-	}
-	// Message Box Left Border style
-	function loghorn_msg_border_l_style_onchange()	{
-		document.getElementById( "loghorn_msg_border_l_style_textbox" 	).value = document.getElementById("loghorn_msg_border_l_style_listbox").value;
-	}
-	// Message Box Top Border style
-	function loghorn_msg_border_t_style_onchange()	{
-		document.getElementById( "loghorn_msg_border_t_style_textbox" 	).value = document.getElementById("loghorn_msg_border_t_style_listbox").value;
-	}
-	// Message Box Right Border style
-	function loghorn_msg_border_r_style_onchange()	{
-		document.getElementById( "loghorn_msg_border_r_style_textbox" 	).value = document.getElementById("loghorn_msg_border_r_style_listbox").value;
-	}
-	// Message Box Bottom Border style
-	function loghorn_msg_border_b_style_onchange()	{
-		document.getElementById( "loghorn_msg_border_b_style_textbox" 	).value = document.getElementById("loghorn_msg_border_b_style_listbox").value;
-	}

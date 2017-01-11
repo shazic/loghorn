@@ -36,6 +36,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_action( 'network_admin_menu', 	array ( $this , 'loghorn_menu' ) ) ;
 				// Admin Notices for network admin menu:
 				add_action('network_admin_notices', array ( $this , 'loghorn_updated_notice' ) ) ;
+				/* Form Save action redirects to options.php for single site. For multisite, it does not work.
+				 * It is because the URL for network form action is wp-admin/network/edit.php?action=custom_option_name.
+				 * So, let's create a callback function. 
+				 *
+				add_action( add_action( 'network_admin_edit_your_option_name', 
+													array ( $this, 'loghorn_save_network_options') ) ;
+				*/									
 			}
 			else	{
 				// Add a menu item:
@@ -50,10 +57,25 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			// Load Custom Scripts and Styles (only for the plugin's admin page):
 			add_action( 'admin_enqueue_scripts',  	array ( $this , 'loghorn_load_custom_script' ) ) ;
 			
+			
 			// Load Settings from the Options Table:
 			self::$loghorn_options = get_option ( 'loghorn_settings2' ) ;
 			
-			}
+		}
+		
+		/**
+		 * Callback for option save.
+		 */
+		function loghorn_save_network_options()	{
+			
+			// update_site_option( $this->option_name, $this->option_values );
+			// redirect to settings page in network
+				wp_redirect(
+				add_query_arg( array( 'page' => 'your_options_page_slug', 'updated' => 'true' ),
+								(is_multisite() ? network_admin_url( 'admin.php' ) : admin_url( 'admin.php' ))
+							)
+				);
+		}
 		
 		/**
 		 * The Menu-builder for Log Horn.
@@ -96,7 +118,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					<li><a href="#tabs-4">Log In Button</a></li>
 					<li><a href="#tabs-5">Message Box</a></li>
 				</ul>
-			<div class="login login-action-login wp-core-ui" id="loghorn_preview_division">
+			<div class="login login-action-login wp-core-ui" id="loghorn_preview_division" hidden=true>
 				<div>
 <?php				$this->loghorn_login_form();
 ?>				
@@ -1516,6 +1538,10 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// JQuery UI:
 			//wp_enqueue_script('jquery-ui-core');
+			//wp_enqueue_script('jquery-ui-menu');
+			//wp_enqueue_script('jquery-ui-widget');
+			//wp_enqueue_script('jquery-ui-position');
+			//wp_enqueue_script('jquery-ui-selectmenu');
 			wp_enqueue_script('jquery-ui-tooltip');
 			wp_enqueue_script('jquery-effects-slide');
 			wp_enqueue_script('jquery-ui-dialog');
@@ -1553,14 +1579,14 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_img_src_id			= $loghorn_image_parameters["option_id"]."_image_src" ;
 			$loghorn_img_preview_id		= $loghorn_image_parameters["option_id"]."-image-preview" ;
 			
-			if ( $loghorn_image_parameters ["hidden"] )	{
+			/*if ( $loghorn_image_parameters ["hidden"] )	{
 				$loghorn_display_div = " style='display: none;'";
 				$loghorn_button_disabled = " disabled=true";
 			}
 			else{
 				$loghorn_display_div = "";
 				$loghorn_button_disabled = "";
-			}
+			}*/
 ?>
 			<div class="loghorn_custom_options" id="<?php _e( $loghorn_img_div_id ); ?>">
 				<input id="<?php _e( $loghorn_img_button_id ); ?>" type="button" class="button" value="<?php _e( $loghorn_image_parameters["button_text"] ); ?>" <?php _e ( $loghorn_button_disabled ) ; ?>/>
@@ -1628,13 +1654,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			$loghorn_textbox_id		= $loghorn_listbox_parms["option_id"]."_textbox" ;
 			$loghorn_listbox_id		= $loghorn_listbox_parms["option_id"]."_listbox" ;
-			$loghorn_onchange_fn	= $loghorn_listbox_parms["option_id"]."_onchange()" ;
 ?>			
 			<div class="loghorn_custom_options">
 			<div class="loghorn_list">
 				<div >
 					<span class="loghorn_menu_label"> <?php _e ( $loghorn_listbox_parms["label"] ) ; ?> </span>
-					<select class="loghorn_list_select" id="<?php _e ( $loghorn_listbox_id ) ; ?>" name="<?php _e ( $loghorn_listbox_id ) ; ?>" onchange="<?php _e ( $loghorn_onchange_fn ) ; ?>">
+					<select class="loghorn_list_select" id="<?php _e ( $loghorn_listbox_id ) ; ?>" name="<?php _e( $loghorn_listbox_parms["option_name"] ) ; ?>" >
 <?php
 					foreach ( $loghorn_listbox_options as $loghorn_listbox_key => $a_loghorn_listbox ) {
 						$loghorn_listbox_name = $a_loghorn_listbox;
@@ -1651,7 +1676,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 ?>
 					</select>
 				</div>
-				<input type="text" class="loghorn_list_selected_textbox" id="<?php _e( $loghorn_textbox_id ) ; ?>" name="<?php _e( $loghorn_listbox_parms["option_name"] ) ; ?>" value="<?php _e( $loghorn_listbox_parms["value"] ) ; ?>" >
 			</div>
 			</div>
 <?php
