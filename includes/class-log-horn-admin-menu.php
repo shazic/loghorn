@@ -1525,7 +1525,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			// color-picker with alpha (this script by BraadMartin extends the wp-color-picker to include alpha channel):
 			wp_enqueue_script( 'loghorn-color-picker-alpha', LOGHORN_ADMIN_JS_URL.'alpha-color-picker.js', array( 'wp-color-picker' ), false, true );
 			// loghorn js for using the Color Picker:
-			wp_enqueue_script( 'loghorn-iris-cp', LOGHORN_ADMIN_JS_URL.'loghorn-admin-color-picker.js', array( 'loghorn-color-picker-alpha' ), false, true );
+			//wp_enqueue_script( 'loghorn-iris-cp', LOGHORN_ADMIN_JS_URL.'loghorn-admin-color-picker.js', array( 'loghorn-color-picker-alpha' ), false, true );
 			
 			// Plugin Menu's JavaScript:
 			wp_enqueue_script( 'loghorn-admin-javascript' , LOGHORN_ADMIN_JS_URL.'loghorn-admin-js.js' ) ;
@@ -1632,7 +1632,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 ?>			
 			<div class="loghorn_custom_options">
 			<div class="loghorn_list">
-				<form action="#">
+				<div >
 					<span class="loghorn_menu_label"> <?php _e ( $loghorn_listbox_parms["label"] ) ; ?> </span>
 					<select class="loghorn_list_select" id="<?php _e ( $loghorn_listbox_id ) ; ?>" name="<?php _e ( $loghorn_listbox_id ) ; ?>" onchange="<?php _e ( $loghorn_onchange_fn ) ; ?>">
 <?php
@@ -1650,7 +1650,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					}
 ?>
 					</select>
-				</form>
+				</div>
 				<input type="text" class="loghorn_list_selected_textbox" id="<?php _e( $loghorn_textbox_id ) ; ?>" name="<?php _e( $loghorn_listbox_parms["option_name"] ) ; ?>" value="<?php _e( $loghorn_listbox_parms["value"] ) ; ?>" >
 			</div>
 			</div>

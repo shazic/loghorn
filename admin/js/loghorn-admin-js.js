@@ -170,6 +170,8 @@
 		$(".helptool").tooltip();
 		// Hide spinner:
 		$('.loghorn_spinner').hide();
+		// color-picker:
+		$('.loghorn-color-cp').alphaColorPicker();
 		// Now, show the options tabs:
 		$("#loghorn_tabs").show();
 		// Create the dialog for preview, but don't display it yet.
