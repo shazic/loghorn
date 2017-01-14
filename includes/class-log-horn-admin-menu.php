@@ -1567,8 +1567,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			echo("<br><br>");
 			foreach ($a as $s_no => $site_details)	{
-				echo( "<br>".$site_details->domain.$site_details->path.":<br>");
-				echo "----------------------<br>";
+				echo( "<br>".$s_no.")".$site_details->domain.$site_details->path.":<br>");
+				$this->loghorn_underline();
 				foreach ($site_details as $item => $value)
 					echo "$item =  $value<br>";
 			}
@@ -1577,12 +1577,23 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_site_details()	{
 			$a = get_sites();
 			foreach ($a as $s_no => $site_details)	{
-				echo( $site_details->domain.$site_details->path."<br>");
-				/*$a = $site_details->blog_id;
-				$a = $a + 0; echo $a;
-				echo ( " -- ".get_network_option($a, "siteurl")." (");
-				echo ( get_network_option($a, "blogname").")<br>");*/
+				//echo( $site_details->domain.$site_details->path."<br>");
+				$blog_id = $site_details->blog_id;
+				switch_to_blog( $blog_id );
+				echo(get_option( 'siteurl' )); echo " (";
+				echo(get_option( 'blogname' )); echo ")";
+				//echo ( get_network_option($blog_id, "blogname").")<br>");
+				restore_current_blog(); echo "<br>";
 			}
+			echo "<br><br>";
+			
+			/*switch_to_blog( 5 );
+			echo(get_option( 'blogname' )); echo "<br>";
+			echo(get_option( 'siteurl' )); echo "<br>";
+			echo(get_option( 'post_count') ); echo "<br>";
+			echo(get_option( 'home' )); echo "<br>";
+			restore_current_blog(); echo "<br>";*/
+
 			
 		}
 		function loghorn_load_custom_script( $hook ) {
@@ -1604,9 +1615,10 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			// color-picker with alpha (this extends the wp-color-picker to include alpha channel:
 			wp_enqueue_style( 'loghorn-cp-stylesheet' 	 , LOGHORN_ADMIN_CSS_URL.'alpha-color-picker.css', array( 'wp-color-picker' )) ;
 			
+			$jquery_css_theme = "cupertino";
 			// JQuery UI CSS for slider:
 			//wp_register_style('loghorn-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
-			wp_register_style('loghorn-jquery-ui', 'https://code.jquery.com/ui/1.12.1/themes/overcast/jquery-ui.css');
+			wp_register_style('loghorn-jquery-ui', "https://code.jquery.com/ui/1.12.1/themes/$jquery_css_theme/jquery-ui.css");
 			wp_enqueue_style( 'loghorn-jquery-ui' );   
 			
 			// Font-Awesome CDN:
@@ -1659,22 +1671,22 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			<div class="loghorn_custom_options">
 				<h4>About this plugin:</h4>
 					<p> 
-						This is a very simple plugin that provides a user friendly interface to completely customize your WordPress website's login page 
-						to a totally cool new look as you deem fit.<br>
+						This is a very simple plugin that provides a user friendly interface to completely customize your WordPress website's login page. 
+						You can make the login experience as cool as you want it to be!<br>
 					</p>
 					<br>
 				<h4>Features:</h4>
 					<p> 
 						With this plugin you can:
-							<li> Change the color of the background and other elements.</li>
-							<li> Set a picture as the background image for your login screen. </li>
-							<li> Display your own logo at the top of the login form </li>
-							<li> Customize the fonts on your login screen. </li>
-							<li> Produce cool effects, like shadows, borders and rounded corners. </li>
-							<li> Absolutley no coding or CSS knowledge is required to produce those cool effects through this plugin. </li>
+							<li> Change the color of the background and other elements,</li>
+							<li> Set an image as the background of your login screen, </li>
+							<li> Remove the default logo, or better, display your own logo at the top of the login form, </li>
+							<li> Customize the fonts on your login screen, </li>
+							<li> Produce cool effects, like shadows, borders and rounded corners, </li>
+							<li> Absolutley no coding or CSS knowledge is required to produce those cool effects through this plugin, </li>
 							<li> <p class="bold">Preview Feature: </p>
-									See a preview of the login screen you designed by clicking the preview button. <br>
-									<p class="small">The preview feature is only for representation of how the screen would look like. 
+									You can preview the login screen you designed with this plugin just by clicking the preview button. <br>
+									<p class="small">The preview feature is only a representation of how the screen would look like. 
 									Though it gives a fair idea about the screen layout, the actual login screen may differ slightly from the preview image.</p>
 							</li>
 					</p>
