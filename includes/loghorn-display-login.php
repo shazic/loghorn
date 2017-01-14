@@ -22,12 +22,7 @@ if  ( ! class_exists ( 'Log_Horn_Display' )  )  :
 	/**
 	 * Instantiate an object of the class Log_Horn_Display to call the class constructor.
 	 */
-	function start_log_horn () 	{
-		$start_plugin_log_horn = new Log_Horn_Display ( get_option('loghorn_settings2') );
-	}
-	
-	// Go ahead and trigger the plugin:
-	start_log_horn () ;
+	$start_plugin_log_horn = new Log_Horn_Display ( );
 	
 endif; 	// End of the 'if  ( class_exists ) ' block. 
 		// There is no 'else' defined - the plugin will quit quietly if the class is already defined elsewhere.

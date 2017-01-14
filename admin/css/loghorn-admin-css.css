@@ -1,5 +1,32 @@
 	/*#logo_display { display: none;}
 	/*****************************************************************************************************************************************/
+	/* GENERAL INFO SECTION                                                                                                                  *
+	/*****************************************************************************************************************************************/
+	/*
+	 * General settings section.
+	 */
+	.loghorn_custom_options	h4	{
+		margin: 0px;
+		font-style: italic;
+		font-weight: bold;
+		color: #597c72;
+		background-color: #dbdbdb;
+		border: 1px solid #afafaf ;
+		border-radius: 2px ;
+		text-align: center;
+	}
+	
+	.loghorn_custom_options li {
+		margin-left: 20px;
+	}
+	
+	.loghorn_custom_options p.bold {
+		font-weight: bold;
+	}
+	.loghorn_custom_options p.small {
+		font-size: 10px;
+	}
+	/*****************************************************************************************************************************************/
 	/* IMAGES                                                                                                                                *
 	/*****************************************************************************************************************************************/
 	/*

@@ -183,6 +183,7 @@
 			$("#logo_div").hide();
 			$('#logo_upload_image_button').prop('disabled', true);
 		}
+		// Show/hide background image upload option:
 		var use_bg_option = $("#loghorn_bg_option_listbox").val();
 		if(use_bg_option == 1)	{		// 0 - No; 1 - Yes
 			$("#bg_div").show();
@@ -193,6 +194,14 @@
 			$("#bg_div").hide();
 			$('#bg_upload_image_button').prop('disabled', true);
 			$("#loghorn_bg_color").attr("readonly", false);
+		}
+		// Show/hide preview button:
+		var preview_enabled = $("#loghorn_general_option_listbox").val();
+		if(preview_enabled == 1)	{		// 0 - No; 1 - Yes
+			$("#loghorn_preview_button").show();
+		}
+		else	{
+			$("#loghorn_preview_button").hide();
 		}
 		// Create the dialog for preview, but don't display it yet.
 		$( "#loghorn_preview_division" ).dialog({
@@ -218,8 +227,15 @@
     	});
 		// If preview button is clicked, show the preview dialog:
 		$("#loghorn_preview_button").on( "click", function() {
-			loghorn_set_preview_css();
-			$( "#loghorn_preview_division" ).dialog( "open" );
+			var yes_no_option = [];
+			$("#loghorn_general_option_listbox option").each(function() { yes_no_option.push($(this).text()) });
+			
+			var plugin_enabled	= yes_no_option[$("#loghorn_general_option_listbox").val()];	// is this plugin enabled? 
+			
+			if ( plugin_enabled.indexOf("Yes") >= 0 )	{
+				loghorn_set_preview_css();														// set CSS for preview dialog.
+				$( "#loghorn_preview_division" ).dialog( "open" );
+			}
 		});
 		
 		$("#wp-submit").hover(function(){
@@ -901,6 +917,16 @@
 			wp.media.model.settings.post.id = wp_media_post_id;
 		});
 		///////////////////////////////////////  Special List items ///////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////  Plugin Enable Listbox OnChange
+		$("#loghorn_general_option_listbox").change(function(){
+			var current_selected_option = $("#loghorn_general_option_listbox").val();
+			if(current_selected_option == 0)	{		// 0 - No; 1 - Yes
+				$("#loghorn_preview_button").hide();
+			}
+			else	{
+				$("#loghorn_preview_button").show();
+			}
+		})
 		///////////////////////////////////////  Logo Listbox OnChange
 		$("#loghorn_disable_logo_option_listbox").change(function(){
 			var current_selected_option = $("#loghorn_disable_logo_option_listbox").val();

@@ -112,11 +112,16 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			</div>
 			<div id="loghorn_tabs">
 				<ul>
-					<li><a href="#tabs-1">Image Settings</a></li>
-					<li><a href="#tabs-2">Form Settings</a></li>
-					<li><a href="#tabs-3">Textbox</a></li>
-					<li><a href="#tabs-4">Log In Button</a></li>
-					<li><a href="#tabs-5">Message Box</a></li>
+					<li><a href="#loghorn_tabs_0">General Settings</a></li>
+					<li><a href="#loghorn_tabs_1">Image Settings</a></li>
+					<li><a href="#loghorn_tabs_2">Form Settings</a></li>
+					<li><a href="#loghorn_tabs_3">Textbox</a></li>
+					<li><a href="#loghorn_tabs_4">Log In Button</a></li>
+					<li><a href="#loghorn_tabs_5">Message Box</a></li>
+<?php
+					if ( is_multisite() ) 
+?>					
+					<li><a href="#loghorn_tabs_6">Sites</a></li>
 				</ul>
 			<div class="login login-action-login wp-core-ui" id="loghorn_preview_division" hidden=true>
 				<div>
@@ -130,7 +135,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 
 				//close the div for the final tab:	?>
 				</div>
-			<div class="loghorn_fixed" id="loghorn_preview_button">
+			<div class="loghorn_fixed" id="loghorn_preview_button" hidden=true>
 				<span>Preview</span> 
 			</div>
 			
@@ -147,6 +152,10 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_plugin_settings()	{
 			
 			register_setting( 'loghorn_settings_group' , 'loghorn_settings2' , 'loghorn_validate_input' ); 
+			
+			add_settings_section('loghorn_general'				, ''		, 		array ( $this, 'loghorn_general_settings' ), 'loghorn_settings_sections');
+				add_settings_field('loghorn_general_option'		, 	'Enable this plugin settings?', array ( $this, 'loghorn_enable_loghorn_option'		), 		'loghorn_settings_sections', 'loghorn_general');
+				add_settings_field('loghorn_general_info'		, 	'General Information'	, 		array ( $this, 'loghorn_general_info'				), 		'loghorn_settings_sections', 'loghorn_general');
 			
 			add_settings_section('loghorn_images'				, ''		, 		array ( $this, 'loghorn_image_settings' ), 'loghorn_settings_sections');
 				add_settings_field('loghorn_logo_option'		, 	'Disable Logo?'			, 		array ( $this, 'loghorn_disable_logo_option' 		), 		'loghorn_settings_sections', 'loghorn_images');
@@ -186,7 +195,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_settings_field('loghorn_msg_border_r'		, 	'Message Border (right)', 		array ( $this, 'loghorn_msg_border_r_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_msg_border_b'		, 	'Message Border (bottom)', 		array ( $this, 'loghorn_msg_border_b_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_print_r'		, 	'Print Settings', 		array ( $this, 'loghorn_printr'		), 		'loghorn_settings_sections', 'loghorn_msg');
-			
+			if ( is_multisite() ) {
+			add_settings_section('loghorn_mu'					, '',		array ( $this, 'loghorn_multisite_settings' )	, 'loghorn_settings_sections');	
+				add_settings_field('loghorn_multisite'			, 	'Sites'			, 		array ( $this, 'loghorn_site_details'			), 		'loghorn_settings_sections', 'loghorn_mu');
+				
+			}
 		}
 		
 		
@@ -195,9 +208,19 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			 
 		}
 		
-		function loghorn_image_settings (){
+		
+		function loghorn_general_settings()	{
 ?>
-			<div id="tabs-1">
+			<div id="loghorn_tabs_0">
+<?php
+		}
+		
+		function loghorn_image_settings (){
+		
+		// close the division of the previous tab and start the division for the next one.
+?>
+			</div>
+			<div id="loghorn_tabs_1">
 <?php
 		}
 		
@@ -206,7 +229,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		// close the division of the previous tab and start the division for the next one.
 ?>
 			</div>
-			<div id="tabs-2">
+			<div id="loghorn_tabs_2">
 <?php
 		}
 		
@@ -215,7 +238,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		// close the division of the previous tab and start the division for the next one.
 ?>
 			</div>
-			<div id="tabs-3">
+			<div id="loghorn_tabs_3">
 <?php
 		}
 		
@@ -224,7 +247,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		// close the division of the previous tab and start the division for the next one.
 ?>
 			</div>
-			<div id="tabs-4">
+			<div id="loghorn_tabs_4">
 <?php
 		}
 		
@@ -233,11 +256,47 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		// close the division of the previous tab and start the division for the next one.
 ?>
 			</div>
-			<div id="tabs-5">
+			<div id="loghorn_tabs_5">
 <?php
 			
 		}
 		
+		function loghorn_multisite_settings()	{
+		
+		// close the division of the previous tab and start the division for the next one.
+?>
+			</div>
+			<div id="loghorn_tabs_6">
+<?php
+		
+		}
+		
+		
+		function loghorn_enable_loghorn_option()	{
+			
+			// Get the bg options from the database:
+			$loghorn_general_option = self::$loghorn_options['LOGHORN_SETTINGS_GENERAL']['option'] ;
+			
+			// If this is the first time, settings was not present in options table. 
+			if ( !isset( $loghorn_general_option ) )	{
+				$loghorn_general_option = 0;							// Move default value (all defaults defined in initialize-loghorn.php)
+			}
+			
+			// Display listbox for selecting Yes/No:
+			global $loghorn_yes_no ;					// Defined in initialize-loghorn.php.
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_GENERAL][option]"
+															,"option_id"	=> "loghorn_general_option"
+															,"label"		=> "Selecting 'Yes' would enable this plugin:"
+															,"value"		=> $loghorn_general_option
+														);
+			$this->loghorn_show_listbox ( $loghorn_yes_no, $loghorn_show_listbox_parms ) ;
+		}
+		
+		
+		function loghorn_general_info()	{
+			
+			$this->loghorn_show_general_instructions("dummy");
+		}
 		
 		function loghorn_disable_logo_option()	{
 			
@@ -1502,6 +1561,29 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_printr()	{
 			print_r(self::$loghorn_options);
+			echo("<br><br>");
+			$a = (get_sites());
+			print_r ($a);
+			
+			echo("<br><br>");
+			foreach ($a as $s_no => $site_details)	{
+				echo( "<br>".$site_details->domain.$site_details->path.":<br>");
+				echo "----------------------<br>";
+				foreach ($site_details as $item => $value)
+					echo "$item =  $value<br>";
+			}
+		}
+		
+		function loghorn_site_details()	{
+			$a = get_sites();
+			foreach ($a as $s_no => $site_details)	{
+				echo( $site_details->domain.$site_details->path."<br>");
+				/*$a = $site_details->blog_id;
+				$a = $a + 0; echo $a;
+				echo ( " -- ".get_network_option($a, "siteurl")." (");
+				echo ( get_network_option($a, "blogname").")<br>");*/
+			}
+			
 		}
 		function loghorn_load_custom_script( $hook ) {
 			
@@ -1569,6 +1651,37 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		/*************************************************************************************************************************************/
 		/**********************                        Generic methods for HTML                                *******************************/
 		/*************************************************************************************************************************************/
+		
+		
+		function loghorn_show_general_instructions( $loghorn_genral_info_parms )	{
+			
+?>			
+			<div class="loghorn_custom_options">
+				<h4>About this plugin:</h4>
+					<p> 
+						This is a very simple plugin that provides a user friendly interface to completely customize your WordPress website's login page 
+						to a totally cool new look as you deem fit.<br>
+					</p>
+					<br>
+				<h4>Features:</h4>
+					<p> 
+						With this plugin you can:
+							<li> Change the color of the background and other elements.</li>
+							<li> Set a picture as the background image for your login screen. </li>
+							<li> Display your own logo at the top of the login form </li>
+							<li> Customize the fonts on your login screen. </li>
+							<li> Produce cool effects, like shadows, borders and rounded corners. </li>
+							<li> Absolutley no coding or CSS knowledge is required to produce those cool effects through this plugin. </li>
+							<li> <p class="bold">Preview Feature: </p>
+									See a preview of the login screen you designed by clicking the preview button. <br>
+									<p class="small">The preview feature is only for representation of how the screen would look like. 
+									Though it gives a fair idea about the screen layout, the actual login screen may differ slightly from the preview image.</p>
+							</li>
+					</p>
+			</div>
+<?php
+			$this->loghorn_tooltip_symbol("A new tooltip");
+		}
 		
 		function loghorn_show_image_settings ( $loghorn_image_parameters , $loghorn_image_source)	{
 			

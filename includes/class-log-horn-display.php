@@ -27,14 +27,20 @@ class Log_Horn_Display	{
 		/**
 		 * Constructor: All initializations occur here.
 		 */
-		function Log_Horn_Display ( $loghorn_settings_parm ) 	{
+		function Log_Horn_Display ( ) 	{
 			
-			$this->loghorn_add_settings( $loghorn_settings_parm );			// Fetch settings from wp_options table.
+			$this->loghorn_add_settings( $loghorn_settings );			// Fetch settings from wp_options table.
+			
+			$loghorn_settings = self::$loghorn_settings ;		
 			
 			/**
 			 * Latch on to action hooks here.
 			 */
-			add_action ( 'login_enqueue_scripts', array (  $this,'loghorn_login_scripts' )  ) ;
+			if ( $loghorn_settings )	{																// if the settings are present,
+				if ( $loghorn_settings['LOGHORN_SETTINGS_GENERAL']['option'] )	{						// and the settings are enabled by user,
+					add_action ( 'login_enqueue_scripts', array (  $this,'loghorn_login_scripts' ) ) ;	// then latch on to the hook.
+				}
+			}
 		}
 		
 		
@@ -44,7 +50,7 @@ class Log_Horn_Display	{
 		function loghorn_add_settings( $loghorn_settings_parm )	{
 			
 			self::$loghorn_settings = 
-			$loghorn_settings_parm ;
+			get_option("loghorn_settings2");
 			//explode (";" , get_option('loghorn_settings') ) 
 			/* Debug info
 			explode (";" , 
