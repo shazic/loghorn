@@ -68,11 +68,13 @@ class Log_Horn_Display	{
 			//$loghorn_css 		= $this->loghorn_get_css ( ) ;	// static predefined CSS stylesheets. 
 			
 			// Check if user had opted for a Static CSS stylesheet: -->
-			if ( $loghorn_css ) 
+			if ( $loghorn_css )	{
 ?>
-			<link rel='stylesheet' type='text/css' href=<?php echo "'$loghorn_css'"; ?> >
+				<link rel='stylesheet' type='text/css' href=<?php echo "'$loghorn_css'"; ?> >
 			
-<?php 		if ( ! $loghorn_css ) {	
+<?php 		
+			}
+			if ( ! $loghorn_css ) {	
 				  // If there isn't any static CSS stylesheet selected, fetch and use the user defined values: -->
 					// Logo
 					$loghorn_disable_logo		= $this->loghorn_get_logo_option   		(  ) ;	// Logo to be disabled?
@@ -128,9 +130,23 @@ class Log_Horn_Display	{
 					// Message Box:
 					$loghorn_msg_bg_colr		= $this->loghorn_get_msg_bg_color		(  ) ;  // Messages Background Color.
 					$loghorn_msg_lbl_colr		= $this->loghorn_get_msg_lbl_color		(  ) ;  // Messages text Color.
+					$loghorn_user_css_only		= $this->loghorn_get_user_css_option	(  ) ;	// Apply only Custom User CSS?
+					$loghorn_user_css			= $this->loghorn_get_user_css			(  ) ;	// Custom User CSS.
 					
 ?>
 					<style type="text/css" >
+<?php						
+						// Custom CSS:
+						if ( null != $loghorn_user_css )	{
+							_e ( $loghorn_user_css );
+						}
+						if ( $loghorn_user_css_only )	{
+?>							
+					</style>							
+<?php
+							return;
+						}
+?>
 						/** 
 						 * user logo goes here:
 						 */
@@ -292,10 +308,10 @@ class Log_Horn_Display	{
 							background-color: <?php _e ( $loghorn_msg_bg_colr ) ; ?> !important;
 							color: <?php _e ( $loghorn_msg_lbl_colr ) ; ?> ;;
 							text-shadow: none;
-							border-radius: 0px;
+							/*border-radius: 0px;
 							border-left: none !important;
 							border-right: none;
-							border-top: none;
+							border-top: none;*/
 							border-bottom: 5px solid #00a0d2;
 						}
 						/*
@@ -639,6 +655,32 @@ class Log_Horn_Display	{
 		function loghorn_get_msg_lbl_color ( $loghorn_default_msg_txt_color = LOGHORN_DEFAULT_FORM_FONT_COLR )	{
 			
 			return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_MSG_TXT' , $loghorn_default_msg_txt_color ) ;
+		}
+		
+		/*
+		 * Get User option to check if only Custom CSS needs to be applied.
+		 */
+		function loghorn_get_user_css_option()	{
+			
+			if ( isset( self::$loghorn_settings [ 'LOGHORN_SETTINGS_CUSTOM_CSS' ]['option'] ) )	{
+				return self::$loghorn_settings [ 'LOGHORN_SETTINGS_CUSTOM_CSS' ]['option'] ;
+			}
+			else	{
+				return false;
+			}
+		}
+		
+		/*
+		 * Get User defined CSS .
+		 */
+		function loghorn_get_user_css ( )	{
+			
+			if ( isset( self::$loghorn_settings [ 'LOGHORN_SETTINGS_CUSTOM_CSS' ]['textarea'] ) )	{
+				return self::$loghorn_settings [ 'LOGHORN_SETTINGS_CUSTOM_CSS' ]['textarea'] ;
+			}
+			else	{
+				return null;
+			}
 		}
 		/*************************************************************************************************************************************/
 		/**********************                        GENERIC UTILITY METHODS                                 *******************************/

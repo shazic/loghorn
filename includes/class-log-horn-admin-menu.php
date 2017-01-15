@@ -118,10 +118,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					<li><a href="#loghorn_tabs_3">Textbox</a></li>
 					<li><a href="#loghorn_tabs_4">Log In Button</a></li>
 					<li><a href="#loghorn_tabs_5">Message Box</a></li>
+					<li><a href="#loghorn_tabs_6">Custom CSS</a></li>
 <?php
 					if ( is_multisite() ) 
 ?>					
-					<li><a href="#loghorn_tabs_6">Sites</a></li>
+					<li><a href="#loghorn_tabs_7">Sites</a></li>
 				</ul>
 			<div class="login login-action-login wp-core-ui" id="loghorn_preview_division" hidden=true>
 				<div>
@@ -194,7 +195,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_settings_field('loghorn_msg_border_t'		, 	'Message Border (top)'	, 		array ( $this, 'loghorn_msg_border_t_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_msg_border_r'		, 	'Message Border (right)', 		array ( $this, 'loghorn_msg_border_r_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_msg_border_b'		, 	'Message Border (bottom)', 		array ( $this, 'loghorn_msg_border_b_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
-				add_settings_field('loghorn_print_r'		, 	'Print Settings', 		array ( $this, 'loghorn_printr'		), 		'loghorn_settings_sections', 'loghorn_msg');
+				add_settings_field('loghorn_print_r'			, 	'Print Settings'		, 		array ( $this, 'loghorn_printr'						), 		'loghorn_settings_sections', 'loghorn_msg');
+			add_settings_section('loghorn_custom_css'			, '',		array ( $this, 'loghorn_custom_css' 			), 'loghorn_settings_sections');	
+				add_settings_field('loghorn_css_option'			, 	'Custom CSS only?'		, 		array ( $this, 'loghorn_css_option'					), 		'loghorn_settings_sections', 'loghorn_custom_css');
+				add_settings_field('loghorn_css_textarea'		, 	'Custom CSS'			, 		array ( $this, 'loghorn_css_textarea'				), 		'loghorn_settings_sections', 'loghorn_custom_css');
+			
+			
 			if ( is_multisite() ) {
 			add_settings_section('loghorn_mu'					, '',		array ( $this, 'loghorn_multisite_settings' )	, 'loghorn_settings_sections');	
 				add_settings_field('loghorn_multisite'			, 	'Sites'			, 		array ( $this, 'loghorn_site_details'			), 		'loghorn_settings_sections', 'loghorn_mu');
@@ -261,12 +267,24 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 		}
 		
-		function loghorn_multisite_settings()	{
+		
+		function loghorn_custom_css()	{
+			
 		
 		// close the division of the previous tab and start the division for the next one.
 ?>
 			</div>
 			<div id="loghorn_tabs_6">
+<?php
+		
+		}
+		
+		function loghorn_multisite_settings()	{
+		
+		// close the division of the previous tab and start the division for the next one.
+?>
+			</div>
+			<div id="loghorn_tabs_7">
 <?php
 		
 		}
@@ -1574,6 +1592,46 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 		}
 		
+		
+		function loghorn_css_option()	{
+			
+			// Fetch values of custom CSS from options table, if present.
+			$loghorn_custom_css_option   = self::$loghorn_options['LOGHORN_SETTINGS_CUSTOM_CSS']['option'] ;
+			
+			if ( !isset( $loghorn_custom_css_option ) )	{
+				$loghorn_custom_css_option = 0;						// Move default value.
+			}
+			
+			// Display listbox for selecting Yes/No:
+			$loghorn_yes_no = array ( "No, I would like to keep other selections as well",
+									  "Yes, ignore all other selections and apply only this custom CSS");
+									  
+			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_CUSTOM_CSS][option]"
+															,"option_id"	=> "loghorn_custom_css_option"
+															,"label"		=> "By default, this CSS would be applied in addition to other options of this plugin.<br>However, you may suppress the other modifications and apply only your custom CSS.<br>Do you want to ignore other options of this plugin?"
+															,"value"		=> $loghorn_custom_css_option
+														);
+			$this->loghorn_show_listbox ( $loghorn_yes_no, $loghorn_show_listbox_parms ) ;
+		}
+		
+		function loghorn_css_textarea()	{
+			
+			// Fetch values of custom CSS from options table, if present.
+			$loghorn_custom_css_value   = self::$loghorn_options['LOGHORN_SETTINGS_CUSTOM_CSS']['textarea'] ;
+			
+			if ( !isset( $loghorn_custom_css_value ) )	{
+				$loghorn_custom_css_value = "";						// Move default value.
+			}
+			
+			// Set up the parms:
+			$loghorn_custom_css_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_CUSTOM_CSS][textarea]"
+															, "option_id"	=> "custom_css"
+															, "value"		=> $loghorn_custom_css_value
+														);
+			$this->loghorn_show_textarea( $loghorn_custom_css_parms );
+			
+		}
+		
 		function loghorn_site_details()	{
 			$a = get_sites();
 			foreach ($a as $s_no => $site_details)	{
@@ -1598,12 +1656,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		}
 		function loghorn_load_custom_script( $hook ) {
 			
+			global $loghorn_theme;
 			// Load only on ?page=mypluginname
 			if( 'toplevel_page_class-log-horn-admin-menu' != $hook ) {
 				return false;
 			}
 			
-			//$current_color = get_user_option( 'admin_color' ); // This can be used to load stylesheet based on current profile color.
+			$current_user_theme_color = get_user_option( 'admin_color' ); // This can be used to load stylesheet based on current profile color.
 			
 			// Wordpress media library
 			wp_enqueue_media();
@@ -1615,7 +1674,15 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			// color-picker with alpha (this extends the wp-color-picker to include alpha channel:
 			wp_enqueue_style( 'loghorn-cp-stylesheet' 	 , LOGHORN_ADMIN_CSS_URL.'alpha-color-picker.css', array( 'wp-color-picker' )) ;
 			
-			$jquery_css_theme = "cupertino";
+			if ( isset( $loghorn_theme[ $current_user_theme_color ] ) )	{
+				// set the theme to match with the user theme
+				$jquery_css_theme = $loghorn_theme[ $current_user_theme_color ];
+			}
+			else{
+				// default to "overcast" if theme not defined.
+				$jquery_css_theme = "overcast";
+			}
+			
 			// JQuery UI CSS for slider:
 			//wp_register_style('loghorn-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
 			wp_register_style('loghorn-jquery-ui', "https://code.jquery.com/ui/1.12.1/themes/$jquery_css_theme/jquery-ui.css");
@@ -1807,6 +1874,19 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$this->loghorn_tooltip_symbol("A new tooltip");
 		}
 		
+		
+		function loghorn_show_textarea( $loghorn_textarea_parms )	{
+			
+			$loghorn_textarea_id	= "loghorn_".$loghorn_textarea_parms["option_id"]."_textarea" ;
+			$loghorn_textarea_name	= $loghorn_textarea_parms["option_name"];
+?>			
+			<div class="loghorn_custom_options">
+				<textarea placeholder="Place your custom CSS here." id="<?php _e ( $loghorn_textarea_id ) ; ?>" name="<?php _e ( $loghorn_textarea_name ) ; ?>"><?php _e ( $loghorn_textarea_parms["value"] ) ; ?></textarea> 
+			</div>
+<?php
+			$this->loghorn_tooltip_symbol("A new tooltip");
+		}
+
 		function loghorn_tooltip_symbol( $loghorn_tooltip )	{
 			
 ?>

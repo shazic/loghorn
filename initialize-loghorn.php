@@ -415,6 +415,7 @@
 			, $loghorn_bg_option_list
 			, $loghorn_border_styles_global 
 			, $loghorn_fonts_global
+			, $loghorn_theme
 			;
 			
 			$loghorn_yes_no				  = array (
@@ -457,5 +458,14 @@
 													, "Times New Roman"
 													, "Verdana"
 											);
-    
+			$loghorn_theme				  = array (
+													  "fresh"		=> "overcast"
+													, "light"		=> "smoothness"
+													, "blue"		=> "cupertino"
+													, "coffee"		=> "pepper-grinder"
+													, "ectoplasm"	=> "south-street"
+													, "midnight"	=> "blitzer"
+													, "ocean"		=> "smoothness"
+													, "sunrise"		=> "blitzer"
+											);
 ?>

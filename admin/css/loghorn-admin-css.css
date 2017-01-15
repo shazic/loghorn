@@ -9,7 +9,7 @@
 		margin: 0px;
 		font-style: italic;
 		font-weight: bold;
-		color: #597c72;
+		/*color: #597c72;*/
 		background-color: #dbdbdb;
 		border: 1px solid #afafaf ;
 		border-radius: 2px ;
@@ -84,6 +84,26 @@
 		width: 36px !important;
 		text-align: center ;
 		font-size: 10px ;
+	}
+	
+	/*****************************************************************************************************************************************/
+	/* TEXTAREA (FOR CUSTOM CSS:					                                                                                         *
+	/*****************************************************************************************************************************************/
+	textarea	{
+		width: 100%;
+		min-height: 250px;
+		resize: vertical;
+		overflow: auto;
+		border:none;
+		border-left: 4px solid white;
+	}
+	
+	textarea:hover	{
+		border-left: 4px solid darkgray;
+	}
+	
+	textarea:focus	{
+		border-left: 4px solid green;
 	}
 	
 	/*****************************************************************************************************************************************/
