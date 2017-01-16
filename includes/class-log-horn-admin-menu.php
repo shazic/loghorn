@@ -120,9 +120,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					<li><a href="#loghorn_tabs_5">Message Box</a></li>
 					<li><a href="#loghorn_tabs_6">Custom CSS</a></li>
 <?php
-					if ( is_multisite() ) 
+					if ( is_multisite() ) {
 ?>					
 					<li><a href="#loghorn_tabs_7">Sites</a></li>
+<?php 				}
+?>
 				</ul>
 			<div class="login login-action-login wp-core-ui" id="loghorn_preview_division" hidden=true>
 				<div>
@@ -198,7 +200,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_settings_field('loghorn_print_r'			, 	'Print Settings'		, 		array ( $this, 'loghorn_printr'						), 		'loghorn_settings_sections', 'loghorn_msg');
 			add_settings_section('loghorn_custom_css'			, '',		array ( $this, 'loghorn_custom_css' 			), 'loghorn_settings_sections');	
 				add_settings_field('loghorn_css_option'			, 	'Custom CSS only?'		, 		array ( $this, 'loghorn_css_option'					), 		'loghorn_settings_sections', 'loghorn_custom_css');
-				add_settings_field('loghorn_css_textarea'		, 	'Custom CSS'			, 		array ( $this, 'loghorn_css_textarea'				), 		'loghorn_settings_sections', 'loghorn_custom_css');
+				add_settings_field('loghorn_css_textarea'		, 	'Custom CSS (optional)'	, 		array ( $this, 'loghorn_css_textarea'				), 		'loghorn_settings_sections', 'loghorn_custom_css');
 			
 			
 			if ( is_multisite() ) {
@@ -1580,15 +1582,20 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_printr()	{
 			print_r(self::$loghorn_options);
 			echo("<br><br>");
-			$a = (get_sites());
-			print_r ($a);
+			if ( is_multisite())	{
+				$a = (get_sites());
+				if ( !isset ( $a ) )	{
+					return false;
+				}
+				print_r ($a);
 			
-			echo("<br><br>");
-			foreach ($a as $s_no => $site_details)	{
-				echo( "<br>".$s_no.")".$site_details->domain.$site_details->path.":<br>");
-				$this->loghorn_underline();
-				foreach ($site_details as $item => $value)
-					echo "$item =  $value<br>";
+				echo("<br><br>");
+				foreach ($a as $s_no => $site_details)	{
+					echo( "<br>".$s_no.")".$site_details->domain.$site_details->path.":<br>");
+					$this->loghorn_underline();
+					foreach ($site_details as $item => $value)
+						echo "$item =  $value<br>";
+				}
 			}
 		}
 		
@@ -1603,15 +1610,15 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			
 			// Display listbox for selecting Yes/No:
-			$loghorn_yes_no = array ( "No, I would like to keep other selections as well",
-									  "Yes, ignore all other selections and apply only this custom CSS");
+			$loghorn_custom_yes_no = array ( "No, I would like to keep other selections as well",
+											 "Yes, ignore all other selections and apply only this custom CSS");
 									  
 			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_CUSTOM_CSS][option]"
 															,"option_id"	=> "loghorn_custom_css_option"
 															,"label"		=> "By default, this CSS would be applied in addition to other options of this plugin.<br>However, you may suppress the other modifications and apply only your custom CSS.<br>Do you want to ignore other options of this plugin?"
 															,"value"		=> $loghorn_custom_css_option
 														);
-			$this->loghorn_show_listbox ( $loghorn_yes_no, $loghorn_show_listbox_parms ) ;
+			$this->loghorn_show_listbox ( $loghorn_custom_yes_no, $loghorn_show_listbox_parms ) ;
 		}
 		
 		function loghorn_css_textarea()	{
@@ -1627,6 +1634,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_custom_css_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_CUSTOM_CSS][textarea]"
 															, "option_id"	=> "custom_css"
 															, "value"		=> $loghorn_custom_css_value
+															, "label"		=> "The CSS entered here would not show on the preview window, but it shall be applied to the actual login screen:"
 														);
 			$this->loghorn_show_textarea( $loghorn_custom_css_parms );
 			
@@ -1881,6 +1889,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_textarea_name	= $loghorn_textarea_parms["option_name"];
 ?>			
 			<div class="loghorn_custom_options">
+				<p class="small"> <?php _e ( $loghorn_textarea_parms["label"] ) ; ?> </p>
 				<textarea placeholder="Place your custom CSS here." id="<?php _e ( $loghorn_textarea_id ) ; ?>" name="<?php _e ( $loghorn_textarea_name ) ; ?>"><?php _e ( $loghorn_textarea_parms["value"] ) ; ?></textarea> 
 			</div>
 <?php
