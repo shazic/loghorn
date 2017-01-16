@@ -167,7 +167,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_settings_field('loghorn_bg_color'			,	'Background Color'		, 		array ( $this, 'loghorn_bg_color' 					), 		'loghorn_settings_sections', 'loghorn_images');
 				add_settings_field('loghorn_bg_filename'		,	'Background'			, 		array ( $this, 'loghorn_show_bg_settings' 			), 		'loghorn_settings_sections', 'loghorn_images');
 			
-			add_settings_section('loghorn_form'					, ''	, 		array ( $this, 'loghorn_form_settings' 	), 'loghorn_settings_sections');
+			add_settings_section('loghorn_form'					, ''		, 		array ( $this, 'loghorn_form_settings' 	), 'loghorn_settings_sections');
 				add_settings_field('loghorn_form_width'			, 	'Form Width'			,		array ( $this, 'loghorn_form_width_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
 				add_settings_field('loghorn_form_padding'		, 	'Form Padding'			, 		array ( $this, 'loghorn_form_padding_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
 				add_settings_field('loghorn_form_margin'		, 	'Form Margin'			, 		array ( $this, 'loghorn_form_margin_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
@@ -176,19 +176,19 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_settings_field('loghorn_form_border'		, 	'Form Border'			, 		array ( $this, 'loghorn_form_border_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
 				add_settings_field('loghorn_form_label'			, 	'Form Label'			, 		array ( $this, 'loghorn_form_label_settings' 		), 		'loghorn_settings_sections', 'loghorn_form');
 			
-			add_settings_section('loghorn_input'				, '', 		array ( $this, 'loghorn_input_settings' 	), 'loghorn_settings_sections');
+			add_settings_section('loghorn_input'				, ''		, 		array ( $this, 'loghorn_input_settings' 	), 'loghorn_settings_sections');
 				add_settings_field('loghorn_input_text'			, 	'Text'					, 		array ( $this, 'loghorn_input_text_settings' 		), 		'loghorn_settings_sections', 'loghorn_input');
 				add_settings_field('loghorn_input_textbox'		, 	'Textbox'				, 		array ( $this, 'loghorn_input_textbox_settings'		), 		'loghorn_settings_sections', 'loghorn_input');
 				add_settings_field('loghorn_input_border'		, 	'Textbox Border'		, 		array ( $this, 'loghorn_input_border_settings' 		), 		'loghorn_settings_sections', 'loghorn_input');
 				add_settings_field('loghorn_checkbox'			, 	'Checkbox'				, 		array ( $this, 'loghorn_checkbox_settings' 			), 		'loghorn_settings_sections', 'loghorn_input');
 			
-			add_settings_section('loghorn_submit'				, '',		array ( $this, 'loghorn_submit_button_settings' ), 'loghorn_settings_sections');	
+			add_settings_section('loghorn_submit'				, ''		,		array ( $this, 'loghorn_submit_button_settings' ), 'loghorn_settings_sections');	
 				add_settings_field('loghorn_submit_text'		, 	'Button Text'			, 		array ( $this, 'loghorn_submit_text_settings'		), 		'loghorn_settings_sections', 'loghorn_submit');
 				add_settings_field('loghorn_submit_txt_shdw'	, 	'Button Text Shadow'	, 		array ( $this, 'loghorn_submit_text_shdw_settings'	), 	'loghorn_settings_sections', 'loghorn_submit');
 				add_settings_field('loghorn_submit_bg'			, 	'Button Color'			, 		array ( $this, 'loghorn_submit_bg_settings'			), 		'loghorn_settings_sections', 'loghorn_submit');
 				add_settings_field('loghorn_submit_border'		, 	'Button Border'			, 		array ( $this, 'loghorn_submit_border_settings'		), 		'loghorn_settings_sections', 'loghorn_submit');
 			
-			add_settings_section('loghorn_msg'					, '',		array ( $this, 'loghorn_msg_button_settings' )	, 'loghorn_settings_sections');	
+			add_settings_section('loghorn_msg'					, ''		,		array ( $this, 'loghorn_msg_button_settings' )	, 'loghorn_settings_sections');	
 				add_settings_field('loghorn_msg_text'			, 	'Message Text'			, 		array ( $this, 'loghorn_msg_text_settings'			), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_msg_txt_shdw'		, 	'Message Text Shadow'	, 		array ( $this, 'loghorn_msg_text_shdw_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_msg_bg'				, 	'Message Box Color'		, 		array ( $this, 'loghorn_msg_bg_settings'			), 		'loghorn_settings_sections', 'loghorn_msg');
@@ -198,14 +198,14 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_settings_field('loghorn_msg_border_r'		, 	'Message Border (right)', 		array ( $this, 'loghorn_msg_border_r_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_msg_border_b'		, 	'Message Border (bottom)', 		array ( $this, 'loghorn_msg_border_b_settings'		), 		'loghorn_settings_sections', 'loghorn_msg');
 				add_settings_field('loghorn_print_r'			, 	'Print Settings'		, 		array ( $this, 'loghorn_printr'						), 		'loghorn_settings_sections', 'loghorn_msg');
-			add_settings_section('loghorn_custom_css'			, '',		array ( $this, 'loghorn_custom_css' 			), 'loghorn_settings_sections');	
+			add_settings_section('loghorn_custom_css'			, ''		,		array ( $this, 'loghorn_custom_css' 			), 'loghorn_settings_sections');	
 				add_settings_field('loghorn_css_option'			, 	'Custom CSS only?'		, 		array ( $this, 'loghorn_css_option'					), 		'loghorn_settings_sections', 'loghorn_custom_css');
 				add_settings_field('loghorn_css_textarea'		, 	'Custom CSS (optional)'	, 		array ( $this, 'loghorn_css_textarea'				), 		'loghorn_settings_sections', 'loghorn_custom_css');
 			
 			
 			if ( is_multisite() ) {
-			add_settings_section('loghorn_mu'					, '',		array ( $this, 'loghorn_multisite_settings' )	, 'loghorn_settings_sections');	
-				add_settings_field('loghorn_multisite'			, 	'Sites'			, 		array ( $this, 'loghorn_site_details'			), 		'loghorn_settings_sections', 'loghorn_mu');
+			add_settings_section('loghorn_mu'					, ''		,		array ( $this, 'loghorn_multisite_settings' )	, 'loghorn_settings_sections');	
+				add_settings_field('loghorn_multisite'			, 	'Sites'					, 		array ( $this, 'loghorn_site_details'			), 		'loghorn_settings_sections', 'loghorn_mu');
 				
 			}
 		}
