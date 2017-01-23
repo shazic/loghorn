@@ -89,7 +89,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 								'manage_options', 							// capability
 								'class-log-horn-admin-menu.php', 			// menu-slug
 								array ( $this, 'loghorn_plugin_options' ), 	// function
-								'dashicons-welcome-view-site'				// icon (uses WordPress dashicons)
+								//'dashicons-welcome-view-site'				// icon (uses WordPress dashicons)
+								'logicons-gnu-5'
 						);
 			}
 		}
@@ -112,17 +113,18 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			</div>
 			<div id="loghorn_tabs">
 				<ul>
-					<li><a href="#loghorn_tabs_0">General Settings</a></li>
+					<li><a href="#loghorn_tabs_0">General</a></li>
 					<li><a href="#loghorn_tabs_1">Image Settings</a></li>
-					<li><a href="#loghorn_tabs_2">Form Settings</a></li>
+					<li><a href="#loghorn_tabs_2">Form</a></li>
 					<li><a href="#loghorn_tabs_3">Textbox</a></li>
-					<li><a href="#loghorn_tabs_4">Log In Button</a></li>
+					<li><a href="#loghorn_tabs_4">Login Button</a></li>
 					<li><a href="#loghorn_tabs_5">Message Box</a></li>
 					<li><a href="#loghorn_tabs_6">Custom CSS</a></li>
+					<li><a href="#loghorn_tabs_7">Backup/Load</a></li>
 <?php
 					if ( is_multisite() ) {
 ?>					
-					<li><a href="#loghorn_tabs_7">Sites</a></li>
+					<li><a href="#loghorn_tabs_8">Sites</a></li>
 <?php 				}
 ?>
 				</ul>
@@ -201,6 +203,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			add_settings_section('loghorn_custom_css'			, ''		,		array ( $this, 'loghorn_custom_css' 			), 'loghorn_settings_sections');	
 				add_settings_field('loghorn_css_option'			, 	'Custom CSS only?'		, 		array ( $this, 'loghorn_css_option'					), 		'loghorn_settings_sections', 'loghorn_custom_css');
 				add_settings_field('loghorn_css_textarea'		, 	'Custom CSS (optional)'	, 		array ( $this, 'loghorn_css_textarea'				), 		'loghorn_settings_sections', 'loghorn_custom_css');
+			add_settings_section('loghorn_backup_load'			, ''		,		array ( $this, 'loghorn_backup_load' 			), 'loghorn_settings_sections');	
+				add_settings_field('loghorn_bkp_option'			, 	'Backup Current Settings', 		array ( $this, 'loghorn_bkp_option'					), 		'loghorn_settings_sections', 'loghorn_backup_load');
+				add_settings_field('loghorn_load_option'		, 	'Load Previous Settings', 		array ( $this, 'loghorn_load_option'				), 		'loghorn_settings_sections', 'loghorn_backup_load');
 			
 			
 			if ( is_multisite() ) {
@@ -281,12 +286,23 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		}
 		
-		function loghorn_multisite_settings()	{
+		function loghorn_backup_load()	{
+			
 		
 		// close the division of the previous tab and start the division for the next one.
 ?>
 			</div>
 			<div id="loghorn_tabs_7">
+<?php
+		
+		}
+		
+		function loghorn_multisite_settings()	{
+		
+		// close the division of the previous tab and start the division for the next one.
+?>
+			</div>
+			<div id="loghorn_tabs_8">
 <?php
 		
 		}
@@ -1580,6 +1596,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		}
 		
 		function loghorn_printr()	{
+			
 			print_r(self::$loghorn_options);
 			echo("<br><br>");
 			if ( is_multisite())	{
@@ -1640,6 +1657,29 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 		}
 		
+		function loghorn_bkp_option(){
+			
+			//submit_button('Backup Settings');
+		?>
+			<div class="loghorn_custom_options" id="<?php _e( "loghorn_backup_div" ); ?>">
+				<input id="<?php _e( "loghorn_bkp_button_id" ); ?>" type="button" class="button" value="<?php _e( "Backup Settings" ); ?>" />
+			</div>
+<?php		
+			$this->loghorn_tooltip_symbol("A new tooltip");
+		}
+		
+		function loghorn_load_option(){
+			
+		?>
+			<div class="loghorn_custom_options" id="<?php _e( "loghorn_backup_div" ); ?>">
+				<input id="<?php _e( "loghorn_load_button_id" ); ?>" type="button" class="button" value="<?php _e( "Load Settings." ); ?>" />
+				<div id="clear_div"></div>
+				<input id="<?php _e( "loghorn_dlet_button_id" ); ?>" type="button" class="button" value="<?php _e( "Delete Backup" ); ?>" />
+			</div>
+<?php		
+			$this->loghorn_tooltip_symbol("A new tooltip");
+		}
+		
 		function loghorn_site_details()	{
 			$a = get_sites();
 			foreach ($a as $s_no => $site_details)	{
@@ -1670,6 +1710,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				return false;
 			}
 			
+			wp_register_style( 'loghorn_logicons', LOGHORN_ADMIN_CSS_URL. 'loghorn-font.css' );
+			wp_enqueue_style( 'loghorn_logicons' );
+
 			$current_user_theme_color = get_user_option( 'admin_color' ); // This can be used to load stylesheet based on current profile color.
 			
 			// Wordpress media library
