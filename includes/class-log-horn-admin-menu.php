@@ -90,7 +90,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 								'class-log-horn-admin-menu.php', 			// menu-slug
 								array ( $this, 'loghorn_plugin_options' ), 	// function
 								//'dashicons-welcome-view-site'				// icon (uses WordPress dashicons)
-								'logicons-gnu-5'
+								'dashicons-loghorn-gnu'
 						);
 			}
 		}
@@ -1705,13 +1705,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		function loghorn_load_custom_script( $hook ) {
 			
 			global $loghorn_theme;
+			
+			//wp_register_style( 'loghorn-fonts', LOGHORN_ADMIN_CSS_URL. 'loghorn-fonts.css' );
+			wp_enqueue_style( 'loghorn-fonts', LOGHORN_ADMIN_CSS_URL. 'loghorn-fonts.css' );
 			// Load only on ?page=mypluginname
 			if( 'toplevel_page_class-log-horn-admin-menu' != $hook ) {
 				return false;
 			}
-			
-			wp_register_style( 'loghorn_logicons', LOGHORN_ADMIN_CSS_URL. 'loghorn-font.css' );
-			wp_enqueue_style( 'loghorn_logicons' );
 
 			$current_user_theme_color = get_user_option( 'admin_color' ); // This can be used to load stylesheet based on current profile color.
 			
