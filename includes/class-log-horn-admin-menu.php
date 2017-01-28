@@ -90,7 +90,23 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 								'class-log-horn-admin-menu.php', 			// menu-slug
 								array ( $this, 'loghorn_plugin_options' ), 	// function
 								//'dashicons-welcome-view-site'				// icon (uses WordPress dashicons)
-								'dashicons-loghorn-gnu'
+								'dashicons-loghorn-gnu'						// Display the Loghorn Gnu icon
+						);
+						add_submenu_page ( 
+								'class-log-horn-admin-menu.php', 			// topmenu-slug
+								'Log Horn', 								// page title
+								'Settings', 								// menu title
+								'manage_options', 							// capability
+								'class-log-horn-admin-menu.php', 			// menu-slug
+								array ( $this, 'loghorn_plugin_options' ) 	// function
+						);
+						add_submenu_page ( 
+								'class-log-horn-admin-menu.php', 			// topmenu-slug
+								'Log Horn', 								// page title
+								'Backup', 									// menu title
+								'manage_options', 							// capability
+								'Backup_Menu', 								// submenu-slug
+								array ( $this, 'loghorn_bkp_option' ) 		// function
 						);
 			}
 		}
@@ -216,11 +232,96 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		}
 		
 		
-		function loghorn_validate_input()	{
+		function loghorn_validate_input(  )	{
 			
-			 
+			//$this->loghorn_validate( $loghorn_settings2 );
+			
 		}
 		
+		function loghorn_validate( $input_fields )	{
+			
+			foreach ($input_fields as $setting_name => $setting_details)	{
+				if ( is_array( $setting_details ) )	{
+					$this->loghorn_validate( $setting_details );
+				}
+				else	{
+					switch ( $setting_name )	{
+						case "hex":
+									$this->validate_color( $setting_details );
+									break;
+						case "ver":
+						case "hor":
+						case "blur":
+						case "spread":
+						case "thick":
+						case "radius":
+						case "size":
+						case "width":
+						case "height":
+									$this->validate_pixel( $setting_details );
+									break;
+						case "option":
+						case "disable":
+						case "style":
+									$this->validate_dropdown( $setting_name, $setting_details );
+									break;
+						case "textarea":
+									$this->validate_textarea( $setting_name, $setting_details );
+									break;
+					}
+						
+				}
+			}
+		}
+		
+		function validate_color ( $fieldvalue )	{
+			
+			if( preg_grep('/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/', $fieldvalue ) )	{  	//hex color is valid
+				return $fieldvalue;																		//return colorpicker fields
+			}
+			elseif( preg_grep('/([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/', $fieldvalue ) ){  	//hex color is valid, but without the '#'
+				return "#".$fieldvalue;																	//return colorpicker fields
+			}
+			else{
+				return $this->validate_rgba( $fieldvalue );
+			}
+		}
+		
+		function validate_rgba( $fieldvalue )	{
+			
+			// rgba values should be in the form 'rgba(int,int,int,float)'.
+			
+			// replace parantheses with "|"
+			$rgba_expression = str_replace( array( "(" , ")" ), array( "|" , "|" ), $fieldvalue, $count);
+			
+			if ( $count != 2 )	// There should be exactly 2 parantheses
+				return false;
+			
+			$colorfield = explode ( "|", $rgba_expression);	// this would separate the word 'rgba' from the color values. 
+			
+			// **** check that $colorfield should not have more than 3 items. Also $colorfield[2] should be null.
+			
+			if ( $colorfield[0] != 'rgba' && $colorfield[0] != 'RGBA')	{
+				return false;
+			}
+			
+			$colorvalues = explode( ",", $colorfield[1] );
+			
+			// **** check that colorvalues should not have less than 3 or more than 4 items.
+			
+			return $fieldvalue;
+		}
+		function validate_pixel ( $fieldvalue )	{
+			
+		}
+		
+		function validate_dropdown ( $fieldname, $fieldvalue )	{
+			
+		}
+		
+		function validate_textarea ( $fieldname, $fieldvalue )	{
+			
+		}
 		
 		function loghorn_general_settings()	{
 ?>
@@ -1614,6 +1715,19 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 						echo "$item =  $value<br>";
 				}
 			}
+			
+			$fieldvalue="rgba(255,255,255,0.7)";
+			$rgba_expression = str_replace( array( "(" , ")" ), array( "|" , "|" ), $fieldvalue, $count);
+			echo "<br>rgba_expression = $rgba_expression<br>";
+			echo "count = $count<br>";
+			
+			$colorfield = explode ( "|", $rgba_expression);	// this would separate the word 'rgba' from the color values. 
+			echo "colorfield="; print_r($colorfield);
+			$colorvalues = explode( ",", $colorfield[1] );
+			echo "<br>colorvalues="; print_r($colorvalues);
+			
+			
+			
 		}
 		
 		
