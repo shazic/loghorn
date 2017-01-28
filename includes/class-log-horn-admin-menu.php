@@ -291,36 +291,130 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// rgba values should be in the form 'rgba(int,int,int,float)'.
 			
-			// replace parantheses with "|"
+			$returnvalue = $fieldvalue;
+			
+			// replace parantheses with "|". This helps in exploding.
 			$rgba_expression = str_replace( array( "(" , ")" ), array( "|" , "|" ), $fieldvalue, $count);
 			
-			if ( $count != 2 )	// There should be exactly 2 parantheses
+			if ( $count != 2 )	{	// There should be exactly 2 parantheses
+				echo "<br>debug:invalid parantheses.<br>";
 				return false;
+			}
 			
 			$colorfield = explode ( "|", $rgba_expression);	// this would separate the word 'rgba' from the color values. 
 			
-			// **** check that $colorfield should not have more than 3 items. Also $colorfield[2] should be null.
+			/* For a well formed rgba expression, $colorfield should explode into 3 elements: 
+			 * 	$colorfield[0]: "rgba",
+			 * 	$colorfield[1]: int,int,int,float
+			 * 	$colorfield[2]: null
+			 * Let's validate this.
+			 */
+			 
+			if ( sizeof($colorfield) != 3 or $colorfield[2] != null )	{
+				// Validation failed: color field not properly coded.
+				echo "<br>debug:Poorly formed rgba expression.<br>";
+				return false;
+			}
 			
-			if ( $colorfield[0] != 'rgba' && $colorfield[0] != 'RGBA')	{
+			if ( !preg_match( '/[rR][gG][bB][aA]/', $colorfield[0] ) )	{
+				// Validation failed: Should start with rgba.
+				echo "<br>debug:does not start with rgba.<br>";
 				return false;
 			}
 			
 			$colorvalues = explode( ",", $colorfield[1] );
 			
-			// **** check that colorvalues should not have less than 3 or more than 4 items.
+			// **** check that colorvalues should have 4 items.
+			if ( sizeof( $colorvalues ) != 4 )	{
+				// Validation failed: incorrect number of parameters.
+				echo "<br>debug:count not 4.<br>";
+				return false;
+			}
 			
-			return $fieldvalue;
+			// Here are the 4 values:
+			$red_val 	= $colorvalues[0];
+			$green_val 	= $colorvalues[1];
+			$blue_val 	= $colorvalues[2];
+			$alpha_val 	= $colorvalues[3];
+			
+			if (is_numeric( $red_val ) and is_numeric( $green_val ) and is_numeric( $blue_val ) and	is_numeric( $alpha_val) ){
+				// at this point it's safe to assume that alpha_val is numeric. Let's convert it to float.
+				$alpha_val = (float) $alpha_val;
+				
+				// r, g, b values are numeric, but need to test if they are integer as well.
+				
+				// check red:
+				if ( (int) $red_val == (float) $red_val )	{
+					$red_val 	= (int) $red_val;
+				}
+				else{
+					// Validation failed: not an integer value.
+					echo "<br>debug: false red.<br>";
+					return false;
+				}
+				
+				// check green:
+				if ( (int) $green_val == (float) $green_val )	{
+					$green_val 	= (int) $green_val;
+				}
+				else{
+					// Validation failed: not an integer value.
+					echo "<br>debug: false green.<br>";
+					return false;
+				}
+				
+				// check blue:
+				if ( (int) $blue_val == (float) $blue_val )	{
+					$blue_val 	= (int) $blue_val;
+				}
+				else{
+					// Validation failed: not an integer value.
+					echo "<br>debug: false blue.<br>";
+					return false;
+				}
+				
+				// check range of the numeric values:
+				if ( ($red_val 	 >= 0 	and $red_val 	< 256) 	and
+					 ($blue_val  >= 0 	and $blue_val 	< 256) 	and
+					 ($green_val >= 0 	and $green_val 	< 256) 	and
+					 ($alpha_val >= 0 	and $alpha_val 	<= 1)
+					)
+				{	
+					echo "<br>debug:value of float: $alpha_val.<br>";
+					$returnvalue = "rgba(" .$red_val."," .$green_val."," .$blue_val."," .$alpha_val.")";
+					return $returnvalue;
+				}	
+				else	{
+					// Validation failed: not within range.
+					echo "<br>debug:problem in the numeric values.<br>";
+					return false;
+				}
+			}
+			else	{
+				// Validation failed: data type not numeric.
+				echo "<br>debug:value type mismatch.<br>";
+				return false;
+			}
+			
+			return $returnvalue;
 		}
+		
 		function validate_pixel ( $fieldvalue )	{
 			
+			if ( is_int ( $fieldvalue ) )	{
+				return $fieldvalue;
+			}
+			else{
+				return false;
+			}
 		}
 		
 		function validate_dropdown ( $fieldname, $fieldvalue )	{
-			
+			return $fieldvalue;
 		}
 		
 		function validate_textarea ( $fieldname, $fieldvalue )	{
-			
+			return $fieldvalue;
 		}
 		
 		function loghorn_general_settings()	{
@@ -1723,11 +1817,21 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			$colorfield = explode ( "|", $rgba_expression);	// this would separate the word 'rgba' from the color values. 
 			echo "colorfield="; print_r($colorfield);
+			if ( preg_match('/[rR][gG][bB][aA]/', $colorfield[0] ) )	{
+				echo"<br>preg_grep was a success";
+			}
+			else{
+				echo"<br>preg_grep was a disaster";
+			}
+				
 			$colorvalues = explode( ",", $colorfield[1] );
 			echo "<br>colorvalues="; print_r($colorvalues);
 			
-			
-			
+			echo "<br> size of colorfield = ".sizeof($colorfield);
+			echo "<br> size of colorvalues = ".sizeof($colorvalues);
+			if ($colorfield[2] == null)
+				echo "<br>Brilliant!";
+			echo "<br>validate_rgba( fieldvalue ): ".$this->validate_rgba( $fieldvalue );
 		}
 		
 		
