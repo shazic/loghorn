@@ -15,6 +15,7 @@ defined( 'ABSPATH' ) or die ;
  *	Start by checking if the class Log_Horn_Admin_Menu is already defined somewhere else.
  *	Plugin will not provide any functionality and quit silently, if the class 'Log_Horn_Admin_Menu' is defined elsewhere.
  */	
+require_once ABSPATH.DIRECTORY_SEPARATOR.'wp-includes'.DIRECTORY_SEPARATOR.'class-wp-error.php' ;
 
 if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  : 
   
@@ -293,6 +294,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			$returnvalue = $fieldvalue;
 			
+			if ( ! $this->validate_balanced_characters( '(', ')', $fieldvalue ) ) {
+				echo "<br>debug: uneven paranthesis.<br>";
+				return false;
+			}
+			
+			// rgba?\(((25[0-5]|2[0-4]\d|1\d{1,2}|\d\d?)\s*,\s*?){2}(25[0-5]|2[0-4]\d|1\d{1,2}|\d\d?)\s*,?\s*([01]\.?\d*?)?\)
+			
 			// replace parantheses with "|". This helps in exploding.
 			$rgba_expression = str_replace( array( "(" , ")" ), array( "|" , "|" ), $fieldvalue, $count);
 			
@@ -410,11 +418,57 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		}
 		
 		function validate_dropdown ( $fieldname, $fieldvalue )	{
-			return $fieldvalue;
+			return (int) $fieldvalue;
 		}
 		
 		function validate_textarea ( $fieldname, $fieldvalue )	{
+		
+			return $this->validate_css( $fieldvalue );
+		}
+		
+		function validate_css ( $css )	{
+			$validity = new WP_Error();
+			
+			if ( preg_match( '#</?\w+#', $css ) ) {
+			$validity->add( 'illegal_markup', __( 'Markup is not allowed in CSS.' ) );
+			}
+
+			$imbalanced = false;
+
+			// Make sure that there is a closing brace for each opening brace.
+			if ( ! $this->validate_balanced_characters( '{', '}', $css ) ) {
+				$validity->add( 'imbalanced_curly_brackets', __( 'Your curly brackets <code>{}</code> are imbalanced. Make sure there is a closing <code>}</code> for every opening <code>{</code>.' ) );
+				$imbalanced = true;
+			}
+
+			// Ensure brackets are balanced.
+			if ( ! $this->validate_balanced_characters( '[', ']', $css ) ) {
+				$validity->add( 'imbalanced_braces', __( 'Your brackets <code>[]</code> are imbalanced. Make sure there is a closing <code>]</code> for every opening <code>[</code>.' ) );
+				$imbalanced = true;
+			}
+
+			// Ensure parentheses are balanced.
+			if ( ! $this->validate_balanced_characters( '(', ')', $css ) ) {
+				$validity->add( 'imbalanced_parentheses', __( 'Your parentheses <code>()</code> are imbalanced. Make sure there is a closing <code>)</code> for every opening <code>(</code>.' ) );
+				$imbalanced = true;
+			}
+
+			// Ensure double quotes are equal.
+			if ( ! $this->validate_equal_characters( '"', $css ) ) {
+				$validity->add( 'unequal_double_quotes', __( 'Your double quotes <code>"</code> are uneven. Make sure there is a closing <code>"</code> for every opening <code>"</code>.' ) );
+				$imbalanced = true;
+			}
+
 			return $fieldvalue;
+		}
+		
+		private function validate_balanced_characters( $opening_char, $closing_char, $css ) {
+			return substr_count( $css, $opening_char ) === substr_count( $css, $closing_char );
+		}
+		
+		private function validate_equal_characters( $char, $css ) {
+			$char_count = substr_count( $css, $char );
+			return ( 0 === $char_count % 2 );
 		}
 		
 		function loghorn_general_settings()	{
@@ -1810,7 +1864,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				}
 			}
 			
-			$fieldvalue="rgba(255,255,255,0.7)";
+			$fieldvalue="rgba(254,255,255,0.7)";
 			$rgba_expression = str_replace( array( "(" , ")" ), array( "|" , "|" ), $fieldvalue, $count);
 			echo "<br>rgba_expression = $rgba_expression<br>";
 			echo "count = $count<br>";
