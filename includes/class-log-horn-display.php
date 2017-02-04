@@ -29,7 +29,7 @@ class Log_Horn_Display	{
 		 */
 		function Log_Horn_Display ( ) 	{
 			
-			$this->loghorn_add_settings( $loghorn_settings );			// Fetch settings from wp_options table.
+			$this->loghorn_add_settings( );			// Fetch settings from wp_options table.
 			
 			$loghorn_settings = self::$loghorn_settings ;		
 			
@@ -47,7 +47,7 @@ class Log_Horn_Display	{
 		/**
 		 * Get the settings from the options table.
 		 */
-		function loghorn_add_settings( $loghorn_settings_parm )	{
+		function loghorn_add_settings( )	{
 			
 			self::$loghorn_settings = 
 			get_option("loghorn_settings2");
