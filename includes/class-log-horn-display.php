@@ -65,7 +65,7 @@ class Log_Horn_Display	{
 		 */
 		function loghorn_login_scripts () 	{
 	
-			//$loghorn_css 		= $this->loghorn_get_css ( ) ;	// static predefined CSS stylesheets. 
+			$loghorn_css 		= $this->loghorn_get_css ( ) ;	// static predefined CSS stylesheets. 
 			
 			// Check if user had opted for a Static CSS stylesheet: -->
 			if ( $loghorn_css )	{
@@ -334,7 +334,8 @@ class Log_Horn_Display	{
 		 */
 		function loghorn_get_css ( $loghorn_default_script = 'loghorn_enqueue_script - gnu' ) 	{
 			
-			$loghorn_current_script_number	=	self::$loghorn_settings [ LOGHORN_SETTINGS_CSS_THEME ] ;
+			$loghorn_current_script_number	=	0;
+			//self::$loghorn_settings [ 'LOGHORN_SETTINGS_CSS_THEME' ] ;
 			
 			switch ( $loghorn_current_script_number )	{
 				
@@ -550,7 +551,7 @@ class Log_Horn_Display	{
 		 */
 		function loghorn_get_button_width ( $loghorn_default_button_width = LOGHORN_DEFAULT_BUTTON_WIDTH )	{
 			
-			return self::$loghorn_settings [ LOGHORN_SETTINGS_SUBMIT_WIDTH ]."px" ;
+			return self::$loghorn_settings [ 'LOGHORN_SETTINGS_SUBMIT_WIDTH' ]."px" ;
 		}
 		 
 		/*
@@ -566,7 +567,7 @@ class Log_Horn_Display	{
 						return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_SUBMIT_TXT_HVR' , $loghorn_default_button_text_color ) ;
 						break ;
 					case LOGHORN_ON_ACTIVE :
-						return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_SUBMIT_COLR_ACTV , $loghorn_default_button_text_color ) ;
+						return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_SUBMIT_COLR_ACTV' , $loghorn_default_button_text_color ) ;
 						break ;
 					default :
 						return $loghorn_default_button_text_color ;
@@ -586,7 +587,7 @@ class Log_Horn_Display	{
 						return $this->loghorn_get_txt_shadow ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_HOVR' , 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW' ) ;
 						break ;
 					case LOGHORN_ON_ACTIVE :
-						return $this->loghorn_get_txt_shadow ( LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_ACTV , 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW' ) ;
+						return $this->loghorn_get_txt_shadow ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_ACTV' , 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW' ) ;
 						break ;
 					default :
 						return $loghorn_default_button_text_shdw ;
@@ -606,7 +607,7 @@ class Log_Horn_Display	{
 						return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR' , $loghorn_default_button_color ) ;
 						break ;
 					case LOGHORN_ON_ACTIVE :
-						return $this->loghorn_rgba_settings ( LOGHORN_SETTINGS_SUBMIT_BG_COLR_ACTV , $loghorn_default_button_color ) ;
+						return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_ACTV' , $loghorn_default_button_color ) ;
 						break ;
 					default :
 						return $loghorn_default_button_color ;
@@ -626,7 +627,7 @@ class Log_Horn_Display	{
 						return $this->loghorn_get_border ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_HOVR' , 'LOGHORN_SETTINGS_SUBMIT_BORDR' ) ;
 						break ;
 					case LOGHORN_ON_ACTIVE :
-						return $this->loghorn_get_border ( LOGHORN_SETTINGS_SUBMIT_BORDR_ACTV , 'LOGHORN_SETTINGS_SUBMIT_BORDR' ) ;
+						return $this->loghorn_get_border ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_ACTV' , 'LOGHORN_SETTINGS_SUBMIT_BORDR' ) ;
 						break ;
 					default :
 						return $loghorn_default_button_border ;

@@ -580,7 +580,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_general_info()	{
 			
-			$this->loghorn_show_general_instructions("dummy");
+			$this->loghorn_show_general_instructions("dummy", "General Information");
 		}
 		
 		function loghorn_disable_logo_option()	{
@@ -607,6 +607,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_show_logo_settings ()	{
 			
+			global $loghorn_tooltips;
 			// Options table store the logo's image id. Get the image source information:
 			$loghorn_logo_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_LOGO']['image'], 'original' ) ;
 			$loghorn_disable_logo_option = self::$loghorn_options['LOGHORN_SETTINGS_LOGO']['disable'] ;
@@ -626,7 +627,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "desc"		=> "Preview"
 															, "hidden"		=> $loghorn_hide_logo
 														);
-			$this->loghorn_show_image_settings ( $loghorn_logo_image_parameters , $loghorn_logo_image_src ) ;
+			$this->loghorn_show_image_settings ( $loghorn_logo_image_parameters , $loghorn_logo_image_src, $loghorn_tooltips['logo_file_tooltip'] ) ;
 		}
 		
 		
@@ -696,6 +697,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		}
 		function loghorn_show_bg_settings ()	{
 			
+			global $loghorn_tooltips;
+			
 			// Options table store the background image id. Get the image source information:
 			$loghorn_bg_image_src = wp_get_attachment_image_src(self::$loghorn_options['LOGHORN_SETTINGS_BG']['image'], 'original' ) ;
 			$loghorn_use_bg_image = self::$loghorn_options['LOGHORN_SETTINGS_BG']['option'] ;
@@ -715,7 +718,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "desc"		=> "Background Preview"
 															, "hidden"		=> $loghorn_hide_bg
 														);
-			$this->loghorn_show_image_settings ( $loghorn_bg_image_parameters , $loghorn_bg_image_src ) ;
+			$this->loghorn_show_image_settings ( $loghorn_bg_image_parameters , $loghorn_bg_image_src, $loghorn_tooltips['background_tooltip'] ) ;
 		}
 		
 		function loghorn_form_width_settings ()	{
@@ -2004,7 +2007,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				<input id="<?php _e( "loghorn_bkp_button_id" ); ?>" type="button" class="button" value="<?php _e( "Backup Settings" ); ?>" />
 			</div>
 <?php		
-			$this->loghorn_tooltip_symbol("A new tooltip");
+			$this->loghorn_tooltip_symbol($loghorn_tooltip);
 		}
 		
 		function loghorn_load_option(){
@@ -2016,7 +2019,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				<input id="<?php _e( "loghorn_dlet_button_id" ); ?>" type="button" class="button" value="<?php _e( "Delete Backup" ); ?>" />
 			</div>
 <?php		
-			$this->loghorn_tooltip_symbol("A new tooltip");
+			$this->loghorn_tooltip_symbol($loghorn_tooltip);
 		}
 		
 		function loghorn_site_details()	{
@@ -2122,7 +2125,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		/*************************************************************************************************************************************/
 		
 		
-		function loghorn_show_general_instructions( $loghorn_genral_info_parms )	{
+		function loghorn_show_general_instructions( $loghorn_genral_info_parms, $loghorn_tooltip=null )	{
 			
 ?>			
 			<div class="loghorn_custom_options">
@@ -2149,10 +2152,10 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 					</p>
 			</div>
 <?php
-			$this->loghorn_tooltip_symbol("A new tooltip");
+			$this->loghorn_tooltip_symbol($loghorn_tooltip);
 		}
 		
-		function loghorn_show_image_settings ( $loghorn_image_parameters , $loghorn_image_source)	{
+		function loghorn_show_image_settings ( $loghorn_image_parameters , $loghorn_image_source, $loghorn_tooltip=null )	{
 			
 			$loghorn_img_div_id			= $loghorn_image_parameters["option_id"]."_display" ;
 			$loghorn_img_button_id		= $loghorn_image_parameters["option_id"]."_upload_image_button" ;
@@ -2184,14 +2187,14 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				</div>
 			</div>
 <?php		
-			$this->loghorn_tooltip_symbol("A new tooltip");
+			$this->loghorn_tooltip_symbol($loghorn_tooltip);
 		}
 		
 		/*
 		 * Displaying the Color Picker would be handled by wp-color-picker.
 		 * Let's prepare the textbox for the browser to fall back upon, if JavaScript is disabled.
 		 */
-		function loghorn_color_picker( $loghorn_color_picker_parms)	{
+		function loghorn_color_picker( $loghorn_color_picker_parms, $loghorn_tooltip=null )	{
 			
 			$loghorn_txtbox_id = "loghorn_".$loghorn_color_picker_parms["option_id"]."_color" ;
 			if ( isset ( $loghorn_color_picker_parms["disable"] ) && ( $loghorn_color_picker_parms["disable"] ) )	{
@@ -2209,14 +2212,14 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				<input type="text" value=<?php _e ( $loghorn_color_picker_parms["value"]) ; ?> class="loghorn-color-cp" id="<?php _e ( $loghorn_txtbox_id ) ; ?>" name="<?php _e ( $loghorn_color_picker_parms["option_name"]) ; ?>" <?php _e ( $loghorn_enable_iris ) ; ?>/>
 			</div>
 <?php
-			$this->loghorn_tooltip_symbol("A new tooltip");
+			$this->loghorn_tooltip_symbol($loghorn_tooltip);
 		}
 		
 		/*
 		 * Slider would be displayed by JQuery UI.
 		 * So, let's prepare the textbox so it can fall back to that, if JavaScript is disabled on the browser.
 		 */
-		function loghorn_jquery_slider($loghorn_jquery_slider_parms)	{
+		function loghorn_jquery_slider($loghorn_jquery_slider_parms, $loghorn_tooltip=null )	{
 			
 			$loghorn_txtbox_id = $loghorn_jquery_slider_parms["option_id"]."_inp" ;
 			$loghorn_slider_id = $loghorn_jquery_slider_parms["option_id"]."_slider" ;
@@ -2235,10 +2238,10 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				</div>
 			</div>
 <?php	
-			$this->loghorn_tooltip_symbol("A new tooltip");
+			$this->loghorn_tooltip_symbol($loghorn_tooltip);
 		}
 		
-		function loghorn_show_listbox( $loghorn_listbox_options, $loghorn_listbox_parms )	{
+		function loghorn_show_listbox( $loghorn_listbox_options, $loghorn_listbox_parms, $loghorn_tooltip=null )	{
 			
 			$loghorn_textbox_id		= $loghorn_listbox_parms["option_id"]."_textbox" ;
 			$loghorn_listbox_id		= $loghorn_listbox_parms["option_id"]."_listbox" ;
@@ -2267,11 +2270,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			</div>
 			</div>
 <?php
-			$this->loghorn_tooltip_symbol("A new tooltip");
+			$this->loghorn_tooltip_symbol($loghorn_tooltip);
 		}
 		
 		
-		function loghorn_show_textarea( $loghorn_textarea_parms )	{
+		function loghorn_show_textarea( $loghorn_textarea_parms, $loghorn_tooltip=null )	{
 			
 			$loghorn_textarea_id	= "loghorn_".$loghorn_textarea_parms["option_id"]."_textarea" ;
 			$loghorn_textarea_name	= $loghorn_textarea_parms["option_name"];
@@ -2281,7 +2284,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				<textarea placeholder="Place your custom CSS here." id="<?php _e ( $loghorn_textarea_id ) ; ?>" name="<?php _e ( $loghorn_textarea_name ) ; ?>"><?php _e ( $loghorn_textarea_parms["value"] ) ; ?></textarea> 
 			</div>
 <?php
-			$this->loghorn_tooltip_symbol("A new tooltip");
+			$this->loghorn_tooltip_symbol($loghorn_tooltip);
 		}
 
 		function loghorn_tooltip_symbol( $loghorn_tooltip )	{
