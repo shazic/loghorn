@@ -103,7 +103,7 @@ class Log_Horn_Display	{
 					$loghorn_cb_height			= $this->loghorn_get_cb_height			(  ) ;  // 'Remember Me' check box height.
 					$loghorn_cb_radius			= $this->loghorn_get_cb_radius			(  ) ;  // 'Remember Me' check box corner radius.
 					// 'Log In' Submit Button
-					$loghorn_butn_wd			= $this->loghorn_get_button_width		( LOGHORN_NORMAL_STATE ) ;  // 'Log In' button width.
+					//$loghorn_butn_wd			= $this->loghorn_get_button_width		( LOGHORN_NORMAL_STATE ) ;  // 'Log In' button width.
 					$loghorn_butn_text_colr		= $this->loghorn_get_button_text_color	( LOGHORN_NORMAL_STATE ) ;	// 'Log In' button text color.
 					$loghorn_butn_text_shdw		= $this->loghorn_get_button_text_shadow	( LOGHORN_NORMAL_STATE ) ;	// 'Log In' button text shadow.
 					$loghorn_butn_bg_colr		= $this->loghorn_get_button_bg_color	( LOGHORN_NORMAL_STATE ) ;	// 'Log In' button background color.
@@ -250,7 +250,7 @@ class Log_Horn_Display	{
 						 * Primary button:
 						 */
 						.login .button-primary {
-							width: <?php _e ( $loghorn_butn_wd ) ; ?> ; 
+							/*width: <?php _e ( $loghorn_butn_wd ) ; ?> ; */
 							float: right !important;
 							color: <?php _e ( $loghorn_butn_text_colr ) ; ?> !important ;
 							background-color: <?php _e ( $loghorn_butn_bg_colr ) ; ?> !important;
@@ -387,7 +387,7 @@ class Log_Horn_Display	{
 		/*
 		 *
 		 */
-		function loghorn_get_bg_color ()	{
+		function loghorn_get_bg_color ( $loghorn_default_form_colr = LOGHORN_DEFAULT_FORM_COLR )	{
 			return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_BG_COLOR' , $loghorn_default_form_colr ) ;
 		}
 		
@@ -549,10 +549,11 @@ class Log_Horn_Display	{
 		/*
 		 * Get 'Log In' submit button width.
 		 */
+		/* Discard this value
 		function loghorn_get_button_width ( $loghorn_default_button_width = LOGHORN_DEFAULT_BUTTON_WIDTH )	{
 			
 			return self::$loghorn_settings [ 'LOGHORN_SETTINGS_SUBMIT_WIDTH' ]."px" ;
-		}
+		}*/
 		 
 		/*
 		 * Get 'Log In' submit button text color.
@@ -567,7 +568,7 @@ class Log_Horn_Display	{
 						return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_SUBMIT_TXT_HVR' , $loghorn_default_button_text_color ) ;
 						break ;
 					case LOGHORN_ON_ACTIVE :
-						return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_SUBMIT_COLR_ACTV' , $loghorn_default_button_text_color ) ;
+						//return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_SUBMIT_COLR_ACTV' , $loghorn_default_button_text_color ) ;
 						break ;
 					default :
 						return $loghorn_default_button_text_color ;
@@ -587,7 +588,7 @@ class Log_Horn_Display	{
 						return $this->loghorn_get_txt_shadow ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_HOVR' , 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW' ) ;
 						break ;
 					case LOGHORN_ON_ACTIVE :
-						return $this->loghorn_get_txt_shadow ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_ACTV' , 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW' ) ;
+						//return $this->loghorn_get_txt_shadow ( 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_ACTV' , 'LOGHORN_SETTINGS_SUBMIT_TXT_SHDW' ) ;
 						break ;
 					default :
 						return $loghorn_default_button_text_shdw ;
@@ -607,7 +608,7 @@ class Log_Horn_Display	{
 						return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR' , $loghorn_default_button_color ) ;
 						break ;
 					case LOGHORN_ON_ACTIVE :
-						return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_ACTV' , $loghorn_default_button_color ) ;
+						//return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_SUBMIT_BG_COLR_ACTV' , $loghorn_default_button_color ) ;
 						break ;
 					default :
 						return $loghorn_default_button_color ;
@@ -627,7 +628,7 @@ class Log_Horn_Display	{
 						return $this->loghorn_get_border ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_HOVR' , 'LOGHORN_SETTINGS_SUBMIT_BORDR' ) ;
 						break ;
 					case LOGHORN_ON_ACTIVE :
-						return $this->loghorn_get_border ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_ACTV' , 'LOGHORN_SETTINGS_SUBMIT_BORDR' ) ;
+						//return $this->loghorn_get_border ( 'LOGHORN_SETTINGS_SUBMIT_BORDR_ACTV' , 'LOGHORN_SETTINGS_SUBMIT_BORDR' ) ;
 						break ;
 					default :
 						return $loghorn_default_button_border ;

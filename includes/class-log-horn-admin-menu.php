@@ -559,6 +559,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_enable_loghorn_option()	{
 			
+			global $loghorn_tooltips;
 			// Get the bg options from the database:
 			$loghorn_general_option = self::$loghorn_options['LOGHORN_SETTINGS_GENERAL']['option'] ;
 			
@@ -574,7 +575,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"label"		=> "Selecting 'Yes' would enable this plugin:"
 															,"value"		=> $loghorn_general_option
 														);
-			$this->loghorn_show_listbox ( $loghorn_yes_no, $loghorn_show_listbox_parms ) ;
+			$this->loghorn_show_listbox ( $loghorn_yes_no, $loghorn_show_listbox_parms, $loghorn_tooltips['enable_plugin_tooltip'] ) ;
 		}
 		
 		
@@ -585,6 +586,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_disable_logo_option()	{
 			
+			global $loghorn_tooltips;
 			// Options table store whether to display the logo or not. Get the image source information:
 			$loghorn_disable_logo_option = self::$loghorn_options['LOGHORN_SETTINGS_LOGO']['disable'] ;
 			
@@ -600,7 +602,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"label"		=> "Selecting 'Yes' would hide the logo:"
 															,"value"		=> $loghorn_disable_logo_option
 														);
-			$this->loghorn_show_listbox ( $loghorn_yes_no, $loghorn_show_listbox_parms ) ;
+			$this->loghorn_show_listbox ( $loghorn_yes_no, $loghorn_show_listbox_parms, $loghorn_tooltips['disable_logo_tooltip']  ) ;
 			
 		}
 		
@@ -633,6 +635,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_show_bg_options()	{
 				
+			global $loghorn_tooltips;
 			// Get the bg options from the database:
 			$loghorn_bg_option = self::$loghorn_options['LOGHORN_SETTINGS_BG']['option'] ;
 			
@@ -648,12 +651,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"label"		=> "Display an image as the background?"
 															,"value"		=> $loghorn_bg_option
 														);
-			$this->loghorn_show_listbox ( $loghorn_yes_no, $loghorn_show_listbox_parms ) ;
+			$this->loghorn_show_listbox ( $loghorn_yes_no, $loghorn_show_listbox_parms, $loghorn_tooltips['display_bg_tooltip'] ) ;
 		}
 		
 		
 		function loghorn_bg_color()	{
 			
+			global $loghorn_tooltips;
 			// Fetch form color and alpha channel values from options table, if present.
 			$loghorn_bg_color_value = self::$loghorn_options['LOGHORN_SETTINGS_BG_COLOR']['hex'] ;
 			//$loghorn_bg_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_BG_COLOR']['alpha'] ;
@@ -683,7 +687,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "disable"		=> $loghorn_disable_iris
 														);
 			
-			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			$this->loghorn_color_picker( $loghorn_color_picker_parms, $loghorn_tooltips['bg_colr_tooltip'] ) ;
 			
 			/*
 			// Display slider for Form Color Alpha Channel:
@@ -718,11 +722,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "desc"		=> "Background Preview"
 															, "hidden"		=> $loghorn_hide_bg
 														);
-			$this->loghorn_show_image_settings ( $loghorn_bg_image_parameters , $loghorn_bg_image_src, $loghorn_tooltips['background_tooltip'] ) ;
+			$this->loghorn_show_image_settings ( $loghorn_bg_image_parameters, $loghorn_bg_image_src, $loghorn_tooltips['background_tooltip'] ) ;
 		}
 		
 		function loghorn_form_width_settings ()	{
 			
+			global $loghorn_tooltips;
 			// Fetch form-width from options table, if present.
 			$loghorn_form_width_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_WIDTH'] ;
 			
@@ -736,11 +741,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "option_id"	=> "loghorn_form_width"
 															, "value"		=> $loghorn_form_width_value
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['form_width_tooltip'] );
 		}
 		
 		function loghorn_form_padding_settings()	{
 			
+			global $loghorn_tooltips;
 			// Fetch form padding from options table, if present.
 			$loghorn_form_padding_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_PAD'] ;
 			
@@ -754,11 +760,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "option_id"	=> "loghorn_form_pad"
 															, "value"		=> $loghorn_form_padding_value
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['form_padding_tooltip'] );
 		}
 		
 		function loghorn_form_margin_settings()	{
 			
+			global $loghorn_tooltips;
 			// Fetch form margin from options table, if present.
 			$loghorn_form_margin_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_MRGN'] ;
 			
@@ -771,11 +778,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "option_id"	=> "loghorn_form_mrgn"
 															, "value"		=> $loghorn_form_margin_value
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['form_margin_tooltip'] );
 		}
 		
 		function loghorn_form_color_settings ()	{
 			
+			global $loghorn_tooltips;
 			// Fetch form color and alpha channel values from options table, if present.
 			$loghorn_form_color_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['hex'] ;
 			//$loghorn_form_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['alpha'] ;
@@ -795,7 +803,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_color_value
 														);
 			
-			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			$this->loghorn_color_picker( $loghorn_color_picker_parms, $loghorn_tooltips['form_bg_color_tooltip'] ) ;
 			
 			/*
 			// Display slider for Form Color Alpha Channel:
@@ -810,6 +818,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_form_shadow_settings ()	{
 			
+			global $loghorn_tooltips;
 			// Fetch values of form shadow elements from options table, if present.
 			$loghorn_form_shadow_hor_value   = self::$loghorn_options['LOGHORN_SETTINGS_FORM_SHDW']['hor'] ;
 			$loghorn_form_shadow_ver_value   = self::$loghorn_options['LOGHORN_SETTINGS_FORM_SHDW']['ver'] ;
@@ -847,7 +856,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_shadow_colr_value
 														);
 			
-			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			$this->loghorn_color_picker( $loghorn_color_picker_parms, $loghorn_tooltips['form_shadow_color_tooltip'] ) ;
 			
 			// Display slider for selecting Horizontal Displacement value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][hor]"
@@ -855,7 +864,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_shadow_hor_value
 															, "label"		=> "Horizontal Displacement: "
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['form_shdw_horizontal_displacement_tooltip'] );
 			
 			// Display slider for selecting Vertical Displacement value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][ver]"
@@ -863,7 +872,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_shadow_ver_value
 															, "label"		=> "Vertical Displacement: "
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['form_shdw_vertical_displacement_tooltip'] );
 			
 			// Display slider for selecting Blur Effect value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][blur]"
@@ -871,7 +880,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_shadow_blur_value
 															, "label"		=> "Blur Effect: "
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['form_shdw_blur_effect_tooltip'] );
 			
 			// Display slider for selecting Spread Effect value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][spread]"
@@ -879,7 +888,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_shadow_spread_value
 															, "label"		=> "Spread Effect: "
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['form_spread_effect_tooltip'] );
 			
 			/*
 			// Display slider for selecting Form Shadow Alpha Channel value:
@@ -895,6 +904,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 		
 		function loghorn_form_border_settings()	{
 			
+			global $loghorn_tooltips;
 			// Fetch values of form border elements from options table, if present.
 			$loghorn_form_border_thickness_value   	= self::$loghorn_options['LOGHORN_SETTINGS_FORM_BORDR']['thick'] ;
 			$loghorn_form_border_style_value   		= self::$loghorn_options['LOGHORN_SETTINGS_FORM_BORDR']['style'] ;
@@ -927,7 +937,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_border_color_value
 														);
 			
-			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			$this->loghorn_color_picker( $loghorn_color_picker_parms, $loghorn_tooltips['form_border_color_tooltip'] ) ;
 			
 			// Display slider for selecting Form Border Thickness value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][thick]"
@@ -935,7 +945,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_border_thickness_value
 															, "label"		=> "Thickness: "
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['form_thickness_tooltip'] );
 			
 			/*
 			// Display slider for selecting Form Border Alpha Channel value:
@@ -952,7 +962,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_border_radius_value
 															, "label"		=> "Corner Radius: "
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['form_corner_radius_tooltip'] );
 			
 			// Display listbox for selecting Border style for the Form:
 			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
@@ -961,12 +971,13 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"label"		=> "Border Type:"
 															,"value"		=> $loghorn_form_border_style_value
 														);
-			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms ) ;
+			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms, $loghorn_tooltips['form_border_type_tooltip'] ) ;
 			
 		}
 		
 		function loghorn_form_label_settings()	{
 			
+			global $loghorn_tooltips;
 			// Fetch values of form label settings from options table, if present.
 			$loghorn_form_label_font_value   		= self::$loghorn_options['LOGHORN_SETTINGS_FORM_LBL']['font'] ;
 			$loghorn_form_label_size_value   		= self::$loghorn_options['LOGHORN_SETTINGS_FORM_LBL']['size'] ;
@@ -989,7 +1000,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_label_color_value
 														);
 			
-			$this->loghorn_color_picker( $loghorn_color_picker_parms ) ;
+			$this->loghorn_color_picker( $loghorn_color_picker_parms, $loghorn_tooltips['label_color_tooltip'] ) ;
 			
 			// Display slider for selecting Form Font Size value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_LBL][size]"
@@ -997,7 +1008,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "value"		=> $loghorn_form_label_size_value
 															, "label"		=> "Font Size: "
 														);
-			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
+			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['label_font_size_tooltip'] );
 			
 			// Display listbox for selecting Font style for the Form Label:
 			global $loghorn_fonts_global ;									// Options for fonts. Defined in initialize-loghorn.php.
@@ -1006,7 +1017,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"label"		=> "Font:"
 															,"value"		=> $loghorn_form_label_font_value
 														);
-			$this->loghorn_show_listbox ( $loghorn_fonts_global, $loghorn_show_listbox_parms ) ;
+			$this->loghorn_show_listbox ( $loghorn_fonts_global, $loghorn_show_listbox_parms, $loghorn_tooltips['label_font_tooltip'] ) ;
 		}
 		
 		function loghorn_input_text_settings()	{
@@ -1999,7 +2010,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 		}
 		
-		function loghorn_bkp_option(){
+		function loghorn_bkp_option( ){
 			
 			//submit_button('Backup Settings');
 		?>
@@ -2007,10 +2018,10 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				<input id="<?php _e( "loghorn_bkp_button_id" ); ?>" type="button" class="button" value="<?php _e( "Backup Settings" ); ?>" />
 			</div>
 <?php		
-			$this->loghorn_tooltip_symbol($loghorn_tooltip);
+			$this->loghorn_tooltip_symbol("Backup your currently installed settings!");
 		}
 		
-		function loghorn_load_option(){
+		function loghorn_load_option( ){
 			
 		?>
 			<div class="loghorn_custom_options" id="<?php _e( "loghorn_backup_div" ); ?>">
@@ -2019,7 +2030,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				<input id="<?php _e( "loghorn_dlet_button_id" ); ?>" type="button" class="button" value="<?php _e( "Delete Backup" ); ?>" />
 			</div>
 <?php		
-			$this->loghorn_tooltip_symbol($loghorn_tooltip);
+			$this->loghorn_tooltip_symbol("Load a previously backed up settings!");
 		}
 		
 		function loghorn_site_details()	{
