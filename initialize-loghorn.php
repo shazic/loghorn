@@ -409,6 +409,30 @@
 		define ( 'LOGHORN_ON_ACTIVE' , 2 ) ;	
 	}
 	
+	if  ( ! defined ( 'LOGHORN_NORMAL_TXT' )  )  {
+		define ( 'LOGHORN_NORMAL_TXT' , 0 ) ;	
+	}
+	
+	if  ( ! defined ( 'LOGHORN_ERROR_TXT' )  )  {
+		define ( 'LOGHORN_ERROR_TXT' , 1 ) ;	
+	}
+	
+	if  ( ! defined ( 'LEFT' )  )  {
+		define ( 'LEFT' , 0 ) ;	
+	}
+	
+	if  ( ! defined ( 'RIGHT' )  )  {
+		define ( 'RIGHT' , 1 ) ;	
+	}
+	
+	if  ( ! defined ( 'TOP' )  )  {
+		define ( 'TOP' , 2 ) ;	
+	}
+	
+	if  ( ! defined ( 'BOTTOM' )  )  {
+		define ( 'BOTTOM' , 3 ) ;	
+	}
+	
 	/**************************************   GLOBALS   *****************************************/
 	
 	global 	  $loghorn_yes_no

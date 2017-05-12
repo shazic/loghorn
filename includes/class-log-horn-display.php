@@ -125,13 +125,26 @@ class Log_Horn_Display	{
 					$loghorn_butn_bg_colr_a		= $this->loghorn_get_button_bg_color	( LOGHORN_ON_ACTIVE ) ;	// 'Log In' button background color: On Active.
 					//$loghorn_butn_bg_img_a	= $this->loghorn_get_button_bg_image	( LOGHORN_ON_ACTIVE ) ;	// 'Log In' button background image. Not supported in the current version.
 					//$loghorn_butn_opacity_a	= $this->loghorn_get_button_opacity		( LOGHORN_ON_ACTIVE ) ;	// 'Log In' button opacity. Not used currently, since loghorn_butn_bg_colr provides this through rgba.
-					$loghorn_butn_bordr_a		= $this->loghorn_get_button_border		( LOGHORN_ON_ACTIVE ) ;  // 'Log In' button border: On Active.
-					$loghorn_butn_radius_a		= $this->loghorn_get_button_radius		( LOGHORN_ON_ACTIVE ) ;  // 'Log In' button corner radius: On Active.
+					$loghorn_butn_bordr_a		= $this->loghorn_get_button_border		( LOGHORN_ON_ACTIVE ) ; // 'Log In' button border: On Active.
+					$loghorn_butn_radius_a		= $this->loghorn_get_button_radius		( LOGHORN_ON_ACTIVE ) ; // 'Log In' button corner radius: On Active.
 					// Message Box:
-					$loghorn_msg_bg_colr		= $this->loghorn_get_msg_bg_color		(  ) ;  // Messages Background Color.
-					$loghorn_msg_lbl_colr		= $this->loghorn_get_msg_lbl_color		(  ) ;  // Messages text Color.
-					$loghorn_user_css_only		= $this->loghorn_get_user_css_option	(  ) ;	// Apply only Custom User CSS?
-					$loghorn_user_css			= $this->loghorn_get_user_css			(  ) ;	// Custom User CSS.
+					$loghorn_msg_bg_colr		= $this->loghorn_get_msg_bg_color		(  ) ;  				// Messages Background Color.
+					$loghorn_msg_lbl_colr		= $this->loghorn_get_msg_lbl_color		(  ) ;  				// Messages text Color.
+					$loghorn_msg_lbl_colr_err	= $this->loghorn_get_err_msg_lbl_color	(  ) ;  				// Error Messages text Color.
+					$loghorn_msg_txt_shdw		= $this->loghorn_get_msg_text_shadow	( LOGHORN_NORMAL_TXT ) ;// Messege's text shadow.
+					$loghorn_msg_txt_shdw_err	= $this->loghorn_get_msg_text_shadow	( LOGHORN_ERROR_TXT ) ;	// Error Messege's text shadow.
+					$loghorn_msg_radius			= $this->loghorn_get_msg_radius			(  ) ;  				// Messages Border Radius.
+					$loghorn_msg_bordr_l		= $this->loghorn_get_msg_border			( LEFT ) ;				// message box left border.
+					$loghorn_msg_bordr_l_err	= $this->loghorn_get_err_msg_border		( LEFT ) ;				// Error message box left border color.
+					$loghorn_msg_bordr_t		= $this->loghorn_get_msg_border			( TOP ) ;				// message box top border.
+					$loghorn_msg_bordr_t_err	= $this->loghorn_get_err_msg_border		( TOP ) ;				// Error message box top border color.
+					$loghorn_msg_bordr_r		= $this->loghorn_get_msg_border			( RIGHT ) ;				// message box right border.
+					$loghorn_msg_bordr_r_err	= $this->loghorn_get_err_msg_border		( RIGHT ) ;				// Error message box right border color.
+					$loghorn_msg_bordr_b		= $this->loghorn_get_msg_border			( BOTTOM ) ;			// message box bottom border.
+					$loghorn_msg_bordr_b_err	= $this->loghorn_get_err_msg_border		( BOTTOM ) ;			// Error message box bottom border color.
+					// Custom CSS:
+					$loghorn_user_css_only		= $this->loghorn_get_user_css_option	(  ) ;					// Apply only Custom User CSS?
+					$loghorn_user_css			= $this->loghorn_get_user_css			(  ) ;					// Custom User CSS.
 					
 ?>
 					<style type="text/css" >
@@ -306,22 +319,24 @@ class Log_Horn_Display	{
 						.login .message,
 						.login #login_error	{
 							background-color: <?php _e ( $loghorn_msg_bg_colr ) ; ?> !important;
-							color: <?php _e ( $loghorn_msg_lbl_colr ) ; ?> ;;
-							text-shadow: none;
-							/*border-radius: 0px;
-							border-left: none !important;
-							border-right: none;
-							border-top: none;*/
-							border-bottom: 5px solid #00a0d2;
+							color: <?php _e ( $loghorn_msg_lbl_colr ) ; ?> ;
+							text-shadow: <?php _e ( $loghorn_msg_txt_shdw ) ; ?> ;
+							border-radius: <?php _e ( $loghorn_msg_radius ) ; ?> ;
+							border-left: <?php _e ( $loghorn_msg_bordr_l ) ; ?> !important;
+							border-right: <?php _e ( $loghorn_msg_bordr_r ) ; ?>; 
+							border-top: <?php _e ( $loghorn_msg_bordr_t ) ; ?> ;
+							border-bottom: <?php _e ( $loghorn_msg_bordr_b ) ; ?> ;
 						}
 						/*
 						 * The Error messages
 						 */
 						.login #login_error {
-							border-left: none !important;
-							border-right: none;
-							border-top: none;
-							border-bottom: 5px solid #dc3232 ;
+							color: <?php _e ( $loghorn_msg_lbl_colr_err ) ; ?> ;
+							text-shadow: <?php _e ( $loghorn_msg_txt_shdw_err ) ; ?> ;
+							border-left-color: <?php _e ( $loghorn_msg_bordr_l_err ) ; ?> !important;
+							border-right-color: <?php _e ( $loghorn_msg_bordr_r_err ) ; ?> ;
+							border-top-color: <?php _e ( $loghorn_msg_bordr_t_err ) ; ?> ;
+							border-bottom-color: <?php _e ( $loghorn_msg_bordr_b_err ) ; ?> ;
 						}
 					</style>
 			
@@ -657,6 +672,87 @@ class Log_Horn_Display	{
 		function loghorn_get_msg_lbl_color ( $loghorn_default_msg_txt_color = LOGHORN_DEFAULT_FORM_FONT_COLR )	{
 			
 			return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_MSG_TXT' , $loghorn_default_msg_txt_color ) ;
+		}
+		
+		/*
+		 * Get Messages Text Color .
+		 */
+		function loghorn_get_err_msg_lbl_color ( $loghorn_default_msg_txt_color = LOGHORN_DEFAULT_FORM_FONT_COLR )	{
+			
+			return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_MSG_TXT_ERR' , $loghorn_default_msg_txt_color ) ;
+		}
+		
+		/*
+		 * Get Message text shadow effects.
+		 */
+		function loghorn_get_msg_text_shadow ( $loghorn_msg_type , $loghorn_default_button_text_shdw = LOGHORN_DEFAULT_BUTTON_TXT_SHDW )	{
+			
+			switch ( $loghorn_msg_type )	{
+					case LOGHORN_NORMAL_TXT :
+						return $this->loghorn_get_txt_shadow ( 'LOGHORN_SETTINGS_MSG_TXT_SHDW'      , $loghorn_default_button_text_shdw ) ;
+						break ;
+					case LOGHORN_ERROR_TXT :
+						return $this->loghorn_get_txt_shadow ( 'LOGHORN_SETTINGS_MSG_TXT_SHDW_ERR' 	, 'LOGHORN_SETTINGS_MSG_TXT_SHDW' ) ;
+						break ;
+					default :
+						return $loghorn_default_button_text_shdw ;
+			}
+		} 
+		
+		/*
+		 * Get Messages Border radius.
+		 */
+		function loghorn_get_msg_radius ( $loghorn_default_msg_radius = 0 )	{
+			
+			return self::$loghorn_settings [ 'LOGHORN_SETTINGS_MSG_BORDR' ]['radius']."px" ;
+		}
+		
+		/*
+		 * Get Message Box Border info.
+		 */
+		function loghorn_get_msg_border( $loghorn_message_setting_side, $loghorn_default_form_border = LOGHORN_DEFAULT_FORM_BORDR ){
+			
+			switch ( $loghorn_message_setting_side ){
+				case LEFT:
+							return $this->loghorn_get_border ( 'LOGHORN_SETTINGS_MSG_BORDR_L', $loghorn_default_form_border ) ;
+							break;
+				case RIGHT:
+							return $this->loghorn_get_border ( 'LOGHORN_SETTINGS_MSG_BORDR_R', $loghorn_default_form_border ) ;
+							break;
+				case TOP:
+							return $this->loghorn_get_border ( 'LOGHORN_SETTINGS_MSG_BORDR_T', $loghorn_default_form_border ) ;
+							break;
+				case BOTTOM:
+							return $this->loghorn_get_border ( 'LOGHORN_SETTINGS_MSG_BORDR_B', $loghorn_default_form_border ) ;
+							break;
+				default:
+							return null;
+			}
+		}
+		
+		/*
+		 * Get Error Message Box Border info.
+		 */
+		function loghorn_get_err_msg_border( $loghorn_err_message_setting_side, $loghorn_default_form_colr = LOGHORN_DEFAULT_FORM_COLR ){
+			
+			switch ( $loghorn_err_message_setting_side ){
+				case LEFT:
+							return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_MSG_BORDR_L_ERR', $loghorn_default_form_colr ) ;
+							break;
+				case RIGHT:
+							return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_MSG_BORDR_R_ERR', $loghorn_default_form_colr ) ;
+							break;
+				case TOP:
+							return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_MSG_BORDR_T_ERR', $loghorn_default_form_colr ) ;
+							break;
+				case BOTTOM:
+							return $this->loghorn_rgba_settings ( 'LOGHORN_SETTINGS_MSG_BORDR_B_ERR', $loghorn_default_form_colr ) ;
+							break;
+				default:
+							return null;
+			}
+			//return $this->loghorn_rgba_settings ( $loghorn_settings_constant , $loghorn_default_form_colr ) ;
+			
 		}
 		
 		/*
