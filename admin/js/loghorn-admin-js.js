@@ -319,7 +319,7 @@
 		var form_shadow_hor_handle = $( "#loghorn_form_shadow_hor_handle" );
 		form_slider_value = $("#loghorn_form_shadow_hor_inp").attr("value");
 		form_shadow_hor_slider.slider({
-			min:0, max:30, value:form_slider_value, animate: "fast",
+			min:-30, max:30, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_shadow_hor_handle.text( $( this ).slider( "value" )+"px" );
 			},
@@ -333,7 +333,7 @@
 		var form_shadow_ver_handle = $( "#loghorn_form_shadow_ver_handle" );
 		form_slider_value = $("#loghorn_form_shadow_ver_inp").attr("value");
 		form_shadow_ver_slider.slider({
-			min:0, max:30, value:form_slider_value, animate: "fast",
+			min:-30, max:30, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_shadow_ver_handle.text( $( this ).slider( "value" )+"px" );
 			},
@@ -361,7 +361,7 @@
 		var form_shadow_spread_handle = $( "#loghorn_form_shadow_spread_handle" );
 		form_slider_value = $("#loghorn_form_shadow_spread_inp").attr("value");
 		form_shadow_spread_slider.slider({
-			min:0, max:30, value:form_slider_value, animate: "fast",
+			min:-30, max:30, value:form_slider_value, animate: "fast",
 			create: function() {
 				form_shadow_spread_handle.text( $( this ).slider( "value" )+"px" );
 			},
@@ -571,7 +571,7 @@
 		var submit_text_shadow_hor_handle = $( "#loghorn_submit_text_shadow_hor_handle" );
 		form_slider_value = $("#loghorn_submit_text_shadow_hor_inp").attr("value");
 		submit_text_shadow_hor_slider.slider({
-			min:0, max:30, value:form_slider_value, animate: "fast",
+			min:-30, max:30, value:form_slider_value, animate: "fast",
 			create: function() {
 				submit_text_shadow_hor_handle.text( $( this ).slider( "value" )+"px" );
 			},
@@ -585,7 +585,7 @@
 		var submit_text_shadow_ver_handle = $( "#loghorn_submit_text_shadow_ver_handle" );
 		form_slider_value = $("#loghorn_submit_text_shadow_ver_inp").attr("value");
 		submit_text_shadow_ver_slider.slider({
-			min:0, max:30, value:form_slider_value, animate: "fast",
+			min:-30, max:30, value:form_slider_value, animate: "fast",
 			create: function() {
 				submit_text_shadow_ver_handle.text( $( this ).slider( "value" )+"px" );
 			},
@@ -669,7 +669,7 @@
 		var msg_text_shadow_hor_handle = $( "#loghorn_msg_text_shadow_hor_handle" );
 		form_slider_value = $("#loghorn_msg_text_shadow_hor_inp").attr("value");
 		msg_text_shadow_hor_slider.slider({
-			min:0, max:30, value:form_slider_value, animate: "fast",
+			min:-30, max:30, value:form_slider_value, animate: "fast",
 			create: function() {
 				msg_text_shadow_hor_handle.text( $( this ).slider( "value" )+"px" );
 			},
@@ -683,7 +683,7 @@
 		var msg_text_shadow_ver_handle = $( "#loghorn_msg_text_shadow_ver_handle" );
 		form_slider_value = $("#loghorn_msg_text_shadow_ver_inp").attr("value");
 		msg_text_shadow_ver_slider.slider({
-			min:0, max:30, value:form_slider_value, animate: "fast",
+			min:-30, max:30, value:form_slider_value, animate: "fast",
 			create: function() {
 				msg_text_shadow_ver_handle.text( $( this ).slider( "value" )+"px" );
 			},
@@ -834,7 +834,7 @@
 		});
 		//
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Media frame to select and upload media files. Code template from Mike Jolley 
+	// Media frame to select and upload media files. Code template courtesy Mike Jolley 
 		// Uploading files
 		var file_frame_logo;
 		var file_frame_background;
