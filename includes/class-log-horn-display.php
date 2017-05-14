@@ -58,7 +58,6 @@ class Log_Horn_Display	{
 		 */
 		function loghorn_login_scripts () 	{
 	
-			if ( ! $loghorn_css ) {	
 				  // If there isn't any static CSS stylesheet selected, fetch and use the user defined values: -->
 					// Logo
 					$loghorn_disable_logo		= $this->loghorn_get_logo_option   		(  ) ;	// Logo to be disabled?
@@ -305,7 +304,7 @@ class Log_Horn_Display	{
 					</style>
 			
 <?php 
-			}
+			
 		}
 		
 		/**
