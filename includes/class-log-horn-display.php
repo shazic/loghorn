@@ -104,6 +104,7 @@ class Log_Horn_Display	{
 					$loghorn_cb_radius			= $this->loghorn_get_cb_radius			(  ) ;  // 'Remember Me' check box corner radius.
 					// 'Log In' Submit Button
 					//$loghorn_butn_wd			= $this->loghorn_get_button_width		( LOGHORN_NORMAL_STATE ) ;  // 'Log In' button width.
+					$loghorn_butn_lbl_font		= $this->loghorn_get_button_label		(  ) ;						// 'Log In' button - font and font size.
 					$loghorn_butn_text_colr		= $this->loghorn_get_button_text_color	( LOGHORN_NORMAL_STATE ) ;	// 'Log In' button text color.
 					$loghorn_butn_text_shdw		= $this->loghorn_get_button_text_shadow	( LOGHORN_NORMAL_STATE ) ;	// 'Log In' button text shadow.
 					$loghorn_butn_bg_colr		= $this->loghorn_get_button_bg_color	( LOGHORN_NORMAL_STATE ) ;	// 'Log In' button background color.
@@ -145,7 +146,7 @@ class Log_Horn_Display	{
 					// Custom CSS:
 					$loghorn_user_css_only		= $this->loghorn_get_user_css_option	(  ) ;					// Apply only Custom User CSS?
 					$loghorn_user_css			= $this->loghorn_get_user_css			(  ) ;					// Custom User CSS.
-					
+					echo $loghorn_butn_lbl_font ; //debug info
 ?>
 					<style type="text/css" >
 <?php						
@@ -268,8 +269,7 @@ class Log_Horn_Display	{
 							color: <?php _e ( $loghorn_butn_text_colr ) ; ?> !important ;
 							background-color: <?php _e ( $loghorn_butn_bg_colr ) ; ?> !important;
 							text-shadow: <?php _e ( $loghorn_butn_text_shdw ) ; ?> !important ;
-							/* background-image: <?php _e ( $loghorn_butn_bg_img ) ; ?> ; */
-							/* opacity: <?php _e ( $loghorn_butn_opacity ) ; ?> ; */
+							font: <?php _e ( $loghorn_butn_lbl_font ) ; ?> !important ;
 							border: <?php _e ( $loghorn_butn_bordr ) ; ?> !important; 
 							-webkit-border-radius: <?php _e ( $loghorn_butn_radius ) ; ?> !important; 
 						}
@@ -570,6 +570,14 @@ class Log_Horn_Display	{
 			return self::$loghorn_settings [ 'LOGHORN_SETTINGS_SUBMIT_WIDTH' ]."px" ;
 		}*/
 		 
+		/*
+		 * Get the Font and font-size of the label on the login button.
+		 */
+		function loghorn_get_button_label ( $loghorn_default_button_lbl_font = LOGHORN_DEFAULT_FORM_FONT )	{
+			
+			return $this->loghorn_get_font_size_and_family ( 'LOGHORN_SETTINGS_SUBMIT_TXT' , $loghorn_default_button_lbl_font ) ;
+		}
+		
 		/*
 		 * Get 'Log In' submit button text color.
 		 */
