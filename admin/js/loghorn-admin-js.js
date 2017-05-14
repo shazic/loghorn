@@ -66,7 +66,7 @@
 			var inp_colr 		= $("#loghorn_input_text_color").val();							// input text color
 			var inp_brdr 		= $("#loghorn_input_border_thick_inp").val()					// form border
 								+"px "
-								+border_types[$("#loghorn_input_border_style_listbox").val()]		// 
+								+border_types[$("#loghorn_input_border_style_listbox").val()]		 
 								+" "
 								+$("#loghorn_input_border_color").val();
 			var cb_width 		= $("#loghorn_checkbox_width_inp").val()+"px";					// checkbox width
@@ -80,7 +80,7 @@
 								+"px";
 			var butn_brdr 		= $("#loghorn_submit_border_thick_inp").val()					// form border
 								+"px "
-								+border_types[$("#loghorn_submit_border_style_listbox").val()]	// 
+								+border_types[$("#loghorn_submit_border_style_listbox").val()]	
 								+" "
 								+$("#loghorn_submit_border_color").val();
 			var butn_radius 	= $("#loghorn_submit_border_radius_inp").val()+"px";			// textbox border radius
@@ -93,13 +93,9 @@
 								+$("#loghorn_submit_text_shadow_color").val();
 			var butn_brdr_hvr	= $("#loghorn_submit_border_thick_inp").val()					// form border
 								+"px "
-								+border_types[$("#loghorn_submit_border_style_listbox").val()]		// 
+								+border_types[$("#loghorn_submit_border_style_listbox").val()]		 
 								+" "
 								+$("#loghorn_submit_border_hvr_color").val();
-			
-			$("#user_login").val(form_pad);
-			$("#user_login").attr("placeholder", "Username or E-mail");
-			$("#user_pass").attr("placeholder", "Password");
 			
 			// Logo:
 			$("#login-h1-a").css("background-image", logo_url); 
@@ -166,7 +162,6 @@
 		$(".loghorn_slider_textbox").hide();
 		// Activate Tooltip
 		$(".helptool").tooltip();
-		//$(".loghorn_list_select").selectmenu();
 		// Hide spinner:
 		$('.loghorn_spinner').hide();
 		// color-picker:

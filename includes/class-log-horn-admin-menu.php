@@ -37,13 +37,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				add_action( 'network_admin_menu', 	array ( $this , 'loghorn_menu' ) ) ;
 				// Admin Notices for network admin menu:
 				add_action('network_admin_notices', array ( $this , 'loghorn_updated_notice' ) ) ;
-				/* Form Save action redirects to options.php for single site. For multisite, it does not work.
-				 * It is because the URL for network form action is wp-admin/network/edit.php?action=custom_option_name.
-				 * So, let's create a callback function. 
-				 *
-				add_action( add_action( 'network_admin_edit_your_option_name', 
-													array ( $this, 'loghorn_save_network_options') ) ;
-				*/									
 			}
 			else	{
 				// Add a menu item:
@@ -62,20 +55,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			// Load Settings from the Options Table:
 			self::$loghorn_options = get_option ( 'loghorn_settings2' ) ;
 			
-		}
-		
-		/**
-		 * Callback for option save.
-		 */
-		function loghorn_save_network_options()	{
-			
-			// update_site_option( $this->option_name, $this->option_values );
-			// redirect to settings page in network
-				wp_redirect(
-				add_query_arg( array( 'page' => 'your_options_page_slug', 'updated' => 'true' ),
-								(is_multisite() ? network_admin_url( 'admin.php' ) : admin_url( 'admin.php' ))
-							)
-				);
 		}
 		
 		/**
@@ -118,7 +97,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				wp_die( _e ( 'You do not have sufficient permissions to access this page.' ) );
 			}
 			
-			//_e ( '<div class="wrap" id="loghorn_options_menu" hidden=true>' ) ; 
 			_e ( '<div class="wrap" id="loghorn_options_menu">' ) ; 
 ?>
 			
@@ -126,7 +104,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			<form method="post" action=<?php _e ( '"'.get_site_url().'/wp-admin/options.php"' ) ;  ?> >
 <?php		submit_button();			// Submit button at the top
 ?>				
-			<div class="loghorn_spinner" id="loghorn_spinner"><!--span class="spinner"></span-->
+			<div class="loghorn_spinner" id="loghorn_spinner">
 			</div>
 			<div id="loghorn_tabs">
 				<ul>
@@ -298,8 +276,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				echo "<br>debug: uneven paranthesis.<br>";
 				return false;
 			}
-			
-			// rgba?\(((25[0-5]|2[0-4]\d|1\d{1,2}|\d\d?)\s*,\s*?){2}(25[0-5]|2[0-4]\d|1\d{1,2}|\d\d?)\s*,?\s*([01]\.?\d*?)?\)
 			
 			// replace parantheses with "|". This helps in exploding.
 			$rgba_expression = str_replace( array( "(" , ")" ), array( "|" , "|" ), $fieldvalue, $count);
@@ -565,7 +541,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// If this is the first time, settings was not present in options table. 
 			if ( !isset( $loghorn_general_option ) )	{
-				$loghorn_general_option = 0;							// Move default value (all defaults defined in initialize-loghorn.php)
+				$loghorn_general_option = 0;			// Move default value (all defaults defined in initialize-loghorn.php)
 			}
 			
 			// Display listbox for selecting Yes/No:
@@ -596,7 +572,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			
 			// Display listbox for selecting Yes/No:
-			global $loghorn_yes_no ;							// Defined in initialize-loghorn.php.
+			global $loghorn_yes_no ;						// Defined in initialize-loghorn.php.
 			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_LOGO][disable]"
 															,"option_id"	=> "loghorn_disable_logo_option"
 															,"label"		=> "Selecting 'Yes' would hide the logo:"
@@ -660,7 +636,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			global $loghorn_tooltips;
 			// Fetch form color and alpha channel values from options table, if present.
 			$loghorn_bg_color_value = self::$loghorn_options['LOGHORN_SETTINGS_BG_COLOR']['hex'] ;
-			//$loghorn_bg_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_BG_COLOR']['alpha'] ;
 			
 			$loghorn_use_bg_image = self::$loghorn_options['LOGHORN_SETTINGS_BG']['option'] ;
 			
@@ -675,11 +650,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 				$loghorn_bg_color_value = LOGHORN_DEFAULT_FORM_COLR;			// Move default value (all defaults defined in initialize-loghorn.php)
 			}
 			
-			/*
-			if ( !$loghorn_bg_alpha_value )	{
-				$loghorn_bg_alpha_value = LOGHORN_DEFAULT_ALPHA;				// Move default value (all defaults defined in initialize-loghorn.php)
-			}
-			*/
 			// Display Color Picker for the Form:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_BG_COLOR][hex]"
 															, "option_id"	=> "bg"
@@ -688,17 +658,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			
 			$this->loghorn_color_picker( $loghorn_color_picker_parms, $loghorn_tooltips['bg_colr_tooltip'] ) ;
-			
-			/*
-			// Display slider for Form Color Alpha Channel:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_BG_COLOR][alpha]"
-															, "option_id"	=> "loghorn_bg_alpha"
-															, "value"		=> $loghorn_bg_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
 		}
+		
 		function loghorn_show_bg_settings ()	{
 			
 			global $loghorn_tooltips;
@@ -752,7 +713,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// If this is the first time, settings was not present in options table. 
 			if ( !isset( $loghorn_form_padding_value ))	{
-				$loghorn_form_padding_value = 10 ; //LOGHORN_DEFAULT_PADDING;	// Move default value (all defaults defined in initialize-loghorn.php)
+				$loghorn_form_padding_value = 10 ; 		// Move default value (all defaults defined in initialize-loghorn.php)
 			}
 			
 			// Display slider for Form Padding:
@@ -771,7 +732,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// If this is the first time, settings was not present in options table. 
 			if ( !isset( $loghorn_form_margin_value ))	{
-				$loghorn_form_margin_value = 5 ; //LOGHORN_DEFAULT_FORM_MRGN;	// Move default value (all defaults defined in initialize-loghorn.php)
+				$loghorn_form_margin_value = 5 ; 		// Move default value (all defaults defined in initialize-loghorn.php)
 			}
 			// Display slider for Form Margin:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_MRGN]"
@@ -786,17 +747,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			global $loghorn_tooltips;
 			// Fetch form color and alpha channel values from options table, if present.
 			$loghorn_form_color_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['hex'] ;
-			//$loghorn_form_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_COLOR']['alpha'] ;
 			
 			// If this is the first time, settings was not present in options table. 
 			if ( !$loghorn_form_color_value )	{
 				$loghorn_form_color_value = LOGHORN_DEFAULT_FORM_COLR;			// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-			/*
-			if ( !$loghorn_form_alpha_value )	{
-				$loghorn_form_alpha_value = LOGHORN_DEFAULT_ALPHA;				// Move default value (all defaults defined in initialize-loghorn.php)
-			}
-			*/
 			// Display Color Picker for the Form:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][hex]"
 															, "option_id"	=> "form"
@@ -804,16 +759,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			
 			$this->loghorn_color_picker( $loghorn_color_picker_parms, $loghorn_tooltips['form_bg_color_tooltip'] ) ;
-			
-			/*
-			// Display slider for Form Color Alpha Channel:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_COLOR][alpha]"
-															, "option_id"	=> "loghorn_form_colr_alpha"
-															, "value"		=> $loghorn_form_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
 		}
 		
 		function loghorn_form_shadow_settings ()	{
@@ -825,8 +770,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_form_shadow_blur_value  = self::$loghorn_options['LOGHORN_SETTINGS_FORM_SHDW']['blur'] ;
 			$loghorn_form_shadow_spread_value= self::$loghorn_options['LOGHORN_SETTINGS_FORM_SHDW']['spread'] ;
 			$loghorn_form_shadow_colr_value  = self::$loghorn_options['LOGHORN_SETTINGS_FORM_SHDW']['hex'] ;
-			//$loghorn_form_shadow_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_FORM_SHDW']['alpha'] ;
-			
 			
 			// If this is the first time, settings was not present in options table.
 			// By default, there would be no shadows. 
@@ -845,11 +788,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_form_shadow_colr_value )	{
 				$loghorn_form_shadow_colr_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-			/*
-			if ( !$loghorn_form_shadow_alpha_value )	{
-				$loghorn_form_shadow_alpha_value = 0;							// Move default value (all defaults defined in initialize-loghorn.php)
-			}
-			*/
+			
 			// Display Color Picker for Form Shadow:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][hex]"
 															, "option_id"	=> "form_shadow"
@@ -889,16 +828,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "label"		=> "Spread Effect: "
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['form_spread_effect_tooltip'] );
-			
-			/*
-			// Display slider for selecting Form Shadow Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_SHDW][alpha]"
-															, "option_id"	=> "loghorn_form_shadow_alpha"
-															, "value"		=> $loghorn_form_shadow_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
 		}
 		
 		
@@ -909,7 +838,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_form_border_thickness_value   	= self::$loghorn_options['LOGHORN_SETTINGS_FORM_BORDR']['thick'] ;
 			$loghorn_form_border_style_value   		= self::$loghorn_options['LOGHORN_SETTINGS_FORM_BORDR']['style'] ;
 			$loghorn_form_border_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_FORM_BORDR']['hex'] ;
-			//$loghorn_form_border_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_FORM_BORDR']['alpha'] ;
 			$loghorn_form_border_radius_value  		= self::$loghorn_options['LOGHORN_SETTINGS_FORM_BORDR']['radius'] ;
 			
 			// By default, no borders.
@@ -922,11 +850,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_form_border_color_value )	{
 				$loghorn_form_border_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
 			}
-			/*
-			if ( !$loghorn_form_border_alpha_value )	{
-				$loghorn_form_border_alpha_value = 0;							// Move default value.
-			}
-			*/
 			if ( !$loghorn_form_border_radius_value )	{
 				$loghorn_form_border_radius_value = 0;							// Move default value.
 			}
@@ -947,15 +870,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['form_thickness_tooltip'] );
 			
-			/*
-			// Display slider for selecting Form Border Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][alpha]"
-															, "option_id"	=> "loghorn_form_border_alpha"
-															, "value"		=> $loghorn_form_border_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
 			// Display slider for selecting Form Border Radius Channel value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_FORM_BORDR][radius]"
 															, "option_id"	=> "loghorn_form_border_radius"
@@ -972,7 +886,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"value"		=> $loghorn_form_border_style_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms, $loghorn_tooltips['form_border_type_tooltip'] ) ;
-			
 		}
 		
 		function loghorn_form_label_settings()	{
@@ -1077,11 +990,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_textbox_color_value )	{
 				$loghorn_textbox_color_value = LOGHORN_DEFAULT_FORM_COLR;		// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-			/*
-			if ( !$loghorn_textbox_alpha_value )	{
-				$loghorn_textbox_alpha_value = LOGHORN_DEFAULT_ALPHA;			// Move default value (all defaults defined in initialize-loghorn.php)
-			}
-			*/
 			// Display Color Picker for the textbox:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_BG][hex]"
 															, "option_id"	=> "textbox"
@@ -1089,17 +997,8 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			
 			$this->loghorn_color_picker( $loghorn_color_picker_parms, $loghorn_tooltips['textbox_color_tooltip'] ) ;
-
-			/*
-			// Display slider for Textbox Color Alpha Channel:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_BG][alpha]"
-															, "option_id"	=> "loghorn_textbox_colr_alpha"
-															, "value"		=> $loghorn_textbox_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
-		}
+			}
+			
 		function loghorn_input_border_settings()	{
 			
 			global $loghorn_tooltips;
@@ -1107,7 +1006,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_input_border_thickness_value   = self::$loghorn_options['LOGHORN_SETTINGS_INP_BORDR']['thick'] ;
 			$loghorn_input_border_style_value   	= self::$loghorn_options['LOGHORN_SETTINGS_INP_BORDR']['style'] ;
 			$loghorn_input_border_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_INP_BORDR']['hex'] ;
-			//$loghorn_input_border_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_INP_BORDR']['alpha'] ;
 			$loghorn_input_border_radius_value  	= self::$loghorn_options['LOGHORN_SETTINGS_INP_BORDR']['radius'] ;
 			
 			// By default, no borders.
@@ -1120,11 +1018,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_input_border_color_value )	{
 				$loghorn_input_border_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
 			}
-			/*
-			if ( !$loghorn_input_border_alpha_value )	{
-				$loghorn_input_border_alpha_value = 0;							// Move default value.
-			}
-			*/
 			if ( !$loghorn_input_border_radius_value )	{
 				$loghorn_input_border_radius_value = 0;							// Move default value.
 			}
@@ -1144,17 +1037,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "label"		=> "Thickness: "
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['textbox_thickness_tooltip'] );
-			
-			/*
-			// Display slider for selecting Inputbox Border Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_BORDR][alpha]"
-															, "option_id"	=> "loghorn_input_border_alpha"
-															, "value"		=> $loghorn_input_border_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
-			
+		
 			// Display slider for selecting Inputbox Border Radius Channel value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_INP_BORDR][radius]"
 															, "option_id"	=> "loghorn_input_border_radius"
@@ -1171,7 +1054,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"value"		=> $loghorn_input_border_style_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms, $loghorn_tooltips['textbox_border_type_tooltip'] ) ;
-			
 		}
 		
 		function loghorn_checkbox_settings()	{
@@ -1276,7 +1158,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"value"		=> $loghorn_submit_text_font_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_fonts_global, $loghorn_show_listbox_parms, $loghorn_tooltips['button_text_font_tooltip'] ) ;
-			
 		}
 		
 		function loghorn_submit_text_shdw_settings()	{
@@ -1287,7 +1168,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_submit_text_shadow_ver_value   = self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_TXT_SHDW']['ver'] ;
 			$loghorn_submit_text_shadow_blur_value  = self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_TXT_SHDW']['blur'] ;
 			$loghorn_submit_text_shadow_colr_value  = self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_TXT_SHDW']['hex'] ;
-			//$loghorn_submit_text_shadow_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_TXT_SHDW']['alpha'] ;
 			$loghorn_submit_text_shadow_hvr_colr_value
 													= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_TXT_SHDW_HOVR']['hex'] ;
 			// If this is the first time, settings was not present in options table.
@@ -1304,11 +1184,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_submit_text_shadow_colr_value )	{
 				$loghorn_submit_text_shadow_colr_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-			/*
-			if ( !$loghorn_submit_text_shadow_alpha_value )	{
-				$loghorn_submit_text_shadow_alpha_value = 0;						// Move default value (all defaults defined in initialize-loghorn.php)
-			}
-			*/
 			// On Hover:
 			if ( !$loghorn_submit_text_shadow_hvr_colr_value )	{
 				$loghorn_submit_text_shadow_hvr_colr_value = LOGHORN_DEFAULT_FORM_COLR;// Move default value.
@@ -1354,16 +1229,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "label"		=> "Blur Effect: "
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['button_blur_effect_tooltip'] );
-			
-			/*
-			// Display slider for selecting Button Text Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_TXT_SHDW][alpha]"
-															, "option_id"	=> "loghorn_submit_text_shadow_alpha"
-															, "value"		=> $loghorn_submit_text_shadow_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
 		}
 		
 		function loghorn_submit_bg_settings()	{
@@ -1371,7 +1236,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			global $loghorn_tooltips;
 			// Fetch values of Button Color from options table, if present.
 			$loghorn_submit_bg_colr_value  			= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BG_COLR']['hex'] ;
-			//$loghorn_submit_bg_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BG_COLR']['alpha'] ;
 			
 			$loghorn_submit_bg_hvr_colr_value  		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR']['hex'] ;
 			//$loghorn_submit_bg_hvr_alpha_value  	= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BG_COLR_HOVR']['alpha'] ;
@@ -1379,19 +1243,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_submit_bg_colr_value )	{
 				$loghorn_submit_bg_colr_value = LOGHORN_DEFAULT_FORM_COLR;		// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-			/*
-			if ( !$loghorn_submit_bg_alpha_value )	{
-				$loghorn_submit_bg_alpha_value = 1;								// Move default value (all defaults defined in initialize-loghorn.php)
-			}
-			*/
 			if ( !$loghorn_submit_bg_hvr_colr_value )	{
 				$loghorn_submit_bg_hvr_colr_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-			/*
-			if ( !$loghorn_submit_bg_hvr_alpha_value )	{
-				$loghorn_submit_bg_hvr_alpha_value = 1;							// Move default value (all defaults defined in initialize-loghorn.php)
-			}
-			*/
 			
 			// Display Color Picker for Button Color:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_BG_COLR][hex]"
@@ -1410,8 +1264,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			
 			$this->loghorn_color_picker( $loghorn_color_picker_parms, $loghorn_tooltips['button_color_on_hover_tooltip'] ) ;
-			
-			
 		}
 		
 		
@@ -1422,7 +1274,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_submit_border_thickness_value   	= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR']['thick'] ;
 			$loghorn_submit_border_style_value   		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR']['style'] ;
 			$loghorn_submit_border_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR']['hex'] ;
-			//$loghorn_submit_border_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR']['alpha'] ;
 			$loghorn_submit_border_radius_value  		= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR']['radius'] ;
 			
 			$loghorn_submit_border_hvr_color_value  	= self::$loghorn_options['LOGHORN_SETTINGS_SUBMIT_BORDR_HOVR']['hex'] ;
@@ -1437,11 +1288,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_submit_border_color_value )	{
 				$loghorn_submit_border_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
 			}
-			/*
-			if ( !$loghorn_submit_border_alpha_value )	{
-				$loghorn_submit_border_alpha_value = 0;							// Move default value.
-			}
-			*/
 			if ( !$loghorn_submit_border_radius_value )	{
 				$loghorn_submit_border_radius_value = 0;						// Move default value.
 			}
@@ -1475,16 +1321,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "label"		=> "Thickness: "
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['button_thickness_tooltip'] );
-			
-			/*
-			// Display slider for selecting button Border Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_BORDR][alpha]"
-															, "option_id"	=> "loghorn_submit_border_alpha"
-															, "value"		=> $loghorn_submit_border_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
 			
 			// Display slider for selecting button Border Radius Channel value:
 			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_SUBMIT_BORDR][radius]"
@@ -1561,7 +1397,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"value"		=> $loghorn_msg_text_font_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_fonts_global, $loghorn_show_listbox_parms, $loghorn_tooltips['message_font_tooltip'] ) ;
-			
 		}
 		
 		function loghorn_msg_text_shdw_settings()	{
@@ -1572,7 +1407,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_msg_text_shadow_ver_value   = self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT_SHDW']['ver'] ;
 			$loghorn_msg_text_shadow_blur_value  = self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT_SHDW']['blur'] ;
 			$loghorn_msg_text_shadow_colr_value  = self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT_SHDW']['hex'] ;
-			//$loghorn_msg_text_shadow_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT_SHDW']['alpha'] ;
 			$loghorn_msg_text_shadow_hvr_colr_value
 													= self::$loghorn_options['LOGHORN_SETTINGS_MSG_TXT_SHDW_ERR']['hex'] ;
 			// If this is the first time, settings was not present in options table.
@@ -1592,12 +1426,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_msg_text_shadow_hvr_colr_value )	{
 				$loghorn_msg_text_shadow_hvr_colr_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-			
-			/*
-			if ( !$loghorn_msg_text_shadow_alpha_value )	{
-				$loghorn_msg_text_shadow_alpha_value = 0;						// Move default value (all defaults defined in initialize-loghorn.php)
-			}
-			*/
 			
 			// Display Color Picker for Message Box Shadow:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT_SHDW][hex]"
@@ -1640,16 +1468,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "label"		=> "Blur Effect: "
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['message_blur_effect_tooltip'] );
-			
-			/*
-			// Display slider for selecting Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_TXT_SHDW][alpha]"
-															, "option_id"	=> "loghorn_msg_text_shadow_alpha"
-															, "value"		=> $loghorn_msg_text_shadow_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
 		}
 		
 		function loghorn_msg_bg_settings()	{
@@ -1657,17 +1475,11 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			global $loghorn_tooltips;
 			// Fetch values of message background from options table, if present.
 			$loghorn_msg_bg_shadow_colr_value  = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BG']['hex'] ;
-			//$loghorn_msg_bg_shadow_alpha_value = self::$loghorn_options['LOGHORN_SETTINGS_MSG_BG']['alpha'] ;
 			
 			// If this is the first time, settings was not present in options table.
 			if ( !$loghorn_msg_bg_shadow_colr_value )	{
 				$loghorn_msg_bg_shadow_colr_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value (all defaults defined in initialize-loghorn.php)
 			}
-			/*
-			if ( !$loghorn_msg_bg_shadow_alpha_value )	{
-				$loghorn_msg_bg_shadow_alpha_value = 0;							// Move default value (all defaults defined in initialize-loghorn.php)
-			}
-			*/
 			
 			// Display Color Picker for Message Background:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BG][hex]"
@@ -1676,16 +1488,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			
 			$this->loghorn_color_picker( $loghorn_color_picker_parms, $loghorn_tooltips['message_box_color_tooltip'] ) ;
-			
-			/*
-			// Display slider for selecting Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BG][alpha]"
-															, "option_id"	=> "loghorn_msg_bg_shadow_alpha"
-															, "value"		=> $loghorn_msg_bg_shadow_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
 		}
 		
 		
@@ -1716,7 +1518,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_msg_border_l_style_value   	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_L']['style'] ;
 			$loghorn_msg_border_l_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_L']['hex'] ;
 			$loghorn_msg_border_l_err_color_value  	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_L_ERR']['hex'] ;
-			//$loghorn_msg_border_l_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_L']['alpha'] ;
 			
 			// By default, no borders.
 			if ( !$loghorn_msg_border_l_thickness_value )	{
@@ -1731,11 +1532,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_msg_border_l_err_color_value )	{
 				$loghorn_msg_border_l_err_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
 			}
-			/*
-			if ( !$loghorn_msg_border_l_alpha_value )	{
-				$loghorn_msg_border_l_alpha_value = 0;							// Move default value.
-			}
-			*/
 			
 			// Display Color Picker for Form Border:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_L][hex]"
@@ -1763,16 +1559,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['message_border_left_thickness_tooltip'] );
 			
-			/*
-			// Display slider for selecting Form Border Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_L][alpha]"
-															, "option_id"	=> "loghorn_msg_border_l_alpha"
-															, "value"		=> $loghorn_msg_border_l_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
-			
 			// Display listbox for selecting Border style for the Form:
 			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
 			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_L][style]"
@@ -1792,7 +1578,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_msg_border_t_style_value   	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_T']['style'] ;
 			$loghorn_msg_border_t_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_T']['hex'] ;
 			$loghorn_msg_border_t_err_color_value  	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_T_ERR']['hex'] ;
-			//$loghorn_msg_border_t_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_T']['alpha'] ;
 			
 			// By default, no borders.
 			if ( !$loghorn_msg_border_t_thickness_value )	{
@@ -1807,11 +1592,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_msg_border_t_err_color_value )	{
 				$loghorn_msg_border_t_err_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
 			}
-			/*
-			if ( !$loghorn_msg_border_t_alpha_value )	{
-				$loghorn_msg_border_t_alpha_value = 0;							// Move default value.
-			}
-			*/
 			
 			// Display Color Picker for Form Border:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_T][hex]"
@@ -1839,16 +1619,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['message_border_top_thickness_tooltip'] );
 			
-			/*
-			// Display slider for selecting Form Border Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_T][alpha]"
-															, "option_id"	=> "loghorn_msg_border_t_alpha"
-															, "value"		=> $loghorn_msg_border_t_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
-			
 			// Display listbox for selecting Border style for the Form:
 			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
 			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_T][style]"
@@ -1857,7 +1627,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"value"		=> $loghorn_msg_border_t_style_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms, $loghorn_tooltips['message_border_top_type_tooltip'] ) ;
-			
 		}
 		
 		
@@ -1869,7 +1638,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_msg_border_r_style_value   	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_R']['style'] ;
 			$loghorn_msg_border_r_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_R']['hex'] ;
 			$loghorn_msg_border_r_err_color_value  	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_R_ERR']['hex'] ;
-			//$loghorn_msg_border_r_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_R']['alpha'] ;
 			
 			// By default, no borders.
 			if ( !$loghorn_msg_border_r_thickness_value )	{
@@ -1884,11 +1652,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_msg_border_r_err_color_value )	{
 				$loghorn_msg_border_r_err_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
 			}
-			/*
-			if ( !$loghorn_msg_border_r_alpha_value )	{
-				$loghorn_msg_border_r_alpha_value = 0;							// Move default value.
-			}
-			*/
 			
 			// Display Color Picker for Form Border:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_R][hex]"
@@ -1916,16 +1679,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['message_border_right_thickness_tooltip'] );
 			
-			/*
-			// Display slider for selecting Form Border Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_R][alpha]"
-															, "option_id"	=> "loghorn_msg_border_r_alpha"
-															, "value"		=> $loghorn_msg_border_r_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
-			
 			// Display listbox for selecting Border style for the Form:
 			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
 			$loghorn_show_listbox_parms			=	array (	 "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_R][style]"
@@ -1934,7 +1687,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															,"value"		=> $loghorn_msg_border_r_style_value
 														);
 			$this->loghorn_show_listbox ( $loghorn_border_styles_global, $loghorn_show_listbox_parms, $loghorn_tooltips['message_border_right_type_tooltip'] ) ;
-			
 		}
 		
 		function loghorn_msg_border_b_settings()	{
@@ -1945,7 +1697,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_msg_border_b_style_value   	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_B']['style'] ;
 			$loghorn_msg_border_b_color_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_B']['hex'] ;
 			$loghorn_msg_border_b_err_color_value  	= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_B_ERR']['hex'] ;
-			//$loghorn_msg_border_b_alpha_value  		= self::$loghorn_options['LOGHORN_SETTINGS_MSG_BORDR_B']['alpha'] ;
 			
 			// By default, no borders.
 			if ( !$loghorn_msg_border_b_thickness_value )	{
@@ -1960,11 +1711,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			if ( !$loghorn_msg_border_b_err_color_value )	{
 				$loghorn_msg_border_b_err_color_value = LOGHORN_DEFAULT_FORM_COLR;	// Move default value.
 			}
-			/*
-			if ( !$loghorn_msg_border_b_alpha_value )	{
-				$loghorn_msg_border_b_alpha_value = 0;							// Move default value.
-			}
-			*/
 			
 			// Display Color Picker for Form Border:
 			$loghorn_color_picker_parms			= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_B][hex]"
@@ -1991,16 +1737,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 															, "label"		=> "Thickness: "
 														);
 			$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters, $loghorn_tooltips['message_border_bottom_thickness_tooltip'] );
-			
-			/*
-			// Display slider for selecting Form Border Alpha Channel value:
-			$loghorn_jquery_slider_parameters	= array (	  "option_name"	=> "loghorn_settings2[LOGHORN_SETTINGS_MSG_BORDR_B][alpha]"
-															, "option_id"	=> "loghorn_msg_border_b_alpha"
-															, "value"		=> $loghorn_msg_border_b_alpha_value
-															, "label"		=> "Opacity: "
-														);
-			#$this->loghorn_jquery_slider($loghorn_jquery_slider_parameters);
-			*/
 			
 			// Display listbox for selecting Border style for the Form:
 			global $loghorn_border_styles_global ;							// Options for border styles. Defined in initialize-loghorn.php.
@@ -2063,7 +1799,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_custom_css_option   = self::$loghorn_options['LOGHORN_SETTINGS_CUSTOM_CSS']['option'] ;
 			
 			if ( !isset( $loghorn_custom_css_option ) )	{
-				$loghorn_custom_css_option = 0;						// Move default value.
+				$loghorn_custom_css_option = 0;			// Move default value.
 			}
 			
 			// Display listbox for selecting Yes/No:
@@ -2084,7 +1820,7 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_custom_css_value   = self::$loghorn_options['LOGHORN_SETTINGS_CUSTOM_CSS']['textarea'] ;
 			
 			if ( !isset( $loghorn_custom_css_value ) )	{
-				$loghorn_custom_css_value = "";						// Move default value.
+				$loghorn_custom_css_value = "";				// Move default value.
 			}
 			
 			// Set up the parms:
@@ -2133,20 +1869,12 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			echo "<br><br>";
 			
-			/*switch_to_blog( 5 );
-			echo(get_option( 'blogname' )); echo "<br>";
-			echo(get_option( 'siteurl' )); echo "<br>";
-			echo(get_option( 'post_count') ); echo "<br>";
-			echo(get_option( 'home' )); echo "<br>";
-			restore_current_blog(); echo "<br>";*/
-
 			
 		}
 		function loghorn_load_custom_script( $hook ) {
 			
 			global $loghorn_theme;
 			
-			//wp_register_style( 'loghorn-fonts', LOGHORN_ADMIN_CSS_URL. 'loghorn-fonts.css' );
 			wp_enqueue_style( 'loghorn-fonts', LOGHORN_ADMIN_CSS_URL. 'loghorn-fonts.css' );
 			// Load only on ?page=mypluginname
 			if( 'toplevel_page_class-log-horn-admin-menu' != $hook ) {
@@ -2175,7 +1903,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			}
 			
 			// JQuery UI CSS for slider:
-			//wp_register_style('loghorn-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
 			wp_register_style('loghorn-jquery-ui', "https://code.jquery.com/ui/1.12.1/themes/$jquery_css_theme/jquery-ui.css");
 			wp_enqueue_style( 'loghorn-jquery-ui' );   
 			
@@ -2185,15 +1912,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			// Plugin Menu's stylesheet:
 			wp_enqueue_style( 'loghorn-admin-stylesheet' , LOGHORN_ADMIN_CSS_URL.'loghorn-admin-css.css' ) ;
 			
-			
 			/************************************************* Enqueue Scripts *************************************************************/
 			
 			// JQuery UI:
-			//wp_enqueue_script('jquery-ui-core');
-			//wp_enqueue_script('jquery-ui-menu');
-			//wp_enqueue_script('jquery-ui-widget');
-			//wp_enqueue_script('jquery-ui-position');
-			//wp_enqueue_script('jquery-ui-selectmenu');
 			wp_enqueue_script('jquery-ui-tooltip');
 			wp_enqueue_script('jquery-effects-slide');
 			wp_enqueue_script('jquery-ui-dialog');
@@ -2202,12 +1923,9 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			
 			// color-picker with alpha (this script by BraadMartin extends the wp-color-picker to include alpha channel):
 			wp_enqueue_script( 'loghorn-color-picker-alpha', LOGHORN_ADMIN_JS_URL.'alpha-color-picker.js', array( 'wp-color-picker' ), false, true );
-			// loghorn js for using the Color Picker:
-			//wp_enqueue_script( 'loghorn-iris-cp', LOGHORN_ADMIN_JS_URL.'loghorn-admin-color-picker.js', array( 'loghorn-color-picker-alpha' ), false, true );
 			
 			// Plugin Menu's JavaScript:
 			wp_enqueue_script( 'loghorn-admin-javascript' , LOGHORN_ADMIN_JS_URL.'loghorn-admin-js.js' ) ;
-			
 		}
 
 		/*
@@ -2261,15 +1979,6 @@ if  ( ! class_exists ( 'Log_Horn_Admin_Menu' )  )  :
 			$loghorn_img_division_id	= $loghorn_image_parameters["option_id"]."_div" ;
 			$loghorn_img_src_id			= $loghorn_image_parameters["option_id"]."_image_src" ;
 			$loghorn_img_preview_id		= $loghorn_image_parameters["option_id"]."-image-preview" ;
-			
-			/*if ( $loghorn_image_parameters ["hidden"] )	{
-				$loghorn_display_div = " style='display: none;'";
-				$loghorn_button_disabled = " disabled=true";
-			}
-			else{
-				$loghorn_display_div = "";
-				$loghorn_button_disabled = "";
-			}*/
 ?>
 			<div class="loghorn_custom_options" id="<?php _e( $loghorn_img_div_id ); ?>">
 				<input id="<?php _e( $loghorn_img_button_id ); ?>" type="button" class="button" value="<?php _e( $loghorn_image_parameters["button_text"] ); ?>" <?php //_e ( $loghorn_button_disabled ) ; ?>/>
